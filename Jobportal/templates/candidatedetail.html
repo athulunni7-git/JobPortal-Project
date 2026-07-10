@@ -1,0 +1,129 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3 class="mb-0">
+                Candidate Profile
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-8">
+
+                    <table class="table table-bordered">
+
+                        <tr>
+                            <th width="30%">Full Name</th>
+                            <td>{{ details.candidate.user.get_full_name|default:details.candidate.user.username }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Username</th>
+                            <td>{{ details.candidate.user.username }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ details.candidate.user.email }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{ details.candidate.phone }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Skills</th>
+                            <td>{{ details.candidate.skills }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Job Applied</th>
+                            <td>{{ details.job.job_title }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Company</th>
+                            <td>{{ details.job.recruiter.company_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Applied On</th>
+                            <td>{{ details.applied_at }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Status</th>
+
+                            <td>
+
+                                {% if details.status == 'pending' %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        Pending
+                                    </span>
+
+                                {% elif details.status == 'accepted' %}
+
+                                    <span class="badge bg-success">
+                                        Accepted
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-danger">
+                                        Rejected
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="d-flex gap-3">
+
+                <a href="#"
+                   class="btn btn-success">
+                    Accept Candidate
+                </a>
+
+                <a href="#"
+                   class="btn btn-danger">
+                    Reject Candidate
+                </a>
+
+                <a href="{% url 'jobs:viewapplications' details.job.id %}"
+                   class="btn btn-secondary">
+                    Back
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}   
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>Recruiter DashBoard</h1>
+
+<a href="{% url 'jobs:recruiterupdate' %}" class='btn'>Update</a>
+<a href="{% url 'jobs:myjobs' %}" class='btn'>my job</a>
+
+{% endblock %}

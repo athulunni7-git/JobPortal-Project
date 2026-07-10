@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}   
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% for i in jobs %}
+<div class="card p-4 mb-3">
+    <div class="card-body">
+        <h4>{{ job.job_title }}</h4>
+
+        <p><strong>Company:</strong> {{ i.recruiter.company_name }}</p>
+
+        <p><strong>Location:</strong> {{ i.location }}</p>
+
+        <p><strong>Salary:</strong> ₹{{ i.salary }}</p>
+
+        <p><strong>Job Type:</strong> {{ i.job_type }}</p>
+
+        <a href="{% url 'jobs:jobdetails' i.id %}" class="btn btn-primary">View Details</a>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}   
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>Candidate DashBoard</h1>
+
+<a href="{% url 'jobs:myapplications' %}" class='btn' type=submit >My Application</a>
+
+{% endblock %}

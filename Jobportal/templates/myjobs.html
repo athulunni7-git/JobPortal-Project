@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}   
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div>
+<h1 class = 'text-center mt-4'>My Jobs</h1>
+{% if jobs %}
+
+{% for i in jobs %}
+<div class="m-5 p-3 border border-2 ">
+<h3>{{i.job_title}}</h3>
+<p>{{i.location}}</p>
+<p>{{i.category}}</p>
+<p>{{i.status}}</p>
+<a href="{% url 'jobs:editjob' i.id %}" type=submit class='btn btn-primary'>Edit</a>
+<a href="{% url 'jobs:delete' i.id %}" type=submit class='btn btn-danger'>delete</a>
+<a href="{% url 'jobs:viewapplications' i.id %}" type=submit class='btn btn-danger'>View applications</a>
+</div>
+{% endfor %}
+
+{% else %}
+NO JOB FOUND
+{% endif %}
+</div>
+
+{% endblock %}

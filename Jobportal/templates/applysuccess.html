@@ -1,0 +1,153 @@
+```html
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:#f8f9fa;
+}
+
+.success-card{
+    max-width:650px;
+    margin:80px auto;
+    padding:40px;
+    background:white;
+    border-radius:20px;
+    box-shadow:0px 10px 30px rgba(0,0,0,.12);
+    text-align:center;
+    animation:popup .7s ease;
+}
+
+.check-circle{
+    width:120px;
+    height:120px;
+    margin:auto;
+    border-radius:50%;
+    background:#28a745;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    animation:pop 0.8s ease;
+}
+
+.check{
+    color:white;
+    font-size:65px;
+    font-weight:bold;
+}
+
+.success-title{
+    margin-top:25px;
+    font-size:34px;
+    font-weight:700;
+    color:#198754;
+}
+
+.success-text{
+    font-size:18px;
+    color:#6c757d;
+    margin-top:10px;
+}
+
+.redirect{
+    margin-top:18px;
+    color:#999;
+}
+
+.btn-home{
+    margin-top:30px;
+    padding:12px 30px;
+    font-size:18px;
+    border-radius:50px;
+}
+
+@keyframes popup{
+
+    0%{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    100%{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+@keyframes pop{
+
+    0%{
+        transform:scale(0);
+    }
+
+    70%{
+        transform:scale(1.15);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+</style>
+
+<div class="container">
+
+    <div class="success-card">
+
+        <div class="check-circle">
+            <span class="check">✓</span>
+        </div>
+
+        <h2 class="success-title">
+            Application Submitted Successfully!
+        </h2>
+
+        <p class="success-text">
+            Your application has been sent to the recruiter successfully.
+            You can track the status of your application from your dashboard.
+        </p>
+
+        <p class="redirect">
+            Redirecting to Job List in <span id="count">5</span> seconds...
+        </p>
+
+        <a href="{% url 'jobs:joblist' %}" class="btn btn-success btn-home">
+            Back to Job List
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+let time = 5;
+
+let counter = document.getElementById("count");
+
+let interval = setInterval(function(){
+
+    time--;
+
+    counter.innerHTML = time;
+
+    if(time==0){
+
+        clearInterval(interval);
+
+        window.location.href="{% url 'jobs:joblist' %}";
+
+    }
+
+},1000);
+
+</script>
+
+{% endblock %}
+```
