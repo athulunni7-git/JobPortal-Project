@@ -4,6 +4,7 @@ from django.views import View
 from .forms import JobForm,RecruiterProfileForm
 from account.models import RecruiterProfile , CandidateProfile
 from django.contrib import messages
+from django.db.models  import Q 
 
 # Create your views here.
 
@@ -151,7 +152,19 @@ class JobListView(View):
             return redirect('home')
         
         jobs = Job.objects.filter(status='available')
-        context = {'jobs':jobs}
+        
+        search = request.GET.get('search')
+        
+        if search :
+            jobs=jobs.filter(
+                            Q(job_title__icontains=search) |
+                            Q(description__icontains = search)|
+                            Q(requirements__icontains = search)|
+                            Q(location__icontains = search)|
+                            Q(job_type__icontains = search))
+        
+        
+        context = {'jobs':jobs,'search':search}
         return render(request,'joblist.html',context)
             
 
