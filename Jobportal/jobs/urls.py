@@ -32,7 +32,13 @@ urlpatterns = [
     path('applyjob/<int:i>',views.ApplyJobView.as_view(),name='jobapply'),
     path('applysucces',views.ApplySuccessView.as_view(),name='applysuccess'),
     path('myapplications',views.MyApplicationsView.as_view(),name='myapplications'),
-    path('viewapplications/<int:i>',views.ViewApplicantionView.as_view(),name='viewapplications'),
-    path('candidatedetails/<int:i>',views.CandidateDetailsView.as_view(),name='candidatedetails')
+    path('viewapplications/<int:i>',views.ViewApplicantsView.as_view(),name='viewapplications'),
+    path('candidatedetails/<int:i>',views.CandidateDetailsView.as_view(),name='candidatedetails'),
+    path('candidateprofileupdate',views.CandidateUpdateView.as_view(),name="candidate_profileupdate"),
+    path('myprofile',views.MyProfileView.as_view(),name="myprofile"),
+    path('companyprofile',views.CompanyProfileView.as_view(),name="companyprofile"),
+    path('acceptapplicant/<int:i>',views.AcceptApplicant.as_view(),name="acceptapplicant"),
+    path('rejectapplicant/<int:i>',views.RejectApplicant.as_view(),name='rejectapplicant')
+    
     
 ]

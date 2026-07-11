@@ -55,12 +55,12 @@
                             View Details
                         </a>
 
-                        <a href="#"
+                        <a href="{% url 'jobs:acceptapplicant' application.id %}"
                            class="btn btn-success mb-2 w-100 rounded-pill">
                             Accept
                         </a>
 
-                        <a href="#"
+                        <a href="{% url 'jobs:rejectapplicant' application.id %}"
                            class="btn btn-danger w-100 rounded-pill">
                             Reject
                         </a>

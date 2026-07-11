@@ -267,7 +267,7 @@ class MyApplicationsView(View):
     
 
 
-class ViewApplicantionView(View):
+class ViewApplicantsView(View):
     
     def get(self,request,i):
         
@@ -317,7 +317,9 @@ class CandidateDetailsView(View):
         
         context = {'details':candidate}
         return render(request,'candidatedetail.html',context)
-        
+  
+  
+from jobs.forms import CandidateProfileform     
 
 class CandidateUpdateView(View):
     
@@ -330,6 +332,114 @@ class CandidateUpdateView(View):
             messages.warning(request,'only recruiters can view this page')
             return redirect('home')
         
-         
+        profile = request.user.candidateprofile
         
+        form_instance = CandidateProfileform(instance = profile)
+        context = {'form':form_instance}
+        return render(request,'candidateupdate.html',context)
+    
+    def post(self,request):
         
+        if not request.user.is_authenticated:
+            return redirect('account:userlogin')
+        
+        if request.user.user_type!='candidate':
+            messages.warning(request,'only recruiters can view this page')
+            return redirect('home')
+        
+        profile = request.user.candidateprofile
+        
+        form_instance = CandidateProfileform(request.POST , request.FILES,instance = profile)
+        if form_instance.is_valid():
+            form_instance.save()
+            
+            return redirect('account:candidate_dashboard')
+        
+
+class MyProfileView(View):
+    
+    def get(self,request):
+        
+        profile = request.user.candidateprofile
+        
+        context = {'profile':profile}
+        return render(request,'myprofile.html',context)
+    
+class CompanyProfileView(View):
+    
+    def get(self,request):
+        
+        profile = request.user.recruiterprofile
+        
+        context = {'profile':profile}
+        return render(request,'companyprofile.html',context)
+        
+    
+class AcceptApplicant(View):
+    
+    def get(self,request,i):
+        
+        if not request.user.is_authenticated:
+            
+            return redirect("account:userlogin")
+        
+        if request.user.user_type != 'recruiter':
+            
+            messages.warning(request, "Only recruiters can perform this action")
+            return redirect('home')
+        
+        try:
+            application = Application.objects.get(id=i)
+            
+        except Application.DoesNotExist:
+            return HttpResponse('Application not Found')
+        
+        if application.job.recruiter != request.user.recruiterprofile:
+            messages.warning(request, "You are not authorized")
+            return redirect('home')
+            
+        application.status = "accepted"
+        application.save()
+        
+        messages.success(
+            request,
+            "Candidate accepted successfully"
+        )
+        
+        return redirect('jobs:viewapplications',application.job.id)
+    
+class RejectApplicant(View):
+    
+     def get(self,request,i):
+        
+        if not request.user.is_authenticated:
+            
+            return redirect("account:userlogin")
+        
+        if request.user.user_type != 'recruiter':
+            
+            messages.warning(request, "Only recruiters can perform this action")
+            return redirect('home')
+        
+        try:
+            application = Application.objects.get(id=i)
+            
+        except Application.DoesNotExist:
+            return HttpResponse('Application not Found')
+        
+        if application.job.recruiter != request.user.recruiterprofile:
+            messages.warning(request, "You are not authorized")
+            return redirect('home')
+            
+        application.status = "rejected"
+        application.save()
+        
+        messages.success(
+            request,
+            "Candidate Rejected"
+        )
+        
+        return redirect('jobs:viewapplications',application.job.id)
+            
+            
+            

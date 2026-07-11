@@ -3,6 +3,7 @@ from django.views import View
 from .forms import UserRegisterForm ,UserLoginForm
 from .models import CandidateProfile , RecruiterProfile
 from django.contrib.auth import authenticate , login , logout
+from jobs.models import Job,Application
 
 # Create your views here.
 
@@ -78,7 +79,32 @@ class UserLogout(View):
     
 class RecruiterDashView(View):
     def get(self,request):
-        return render(request,'recruiterdash.html')
+        
+        if not request.user.is_authenticated:
+            return redirect('account:userlogin')
+        
+        if request.user.user_type != 'recruiter':
+            messages.warning(request,"Only recruiters can access")
+            return redirect('home')
+        
+        recruiter = request.user.recruiterprofile
+        
+        job = Job.objects.filter(recruiter=recruiter)
+        
+        total_jobs = job.count()
+        total_application = Application.objects.filter(job__in = job).count()
+        accepted = Application.objects.filter(job__in=job,status='accepted').count()
+        pending = Application.objects.filter(job__in=job,status='pending').count()
+        
+        context = {
+            'total_jobs':total_jobs,
+            'total_applications':total_application,
+            'accepted':accepted,
+            'pending':pending
+        }
+            
+        
+        return render(request,'recruiterdash.html',context)
     
 class CandidateDashView(View):
     def get(self,request):

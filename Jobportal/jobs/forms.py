@@ -16,9 +16,8 @@ class RecruiterProfileForm(forms.ModelForm):
         fields = ['company_logo','company_name','company_website']
         
         
-class CandidateProfileform(forms.modelForm):
+class CandidateProfileform(forms.ModelForm):
     
     class Meta:
-        
         model = CandidateProfile
         fields = ['phone','skills','resume','profile_picture']

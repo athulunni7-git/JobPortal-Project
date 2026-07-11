@@ -103,12 +103,12 @@
 
             <div class="d-flex gap-3">
 
-                <a href="#"
+                <a href="{% url "jobs:acceptapplicant" details.id %}"
                    class="btn btn-success">
                     Accept Candidate
                 </a>
 
-                <a href="#"
+                <a href="{% url "jobs:rejectapplicant" details.id %}"
                    class="btn btn-danger">
                     Reject Candidate
                 </a>
