@@ -4,6 +4,7 @@ from .forms import UserRegisterForm ,UserLoginForm
 from .models import CandidateProfile , RecruiterProfile
 from django.contrib.auth import authenticate , login , logout
 from jobs.models import Job,Application
+from jobs.models import Category
 
 # Create your views here.
 
@@ -12,7 +13,10 @@ class Home(View):
     
     def get(self,request):
         
-        return  render(request,'home.html')
+        categories = Category.objects.all()
+        context = {'categories':categories}
+        
+        return  render(request,'home.html',context)
  
 
     
@@ -62,12 +66,12 @@ class UserLogin(View):
             if user and user.user_type == 'candidate':
                 
                 login(request , user)
-                return redirect('account:candidate_dashboard')
+                return redirect('home')
             
             elif user and user.user_type == 'recruiter':
                 
                 login(request,user)
-                return redirect('account:recruiter_dashboard')
+                return redirect('home')
             
 class UserLogout(View):
     
@@ -109,3 +113,10 @@ class RecruiterDashView(View):
 class CandidateDashView(View):
     def get(self,request):
         return render(request,'candidatedash.html')
+    
+    
+
+            
+            
+        
+        

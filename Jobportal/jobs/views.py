@@ -6,6 +6,8 @@ from account.models import RecruiterProfile , CandidateProfile
 from django.contrib import messages
 from django.db.models  import Q 
 
+
+
 # Create your views here.
 
 class CreateJobView(View):
@@ -151,20 +153,7 @@ class JobListView(View):
             messages.warning(request, "Only candidates can apply for jobs.")
             return redirect('home')
         
-        jobs = Job.objects.filter(status='available')
-        
-        search = request.GET.get('search')
-        
-        if search :
-            jobs=jobs.filter(
-                            Q(job_title__icontains=search) |
-                            Q(description__icontains = search)|
-                            Q(requirements__icontains = search)|
-                            Q(location__icontains = search)|
-                            Q(job_type__icontains = search))
-        
-        
-        context = {'jobs':jobs,'search':search}
+        context = {'jobs':jobs}
         return render(request,'joblist.html',context)
             
 
@@ -453,6 +442,34 @@ class RejectApplicant(View):
         )
         
         return redirect('jobs:viewapplications',application.job.id)
+    
+    
+class SearchView(View):
+    
+    def get(self,request):
+        
+        if not request.user.is_authenticated:
+            return redirect('account:userlogin')
+        
+        if request.user.user_type != 'candidate':
+            messages.warning(request, "Only candidates can apply for jobs.")
+            return redirect('home')
+    
+        jobs = Job.objects.filter(status='available')
             
+        search = request.GET.get('search')
             
+        if search :
+                jobs=jobs.filter(
+                                Q(job_title__icontains=search) |
+                                Q(description__icontains = search)|
+                                Q(requirements__icontains = search)|
+                                Q(location__icontains = search)|
+                                Q(job_type__icontains = search))
+                
+                
+                context = {'search':search}
+                return render(request,'joblist.html',context)
+            
+
             
