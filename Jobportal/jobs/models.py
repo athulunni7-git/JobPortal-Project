@@ -7,6 +7,10 @@ class Category(models.Model):
     
     category_name = models.CharField(max_length=100)
     
+    icon = icon = models.CharField(max_length=100,default="fa-solid fa-briefcase")
+        
+        
+    
     
     def __str__(self):
         return self.category_name

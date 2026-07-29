@@ -5,6 +5,7 @@ from .models import CandidateProfile , RecruiterProfile
 from django.contrib.auth import authenticate , login , logout
 from jobs.models import Job,Application
 from jobs.models import Category
+from django.db.models import  Count
 
 # Create your views here.
 
@@ -14,6 +15,7 @@ class Home(View):
     def get(self,request):
         
         categories = Category.objects.all()
+        
         context = {'categories':categories}
         
         return  render(request,'home.html',context)
