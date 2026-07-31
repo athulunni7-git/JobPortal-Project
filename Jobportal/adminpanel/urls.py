@@ -24,7 +24,15 @@ urlpatterns = [
     
     path('',views.AdminDashboardView.as_view(),name="admindashboard"),
     path("recruiters",views.ManageRecruitersView.as_view(),name="recruiters"),
-    path('recruiter_details<int:i>',views.RecruiterDetailsView.as_view(),name="recruiterdetail")
+    path('recruiter_details<int:i>',views.RecruiterDetailsView.as_view(),name="recruiterdetail"),
+    path('candidates',views.ManageCandidateview.as_view(),name="candidates"),
+    path('candidate_detail/<int:i>',views.CandidateDetailsView.as_view(),name="candidate_detail"),
+    path('jobs',views.ManageJobsView.as_view(),name="jobs"),
+    path("jobdetails/<int:i>",views.JobDetailsview.as_view(),name="jobdetail"),
+    path('categories',views.ManageCategoryView.as_view(),name="categories"),
+    path('category/add/',views.AddCategory.as_view(),name="add_category"),
+    path('category/edit/<int:i>',views.EditCategoryView.as_view(),name="edit_category"),
+    path('category/delete/<int:i>',views.DeleteCategoryView.as_view(),name="delete_category")
        
     
    

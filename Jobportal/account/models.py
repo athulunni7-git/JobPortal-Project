@@ -10,7 +10,6 @@ class CustomUser(AbstractUser):
     )
     
     user_type = models.CharField(max_length=20,choices=user_types)
-    is_blocked = models.BooleanField(default=False)
     
     
 class CandidateProfile(models.Model):

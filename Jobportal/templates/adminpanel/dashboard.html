@@ -157,7 +157,7 @@
 
                     <p>Manage candidate accounts.</p>
 
-                    <a href="#" class="btn btn-success">
+                    <a href="{% url 'adminpanel:candidates' %}" class="btn btn-success">
                         Manage
                     </a>
 
@@ -173,13 +173,13 @@
 
                 <div class="card-body text-center">
 
-                    <i class="fa-solid fa-briefcase fa-2x text-warning mb-3"></i>
+                    <i class="fa-solid fa-briefcase fa-2x text-success mb-3"></i>
 
                     <h5>Jobs</h5>
 
                     <p>Manage all jobs.</p>
 
-                    <a href="#" class="btn btn-warning">
+                    <a href="{% url "adminpanel:jobs" %}" class="btn btn-success">
                         Manage
                     </a>
 
@@ -189,7 +189,29 @@
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <i class="fa-solid fa-credit-card fa-2x text-primary mb-3"></i>
+
+                    <h5>Categories</h5>
+
+                    <p>Manage Categories.</p>
+
+                    <a href="{% url 'adminpanel:categories' %}" class="btn btn-primary">
+                        Manage
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
 
             <div class="card shadow-sm">
 
@@ -211,7 +233,7 @@
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
 
             <div class="card shadow-sm">
 

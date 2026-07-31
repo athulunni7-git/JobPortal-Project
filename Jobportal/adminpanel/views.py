@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from django.views import View
 from account.models import RecruiterProfile , CandidateProfile,CustomUser
-from jobs.models import Job,Application
+from jobs.models import Job,Application,Category
 
 # Create your views here.
 
@@ -51,6 +51,135 @@ class RecruiterDetailsView(View):
         context = {"recruiter":recruiter,"jobs":jobs}
         
         return render(request,'adminpanel/recruiterdetail.html',context)
+    
+       
+class ManageCandidateview(View):
+    
+    def get(self,request):
+        
+        if not request.user.is_superuser:
+            return redirect('home')
+        
+        candidates = CandidateProfile.objects.select_related("user")
+        
+        context = {"candidates":candidates}
+        
+        return render(request,'adminpanel/candidates.html',context)
+    
+    
+class CandidateDetailsView(View):
+    
+    def get(self,request,i):
+        
+        candidates = CandidateProfile.objects.get(id=i)
+        applied_jobs = Application.objects.filter(candidate=candidates).count()
+        
+        context = {"candidate":candidates,"applied_jobs":applied_jobs}
+        
+        return render(request,'adminpanel/candidatedetail.html',context)
         
     
+class ManageJobsView(View):
     
+    def get(self,request):
+        
+        if not request.user.is_superuser:
+            
+            return redirect("home")
+        
+        jobs = Job.objects.select_related("recruiter","category")
+        
+        context ={"jobs":jobs}
+        
+        return render(request,'adminpanel/jobs.html',context)
+    
+class JobDetailsview(View):
+    
+    def get(self,request,i):
+        
+        job = Job.objects.select_related('recruiter','category').get(id=i)
+        
+        applicants = Application.objects.filter(job=job).count()
+        
+        context = {'job':job,'applicants':applicants}
+        
+        return render(request,'adminpanel/jobdetail.html',context)
+    
+class ManageCategoryView(View):
+    
+    def get(self,request):
+        
+        if not request.user.is_superuser:
+            
+            return redirect("home")
+        
+        categories = Category.objects.all()
+        
+        context = {'categories':categories}
+        
+        return render(request,'adminpanel/categories.html',context)
+   
+   
+from adminpanel.forms import CategoryForm
+    
+class AddCategory(View):
+    
+    def get(self,request):
+        
+        form_instance = CategoryForm()
+        context = {"form":form_instance}
+        return render(request,'adminpanel/category_form.html',context)
+    
+    def post(self,request):
+        
+        form_instance = CategoryForm(request.POST)
+        if form_instance.is_valid():
+            form_instance.save()
+            return redirect('adminpanel:categories')
+        
+        context = {'form':form_instance}
+        
+        return render(request,'adminpanel/category_form.html',context)
+    
+class EditCategoryView(View):
+    
+    def get(self,request,i):
+        
+        category = Category.objects.get(id=i)
+        
+        form_instance = CategoryForm(instance=category)
+        context = {"form":form_instance}
+        return render(request,'adminpanel/category_form.html',context)
+    
+    def post(self,request,i):
+        
+        category = Category.objects.get(id=i)
+        
+        form_instance = CategoryForm(request.POST,instance=category)
+        
+        if form_instance.is_valid():
+            form_instance.save()
+            return redirect('adminpanel:categories')
+        
+        context = {'form':form_instance}
+        return render(request,'adminpanel/category_form.html',context)
+    
+    
+class DeleteCategoryView(View):
+    
+    def get(self,request,i):
+        
+        category = Category.objects.get(id=i)
+        
+        context = {'category':category}
+        
+        return render(request,'adminpanel/category_confirm_delete.html',context)
+    
+    def post(self,request,i):
+        
+        category = Category.objects.get(id=i)
+        
+        category.delete()
+        return redirect('adminpanel:categories')
+        
+            

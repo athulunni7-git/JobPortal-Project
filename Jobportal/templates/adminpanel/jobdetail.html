@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3 class="mb-0">
+                Job Details
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <tr>
+
+                    <th width="30%">Job Title</th>
+
+                    <td>{{ job.job_title }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Company</th>
+
+                    <td>{{ job.recruiter.company_name }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Category</th>
+
+                    <td>{{ job.category.category_name }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Location</th>
+
+                    <td>{{ job.location }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Salary</th>
+
+                    <td>₹ {{ job.salary }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Experience</th>
+
+                    <td>{{ job.experience }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Job Type</th>
+
+                    <td>{{ job.job_type }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Status</th>
+
+                    <td>
+
+                        {% if job.status == "available" %}
+
+                            <span class="badge bg-success">
+                                Available
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+                                Closed
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Description</th>
+
+                    <td>{{ job.description }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Requirements</th>
+
+                    <td>{{ job.requirements }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Total Applicants</th>
+
+                    <td>{{ applicants }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Posted On</th>
+
+                    <td>{{ job.created_at }}</td>
+
+                </tr>
+
+            </table>
+
+            <div class="text-center mt-4">
+
+                <a href="{% url 'adminpanel:jobs' %}"
+                   class="btn btn-secondary">
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
