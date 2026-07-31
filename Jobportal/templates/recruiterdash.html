@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% load static %}
 
@@ -7,6 +6,15 @@
 <div class="container mt-5">
 
     <div class="card shadow p-4">
+
+        <!-- Success Message -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
         <!-- Company Header -->
         <div class="text-center">
@@ -27,7 +35,6 @@
 
             {% endif %}
 
-
             <h2>
                 {{ request.user.recruiterprofile.company_name }}
             </h2>
@@ -36,29 +43,49 @@
                 Recruiter Dashboard
             </p>
 
+            <!-- Premium Status -->
+
+            {% if request.user.recruiterprofile.is_premium %}
+
+                <span class="badge bg-warning text-dark fs-6">
+                    ⭐ Premium Recruiter
+                </span>
+
+                <div class="alert alert-success mt-3">
+
+                    <strong>Plan :</strong>
+                    {{ request.user.recruiterprofile.premium_plan|title }}
+
+                    <br>
+
+                    <strong>Valid Till :</strong>
+                    {{ request.user.recruiterprofile.premium_end }}
+
+                </div>
+
+            {% else %}
+
+                <span class="badge bg-secondary fs-6">
+                    Free Recruiter
+                </span>
+
+            {% endif %}
+
         </div>
 
-
         <hr>
-
 
         <!-- Dashboard Cards -->
 
         <div class="row text-center">
 
-
             <div class="col-md-4 mb-3">
 
                 <div class="card shadow-sm p-3">
 
-                    <h5>
-                        My Jobs
-                    </h5>
+                    <h5>My Jobs</h5>
 
-                    <p>
-                        Manage your posted jobs
-                    </p>
-
+                    <p>Manage your posted jobs</p>
 
                     <a href="{% url 'jobs:myjobs' %}"
                        class="btn btn-primary">
@@ -71,20 +98,13 @@
 
             </div>
 
-
-
             <div class="col-md-4 mb-3">
 
                 <div class="card shadow-sm p-3">
 
-                    <h5>
-                        Post Job
-                    </h5>
+                    <h5>Post Job</h5>
 
-                    <p>
-                        Create a new job vacancy
-                    </p>
-
+                    <p>Create a new job vacancy</p>
 
                     <a href="{% url 'jobs:createjob' %}"
                        class="btn btn-success">
@@ -97,23 +117,16 @@
 
             </div>
 
-
-
             <div class="col-md-4 mb-3">
 
                 <div class="card shadow-sm p-3">
 
-                    <h5>
-                        Company Profile
-                    </h5>
+                    <h5>Company Profile</h5>
 
-                    <p>
-                         Company Details
-                    </p>
-
+                    <p>Company Details</p>
 
                     <a href="{% url 'jobs:companyprofile' %}"
-                       class="btn btn-warning">
+                       class="btn btn-success">
 
                         Company Details
 
@@ -123,92 +136,92 @@
 
             </div>
 
-           
-            </div>
-
-
         </div>
-
 
         <hr>
 
+        <!-- Premium Button -->
+
+        {% if not request.user.recruiterprofile.is_premium %}
+
+            <a href="{% url 'payment:premium' %}"
+               class="btn btn-warning w-100 mb-3">
+
+                Become Premium
+
+            </a>
+
+        {% else %}
+
+            <button class="btn btn-success w-100 mb-3" disabled>
+
+                ⭐ Premium Membership Active
+
+            </button>
+
+        {% endif %}
+
+        <hr>
+
+        <!-- Statistics -->
+
         <div class="row text-center">
 
-    <div class="col-md-3">
+            <div class="col-md-3">
 
-        <div class="card shadow p-3">
+                <div class="card shadow p-3">
 
-            <h5>
-                Jobs Posted
-            </h5>
+                    <h5>Jobs Posted</h5>
 
-            <h2>
-                {{ total_jobs }}
-            </h2>
+                    <h2>{{ total_jobs }}</h2>
 
-        </div>
+                </div>
 
-    </div>
+            </div>
 
+            <div class="col-md-3">
 
-    <div class="col-md-3">
+                <div class="card shadow p-3">
 
-        <div class="card shadow p-3">
+                    <h5>Applications</h5>
 
-            <h5>
-                Applications
-            </h5>
+                    <h2>{{ total_applications }}</h2>
 
-            <h2>
-                {{ total_applications }}
-            </h2>
+                </div>
 
-        </div>
+            </div>
 
-    </div>
+            <div class="col-md-3">
 
+                <div class="card shadow p-3">
 
-    <div class="col-md-3">
+                    <h5>Pending</h5>
 
-        <div class="card shadow p-3">
+                    <h2>{{ pending }}</h2>
 
-            <h5>
-                Pending
-            </h5>
+                </div>
 
-            <h2>
-                {{ pending }}
-            </h2>
+            </div>
 
-        </div>
+            <div class="col-md-3">
 
-    </div>
+                <div class="card shadow p-3">
 
+                    <h5>Accepted</h5>
 
-    <div class="col-md-3">
+                    <h2>{{ accepted }}</h2>
 
-        <div class="card shadow p-3">
+                </div>
 
-            <h5>
-                Accepted
-            </h5>
-
-            <h2>
-                {{ accepted }}
-            </h2>
+            </div>
 
         </div>
 
-    </div>
-
-
-</div>
-
+        <hr>
 
         <!-- Quick Info -->
 
         <div class="row">
-
 
             <div class="col-md-6 mt-2">
 
@@ -227,14 +240,13 @@
 
                     {% else %}
 
-                        Not added
+                        Not Added
 
                     {% endif %}
 
                 </div>
 
             </div>
-
 
             <div class="col-md-6 mt-2">
 
@@ -248,14 +260,10 @@
 
             </div>
 
-
         </div>
-
 
     </div>
 
 </div>
 
-
 {% endblock %}
-

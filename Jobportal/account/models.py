@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
     )
     
     user_type = models.CharField(max_length=20,choices=user_types)
+    is_blocked = models.BooleanField(default=False)
     
     
 class CandidateProfile(models.Model):
@@ -29,6 +30,16 @@ class RecruiterProfile(models.Model):
     company_name = models.CharField(max_length=100)
     company_website = models.URLField(blank=True)
     company_logo = models.ImageField(upload_to='company_logo/',blank=True,null=True)
+    
+    is_premium = models.BooleanField(default=False)
+    
+    PLAN_CHOICE = (('free','Free'),
+                   ('monthly','Monthly'),
+                   ('yearly','Yearly'))
+    
+    premium_plan = models.CharField(max_length=20,choices=PLAN_CHOICE,default='free')
+    premium_start = models.DateTimeField(null=True,blank=True)
+    premium_end = models.DateTimeField(null=True,blank=True)
     
     def  __str__(self):
         return self.company_name

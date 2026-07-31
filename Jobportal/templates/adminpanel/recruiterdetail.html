@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3 class="mb-0">
+                Recruiter Details
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <!-- Company Logo -->
+
+                <div class="col-md-4 text-center">
+
+                    {% if recruiter.company_logo %}
+
+                        <img src="{{ recruiter.company_logo.url }}"
+                             class="img-fluid rounded-circle border"
+                             width="180"
+                             height="180">
+
+                    {% else %}
+
+                        <img src="{% static 'images/default-company.png' %}"
+                             class="img-fluid rounded-circle border"
+                             width="180"
+                             height="180">
+
+                    {% endif %}
+
+                </div>
+
+                <!-- Company Details -->
+
+                <div class="col-md-8">
+
+                    <table class="table table-bordered">
+
+                        <tr>
+
+                            <th width="35%">
+                                Company Name
+                            </th>
+
+                            <td>
+
+                                {{ recruiter.company_name }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+                                Recruiter Name
+                            </th>
+
+                            <td>
+
+                                {{ recruiter.user.username }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+                                Email
+                            </th>
+
+                            <td>
+
+                                {{ recruiter.user.email }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+                                Website
+                            </th>
+
+                            <td>
+
+                                {% if recruiter.company_website %}
+
+                                    <a href="{{ recruiter.company_website }}"
+                                       target="_blank">
+
+                                        {{ recruiter.company_website }}
+
+                                    </a>
+
+                                {% else %}
+
+                                    Not Added
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+                                Premium Status
+                            </th>
+
+                            <td>
+
+                                {% if recruiter.is_premium %}
+
+                                    <span class="badge bg-success">
+
+                                        Premium Recruiter
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        Free Recruiter
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% if recruiter.is_premium %}
+
+                        <tr>
+
+                            <th>
+                                Premium Plan
+                            </th>
+
+                            <td>
+
+                                {{ recruiter.premium_plan|title }}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+                                Premium Expiry
+                            </th>
+
+                            <td>
+
+                                {{ recruiter.premium_end }}
+
+                            </td>
+
+                        </tr>
+
+                        {% endif %}
+
+                        <tr>
+
+                            <th>
+                                Total Jobs Posted
+                            </th>
+
+                            <td>
+
+                                {{ jobs }}
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="text-center">
+
+                <a href="#"
+                   class="btn btn-warning">
+
+                    Block Recruiter
+
+                </a>
+
+                <a href="#"
+                   class="btn btn-danger">
+
+                    Delete Recruiter
+
+                </a>
+
+                <a href="{% url 'adminpanel:recruiters' %}"
+                   class="btn btn-secondary">
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

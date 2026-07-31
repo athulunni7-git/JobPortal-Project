@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h2 class="fw-bold">
+            Admin Dashboard
+        </h2>
+
+        <p class="text-muted">
+            Welcome {{ request.user.username }}
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <i class="fa-solid fa-building fa-3x text-primary mb-3"></i>
+
+                    <h1>{{ total_recruiters }}</h1>
+
+                    <h5>Total Recruiters</h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <i class="fa-solid fa-users fa-3x text-success mb-3"></i>
+
+                    <h1>{{ total_candidates }}</h1>
+
+                    <h5>Total Candidates</h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <i class="fa-solid fa-briefcase fa-3x text-warning mb-3"></i>
+
+                    <h1>{{ total_jobs }}</h1>
+
+                    <h5>Total Jobs</h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <i class="fa-solid fa-file-lines fa-3x text-info mb-3"></i>
+
+                    <h1>{{ total_applications }}</h1>
+
+                    <h5>Total Applications</h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <i class="fa-solid fa-crown fa-3x text-warning mb-3"></i>
+
+                    <h1>{{ premium_recruiters }}</h1>
+
+                    <h5>Premium Recruiters</h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr class="my-5">
+
+    <h3 class="mb-4">
+        Management Panel
+    </h3>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <i class="fa-solid fa-building fa-2x text-primary mb-3"></i>
+
+                    <h5>Recruiters</h5>
+
+                    <p>Manage recruiter accounts.</p>
+
+                    <a href="{% url 'adminpanel:recruiters' %}" class="btn btn-primary">
+                        Manage
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <i class="fa-solid fa-users fa-2x text-success mb-3"></i>
+
+                    <h5>Candidates</h5>
+
+                    <p>Manage candidate accounts.</p>
+
+                    <a href="#" class="btn btn-success">
+                        Manage
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <i class="fa-solid fa-briefcase fa-2x text-warning mb-3"></i>
+
+                    <h5>Jobs</h5>
+
+                    <p>Manage all jobs.</p>
+
+                    <a href="#" class="btn btn-warning">
+                        Manage
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <i class="fa-solid fa-credit-card fa-2x text-danger mb-3"></i>
+
+                    <h5>Payments</h5>
+
+                    <p>Manage Premium Payments.</p>
+
+                    <a href="#" class="btn btn-danger">
+                        Manage
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <i class="fa-solid fa-crown fa-2x text-warning mb-3"></i>
+
+                    <h5>Premium Recruiters</h5>
+
+                    <p>View Premium Members.</p>
+
+                    <a href="#" class="btn btn-warning">
+                        View
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

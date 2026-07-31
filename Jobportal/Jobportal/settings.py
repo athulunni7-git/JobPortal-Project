@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account',
     'jobs',
     'payment',
+    'adminpanel',
     'crispy_forms',
     'crispy_bootstrap5'
 ]
@@ -131,3 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+RAZORPAY_KEY_ID = "rzp_test_T2BQkVrNZ3Q6G7"
+RAZORPAY_KEY_SECRET = "aqwuEYGs6NSPzKrxE27p3j3p"

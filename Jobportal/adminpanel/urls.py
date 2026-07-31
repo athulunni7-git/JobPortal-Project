@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import path , include
 from . import views
 
-app_name = "payment"
+app_name = "adminpanel"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('premium',views.PremiumPlanView.as_view(),name='premium'),
-    path('createorder/<str:plan>/',views.CreateOrderView.as_view(),name="create_order"),
-    path('payment_success',views.PaymentSuccessView.as_view(),name="paymentsuccess")
+    
+    path('',views.AdminDashboardView.as_view(),name="admindashboard"),
+    path("recruiters",views.ManageRecruitersView.as_view(),name="recruiters"),
+    path('recruiter_details<int:i>',views.RecruiterDetailsView.as_view(),name="recruiterdetail")
+       
+    
    
 ]

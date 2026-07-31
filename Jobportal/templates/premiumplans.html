@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Become a Premium Recruiter</h1>
+        <p class="text-muted">
+            Unlock premium features and reach more candidates.
+        </p>
+    </div>
+
+    <div class="row justify-content-center">
+
+        <!-- Monthly Plan -->
+        <div class="col-lg-4 col-md-6 mb-4">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h3>Monthly</h3>
+                    <h2>₹499</h2>
+                    <small>per month</small>
+                </div>
+
+                <div class="card-body">
+
+                    <ul class="list-group list-group-flush">
+
+                        <li class="list-group-item">
+                            <i class="fa fa-check text-success"></i>
+                            Unlimited Job Posts
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="fa fa-check text-success"></i>
+                            Premium Recruiter Badge
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="fa fa-check text-success"></i>
+                            Featured Jobs
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="fa fa-check text-success"></i>
+                            Featured Company
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="fa fa-check text-success"></i>
+                            Priority Visibility
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="card-footer bg-white text-center">
+
+                    <a href="{% url 'payment:create_order' 'monthly' %}"
+                       class="btn btn-primary w-100 py-2">
+
+                        Upgrade Now
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Yearly Plan -->
+        <div class="col-lg-4 col-md-6 mb-4">
+
+            <div class="card shadow border-warning border-3 h-100">
+
+                <div class="card-header bg-warning text-dark text-center py-4">
+
+                    <span class="badge bg-danger mb-2">
+                        BEST VALUE
+                    </span>
+
+                    <h3>Yearly</h3>
+
+                    <h2>₹4999</h2>
+
+                    <small>per year</small>
+
+                </div>
+
+                <div class="card-body">
+
+                    <ul class="list-group list-group-flush">
+
+                        <li class="list-group-item">
+                            <i class="fa fa-check text-success"></i>
+                            Unlimited Job Posts
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="fa fa-check text-success"></i>
+                            Premium Recruiter Badge
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="fa fa-check text-success"></i>
+                            Featured Jobs
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="fa fa-check text-success"></i>
+                            Featured Company
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="fa fa-check text-success"></i>
+                            Priority Visibility
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="fa fa-check text-success"></i>
+                            Save ₹989 Every Year
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="card-footer bg-white text-center">
+
+                    <a href="{% url 'payment:create_order' 'yearly' %}"
+                       class="btn btn-warning w-100 py-2">
+
+                        Upgrade Now
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

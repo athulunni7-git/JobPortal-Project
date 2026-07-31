@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h3>Recruiter Premium Membership</h3>
+
+<h4>Amount : ₹{{ amount }}</h4>
+
+
+<div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>PAYMENT</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Payment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="container w-50 border border-3 mt-3 mb-4 text-center">
+    {% if payment %}
+<form action="{% url 'payment:paymentsuccess' %}" method="POST">
+    {% csrf_token %}
+<script
+   src="https://checkout.razorpay.com/v1/checkout.js"
+    data-key="{{ razorpay_key }}"
+   data-amount="{{ razorpay_order.amount }}"
+    data-currency="INR"
+    data-order_id="{{razorpay_order.id}}"
+    data-buttontext="Pay with Razorpay"
+    data-name="Razor Payment"
+    data-description="Recruiter Premium Membership"
+    data-image="https://example.com/your_logo.jpg"
+    data-prefill.name="{{ user.username }}"
+    data-prefill.email="{{ user.email }}"
+    data-theme.color="#F37254"
+></script>
+<input type="hidden" custom="Hidden Element" name="hidden"/>
+</form>
+    {% else %}
+    <h4>Your Order IS Placed</h4>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Go to Home</a>
+    {% endif %}
+    </div>
+
+
+{% endblock %}
