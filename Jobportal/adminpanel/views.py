@@ -2,6 +2,7 @@ from django.shortcuts import render , redirect
 from django.views import View
 from account.models import RecruiterProfile , CandidateProfile,CustomUser
 from jobs.models import Job,Application,Category
+from payment.models import Payment
 
 # Create your views here.
 
@@ -181,5 +182,72 @@ class DeleteCategoryView(View):
         
         category.delete()
         return redirect('adminpanel:categories')
+    
+    
+    
+    
+class ManagePaymentView(View):
+    
+    def get(self,request):
         
-            
+        if not request.user.is_superuser:
+            return redirect("home")
+        
+        payments = Payment.objects.all()
+        
+        context = {"payments":payments}
+        
+        return render(request,'adminpanel/payments.html',context)
+
+class PaymentDetailView(View):
+    
+    def get(self,request,i):
+        
+        if not request.user.is_superuser:
+            return redirect("home")
+        
+        payment = Payment.objects.select_related("user").get(id=i)
+        
+        context = {'payment':payment}
+        
+        return render(request,'adminpanel/payment_detail.html',context)
+    
+    
+    
+class DeleteRecruiterView(View):
+    
+    def get(self,request,i):
+        
+        recruiter = RecruiterProfile.objects.get(id=i)
+        
+        context = {'recruiter':recruiter}
+        
+        return render(request,'adminpanel/recruiter_confirm_delete.html',context)
+    
+    def post(self,request,i):
+        
+        recruiter = RecruiterProfile.objects.get(id=i)
+        
+        recruiter.user.delete()
+        
+        return redirect('adminpanel:recruiters')
+    
+class DeleteCandidateView(View):
+    
+    def get(self,request,i):
+        
+        candidate = CandidateProfile.objects.get(id=i)
+        
+        context = {'candidate':candidate}
+        
+        return render(request,'adminpanel/confirm_delete.html',context)
+    
+    def post(self,request,i):
+        
+        candidate = CandidateProfile.objects.get(id=i)
+        
+        candidate.user.delete()
+        
+        return redirect('adminpanel:candidates')
+        
+        

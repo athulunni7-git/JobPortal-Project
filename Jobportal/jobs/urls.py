@@ -40,6 +40,7 @@ urlpatterns = [
     path('acceptapplicant/<int:i>',views.AcceptApplicant.as_view(),name="acceptapplicant"),
     path('rejectapplicant/<int:i>',views.RejectApplicant.as_view(),name='rejectapplicant'),
     path('search',views.SearchView.as_view(),name="search"),
+    path('categorylist',views.Categorylist.as_view(),name="categorylist")
     
     
     

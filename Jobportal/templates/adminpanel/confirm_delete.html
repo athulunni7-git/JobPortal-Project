@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-danger text-white">
+
+                    <h3 class="mb-0">
+
+                        Delete Candidate
+
+                    </h3>
+
+                </div>
+
+                <div class="card-body text-center">
+
+                    <h5>
+
+                        Are you sure you want to delete
+
+                        <strong>
+
+                            {{ candidate.username }}
+
+                        </strong>?
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        This action will permanently delete the candidate account.
+
+                    </p>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <a href="{% url 'adminpanel:candidates' %}"
+                           class="btn btn-secondary">
+
+                            Cancel
+
+                        </a>
+
+                        <button type="submit"
+                                class="btn btn-danger">
+
+                            Delete
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

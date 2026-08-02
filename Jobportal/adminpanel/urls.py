@@ -32,8 +32,12 @@ urlpatterns = [
     path('categories',views.ManageCategoryView.as_view(),name="categories"),
     path('category/add/',views.AddCategory.as_view(),name="add_category"),
     path('category/edit/<int:i>',views.EditCategoryView.as_view(),name="edit_category"),
-    path('category/delete/<int:i>',views.DeleteCategoryView.as_view(),name="delete_category")
-       
+    path('category/delete/<int:i>',views.DeleteCategoryView.as_view(),name="delete_category"),
+    path('payment',views.ManagePaymentView.as_view(),name="payments"),
+    path('paymentdetail/<int:i>',views.PaymentDetailView.as_view(),name="payment_detail"),
+    path('recruiterdelete/<int:i>',views.DeleteRecruiterView.as_view(),name="delete_recruiter"),
+    path('candidatedelete/<int:i>',views.DeleteCandidateView.as_view(),name="delete_candidate")
+      
     
    
 ]

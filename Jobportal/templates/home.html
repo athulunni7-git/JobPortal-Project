@@ -3,73 +3,81 @@
 {% block content %} 
 
        <!-- Carousel Start -->
-        <div class="container-fluid p-0">
-            <div class="owl-carousel header-carousel position-relative">
-                <div class="owl-carousel-item position-relative">
-                    <img class="img-fluid" src="{% static 'img/carousel-1.jpg' %}" alt="">
-                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(43, 57, 64, .5);">
-                        <div class="container">
-                            <div class="row justify-content-start">
-                                <div class="col-10 col-lg-8">
-                                    <h1 class="display-3 text-white animated slideInDown mb-4">Find The Perfect Job That You Deserved</h1>
-                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                    {% if user.user_type == "candidate" %}
-                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
-                                    {% elif user.user_type == "recruiter" %}
-                                    <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A Talent</a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+       {% load static %}
+
+<!-- Hero Start -->
+{% load static %}
+
+<!-- Hero Start -->
+<section class="hero-section py-5">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- Left Side -->
+            <div class="col-lg-6">
+
+                <span class="badge bg-primary px-3 py-2 mb-3">
+                    #1 Job Portal
+                </span>
+
+                <h1 class="display-3 fw-bold mb-4">
+                    Find Your
+                    <span class="text-primary">Dream Job</span>
+                </h1>
+
+                <p class="text-muted fs-5 mb-4">
+                    Discover thousands of verified jobs from top companies.
+                    Search, apply, and build your career with confidence.
+                </p>
+
+                <div class="mt-4">
+
+                    {% if user.user_type == "candidate" %}
+
+                    <a href="{% url 'jobs:joblist' %}"
+                       class="btn btn-primary btn-lg me-3 rounded-pill">
+                        Browse Jobs
+                    </a>
+
+                    {% elif user.user_type == "recruiter" %}
+
+                    <a href="{% url 'jobs:viewapplications' %}"
+                       class="btn btn-dark btn-lg rounded-pill">
+                        View Applications
+                    </a>
+
+                    {% endif %}
+
                 </div>
-                <div class="owl-carousel-item position-relative">
-                    <img class="img-fluid" src="{% static 'img/carousel-2.jpg' %}" alt="">
-                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(43, 57, 64, .5);">
-                        <div class="container">
-                            <div class="row justify-content-start">
-                                <div class="col-10 col-lg-8">
-                                    <h1 class="display-3 text-white animated slideInDown mb-4">Find The Best Startup Job That Fit You</h1>
-                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                    {% if user.user_type == "candidate" %}
-                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
-                                    {% elif user.user_type == "recruiter" %}
-                                    <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A Talent</a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
+
+            <!-- Right Side -->
+            <div class="col-lg-6 text-center">
+
+                <img
+                    src="{% static 'img/hero.png' %}"
+                    class="img-fluid hero-img"
+                    alt="Job Portal">
+
+            </div>
+
         </div>
+    </div>
+</section>
+<!-- Hero End -->
         <!-- Carousel End -->
 
 
         <!-- Search Start -->
         <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+            <form method = "GET">
             <div class="container">
                 <div class="row g-2">
                     <div class="col-md-10">
                         <div class="row g-2">
-                            <div class="col-md-4">
-                                <input type="text" class="form-control border-0" placeholder="Keyword" />
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select border-0">
-                                    <option selected>Category</option>
-                                    <option value="1">Category 1</option>
-                                    <option value="2">Category 2</option>
-                                    <option value="3">Category 3</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select border-0">
-                                    <option selected>Location</option>
-                                    <option value="1">Location 1</option>
-                                    <option value="2">Location 2</option>
-                                    <option value="3">Location 3</option>
-                                </select>
+                            <div class="col-md-12">
+                                <input type="text" name='search' class="form-control border-0" placeholder="Search Jobs" />
                             </div>
                         </div>
                     </div>
@@ -78,13 +86,14 @@
                     </div>
                 </div>
             </div>
+        </form>
         </div>
         <!-- Search End -->
 
 <!-- Category Start -->
 
 
-        <div class="container-xxl py-5">
+         {% comment %} <div class="container-xxl py-5">
             <div class="container">
                 <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Explore By Category</h1>
                 <div class="row g-4">
@@ -102,5 +111,170 @@
                 </div>
             </div>
         </div>
+ {% endcomment %}
+
+
+
+
+
+        <!-- Jobs Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Listing</h1>
+                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
+                    <ul class="nav nav-pills d-inline-flex justify-content-center mb-5">
+                        <li class="nav-item">
+                            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
+                                <h6 class="mt-n1 mb-0">Featured Jobs</h6>
+                            </a>
+                        </li>
+                    </ul>
+
+                    
+
+
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane fade show p-0 active">
+
+                            {% for i in job %}
+
+                                {% if forloop.counter <= 5 %}
+
+                            <div class="job-item p-4 mb-4">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                        {% if i.recruiter.company_logo %}
+                                            <img src="{{ i.recruiter.company_logo.url }}"
+                                                class="img-fluid border rounded"
+                                                style="width:80px;height:80px;object-fit:cover;">
+                                        {% else %}
+                                            <img src="{% static 'img/default-company.png' %}"
+                                                class="img-fluid border rounded"
+                                                style="width:80px;height:80px;">
+                                        {% endif %}
+                                        <div class="text-start ps-4">
+                                            <h5 class="mb-3">{{i.job_title}}</h5>
+                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{i.location}}</span>
+                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{i.job_type}}</span>
+                                            <span class="text-truncate me-3"><i class="fa fa-briefcase text-primary me-2"></i>{{ i.experience }}</span>
+                            
+                                            <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{i.salary}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                        <div class="d-flex mb-3">
+                                            <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
+                                            <a class="btn btn-primary" href="{% url 'jobs:jobdetails' i.id %}">Apply Now</a>
+                                        </div>
+                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>{{ i.created_at|date:"d M Y" }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+            <a href="{% url 'jobs:joblist' %}" class="btn btn-primary">Browse Jobs</a>
+            </div>
+        
+    
+
+
+            
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="row g-0 about-bg rounded overflow-hidden">
+                            <div class="col-6 text-start">
+                                <img class="img-fluid w-100" src="{% static 'img/about-1.jpg' %}">
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid" src="{% static 'img/about-2.jpg' %}" style="width: 85%; margin-top: 15%;">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid" src="{% static 'img/about-3.jpg' %}" style="width: 85%;">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid w-100" src="{% static 'img/about-4.jpg' %}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                        <h1 class="mb-4">Connecting Talent with Opportunity</h1>
+                        <p class="mb-4">We bridge the gap between skilled professionals and top employers. Whether you’re looking for your dream job or the right candidate, our platform makes it simple, fast, and effective.</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Discover the best career opportunities</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Find top talent across industries</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Empowering growth for job seekers and recruiters</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Testimonial Start -->
+<div class="container-xxl py-4 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <h1 class="text-center mb-5">What Our Clients Say</h1>
+        <div class="owl-carousel testimonial-carousel">
+            <div class="testimonial-item bg-light rounded p-4">
+                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                <p>"This platform helped me land my dream job within weeks. The process was smooth and the opportunities were top-notch."</p>
+                <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                        <h5 class="mb-1">Anjali Menon</h5>
+                        <small>Software Engineer</small>
+                    </div>
+                </div>
+            </div>
+            
+           <div class="testimonial-item bg-light rounded p-4">
+                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                <p>"As a recruiter, I found the best talent quickly. The portal made hiring efficient and stress-free. Highly recommended!"</p>
+                <div class="d-flex align-items-center">
+                    <div class="ps-3">
+                        <h5 class="mb-1">Rahul Nair</h5>
+                        <small>HR Manager</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-item bg-light rounded p-4">
+                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                <p>"The job alerts kept me updated with the latest openings. I never missed an opportunity that matched my skills."</p>
+                <div class="d-flex align-items-center">
+                    
+                    <div class="ps-3">
+                        <h5 class="mb-1">Meera Joseph</h5>
+                        <small>Marketing Specialist</small>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-item bg-light rounded p-4">
+                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                <p>"The platform is user-friendly and reliable. It connected me with candidates who were the perfect fit for our company."</p>
+                <div class="d-flex align-items-center">
+                    
+                    <div class="ps-3">
+                        <h5 class="mb-1">Sneha Pillai</h5>
+                        <small>Recruitment Consultant</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+
+        
+
 
 {% endblock %}

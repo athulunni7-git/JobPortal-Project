@@ -15,8 +15,9 @@ class Home(View):
     def get(self,request):
         
         categories = Category.objects.all()
+        jobs = Job.objects.all()
         
-        context = {'categories':categories}
+        context = {'categories':categories,'job':jobs}
         
         return  render(request,'home.html',context)
  
@@ -65,15 +66,23 @@ class UserLogin(View):
             
             user = authenticate(username = u , password = p)
             
-            if user and user.user_type == 'candidate':
-                
-                login(request , user)
-                return redirect('home')
-            
-            elif user and user.user_type == 'recruiter':
+            if user:
                 
                 login(request,user)
-                return redirect('home')
+            
+            
+                if user.is_superuser:
+                    return redirect('adminpanel:admindashboard')
+                
+                elif user and user.user_type == 'candidate':
+                    
+                    login(request , user)
+                    return redirect('account:candidate_dashboard')
+                
+                elif user and user.user_type == 'recruiter':
+                    
+                    login(request,user)
+                    return redirect('account:recruiter_dashboard')
             
 class UserLogout(View):
     

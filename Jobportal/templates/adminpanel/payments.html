@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Manage Payments</h2>
+
+        <a href="{% url 'adminpanel:admindashboard' %}"
+           class="btn btn-secondary">
+
+            Back
+
+        </a>
+
+    </div>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Recruiter</th>
+
+                        <th>Plan</th>
+
+                        <th>Amount</th>
+
+                        <th>Status</th>
+
+                        <th>Payment Date</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for payment in payments %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ forloop.counter }}
+
+                        </td>
+
+                        <td>
+
+                            {{ payment.user.username }}
+
+                        </td>
+
+                        <td>
+
+                            {{ payment.plan|title }}
+
+                        </td>
+
+                        <td>
+
+                            ₹ {{ payment.amount }}
+
+                        </td>
+
+                        <td>
+
+                            {% if payment.status == "success" %}
+
+                                <span class="badge bg-success">
+
+                                    Success
+
+                                </span>
+
+                            {% elif payment.status == "pending" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Pending
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+
+                                    Failed
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {{ payment.created_at|date:"d M Y" }}
+
+                        </td>
+
+                        <td>
+
+                            <a href="{% url 'adminpanel:payment_detail' payment.id %}"
+                               class="btn btn-info btn-sm">
+
+                                View
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="7"
+                            class="text-center">
+
+                            No Payments Found
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3 class="mb-0">
+
+                Payment Details
+
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <tr>
+
+                    <th width="35%">Recruiter</th>
+
+                    <td>{{ payment.user.username }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Email</th>
+
+                    <td>{{ payment.user.email }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Plan</th>
+
+                    <td>{{ payment.plan|title }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Amount</th>
+
+                    <td>₹ {{ payment.amount }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Order ID</th>
+
+                    <td>{{ payment.razorpay_order_id }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Payment ID</th>
+
+                    <td>{{ payment.razorpay_payment_id }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Signature</th>
+
+                    <td>
+
+                        {% if payment.razorpay_signature %}
+
+                            {{ payment.razorpay_signature }}
+
+                        {% else %}
+
+                            Not Available
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Status</th>
+
+                    <td>
+
+                        {% if payment.status == "success" %}
+
+                            <span class="badge bg-success">
+
+                                Success
+
+                            </span>
+
+                        {% elif payment.status == "pending" %}
+
+                            <span class="badge bg-warning text-dark">
+
+                                Pending
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+
+                                Failed
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Payment Date</th>
+
+                    <td>
+
+                        {{ payment.created_at|date:"d M Y, h:i A" }}
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <div class="text-center mt-4">
+
+                <a href="{% url 'adminpanel:payments' %}"
+                   class="btn btn-secondary">
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

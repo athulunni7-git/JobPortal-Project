@@ -153,6 +153,9 @@ class JobListView(View):
             messages.warning(request, "Only candidates can apply for jobs.")
             return redirect('home')
         
+        jobs = Job.objects.filter(status="available")
+        
+        
         context = {'jobs':jobs}
         return render(request,'joblist.html',context)
             
@@ -470,6 +473,17 @@ class SearchView(View):
                 
                 context = {'search':search}
                 return render(request,'joblist.html',context)
+            
+            
+from jobs.models import Category        
+            
+class Categorylist(View):
+    
+    def get(self,request):
+        
+        categories = Category.objects.all()
+        context = {"categories":categories}
+        return render(request,'categorylist.html',context)
             
 
             
