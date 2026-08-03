@@ -1,44 +1,109 @@
-
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 
-<div class="container mt-5">
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
+    <div class="container">
 
-    <div class="card shadow p-4">
+        <div class="py-5">
 
-        <h2 class="text-center mb-4">
-            Update Candidate Profile
-        </h2>
+            <h1 class="display-5 fw-bold text-white">
+                Update Profile
+            </h1>
 
+            <p class="text-white-50 mb-3">
+                Keep your profile information up to date for better job opportunities.
+            </p>
 
-        <form method="POST" enctype="multipart/form-data">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
 
-            {% csrf_token %}
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'home' %}" class="text-white-50 text-decoration-none">
+                            Home
+                        </a>
+                    </li>
 
-            {{ form|crispy }}
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'account:candidate_dashboard' %}" class="text-white-50 text-decoration-none">
+                            Dashboard
+                        </a>
+                    </li>
 
+                    <li class="breadcrumb-item active text-white">
+                        Update Profile
+                    </li>
 
-            <div class="text-center mt-3">
+                </ol>
+            </nav>
 
-                <button type="submit" class="btn btn-success">
-                    Update Profile
-                </button>
+        </div>
 
-                <a href="{% url 'account:candidate_dashboard' %}"
-                   class="btn btn-secondary">
-                    Cancel
-                </a>
+    </div>
+</div>
+
+<!-- Form -->
+<div class="container mb-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+                <div class="card-header bg-secondary text-white text-center py-4 rounded-top-4">
+
+                    <h3 class="mb-1 breadcrumb-item active text-white">
+                        Candidate Profile
+                    </h3>
+
+                    <p class="mb-0 text-white-50">
+                        Update your personal information
+                    </p>
+
+                </div>
+
+                <div class="card-body p-5">
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        {{ form|crispy }}
+
+                        <div class="d-flex justify-content-center gap-3 mt-5">
+
+                            <button type="submit"
+                                    class="btn btn-secondary rounded-pill px-5">
+
+                                <i class="bi bi-check-circle me-2"></i>
+                                Save Changes
+
+                            </button>
+
+                            <a href="{% url 'account:candidate_dashboard' %}"
+                               class="btn btn-outline-secondary rounded-pill px-5">
+
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Cancel
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
 
             </div>
 
-
-        </form>
+        </div>
 
     </div>
 
 </div>
 
 {% endblock %}
-

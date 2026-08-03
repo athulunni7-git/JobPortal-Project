@@ -1,27 +1,166 @@
 {% extends 'base.html' %}
-{% load static %}   
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div>
-<h1 class = 'text-center mt-4'>My Jobs</h1>
+
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
+    <div class="container">
+
+        <div class="py-5 d-flex align-items-center justify-content-between flex-wrap">
+
+            <div>
+
+                <h1 class="display-5 fw-bold text-white">
+                    My Jobs
+                </h1>
+
+                <p class="text-white-50 mb-3">
+                    Manage your job postings and track applications from one place.
+                </p>
+
+                <span class="badge bg-light text-secondary px-4 py-2 rounded-pill">
+                    {{ jobs|length }} Jobs Posted
+                </span>
+
+            </div>
+
+            
+
+        </div>
+
+    </div>
+</div>
+
+<div class="container mb-5">
+
 {% if jobs %}
 
+<div class="row">
+
 {% for i in jobs %}
-<div class="m-5 p-3 border border-2 ">
-<h3>{{i.job_title}}</h3>
-<p>{{i.location}}</p>
-<p>{{i.category}}</p>
-<p>{{i.status}}</p>
-<a href="{% url 'jobs:editjob' i.id %}" type=submit class='btn btn-primary'>Edit</a>
-<a href="{% url 'jobs:delete' i.id %}" type=submit class='btn btn-danger'>delete</a>
-<a href="{% url 'jobs:viewapplications' i.id %}" type=submit class='btn btn-danger'>View applications</a>
+
+<div class="col-lg-6 mb-4">
+
+<div class="card border-0 shadow-lg rounded-4 h-100">
+
+<div class="card-body p-4">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<h3 class="fw-bold">
+{{ i.job_title }}
+</h3>
+
+<h6 class="text-muted">
+{{ i.category }}
+</h6>
+
 </div>
+
+<div>
+
+{% if i.status == "available" %}
+<span class="badge bg-success rounded-pill px-3 py-2">
+Available
+</span>
+{% else %}
+<span class="badge bg-danger rounded-pill px-3 py-2">
+Closed
+</span>
+{% endif %}
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="row g-3">
+
+<div class="col-6">
+<small class="text-muted">Location</small>
+<h6>{{ i.location }}</h6>
+</div>
+
+<div class="col-6">
+<small class="text-muted">Category</small>
+<h6>{{ i.category }}</h6>
+</div>
+
+</div>
+
+<div class="mt-4 d-grid gap-2">
+
+<a href="{% url 'jobs:viewapplications' i.id %}"
+class="btn btn-secondary rounded-pill">
+
+View Applications
+
+</a>
+
+<div class="d-flex gap-2">
+
+<a href="{% url 'jobs:editjob' i.id %}"
+class="btn btn-outline-primary rounded-pill w-100">
+
+Edit
+
+</a>
+
+<a href="{% url 'jobs:delete' i.id %}"
+class="btn btn-outline-danger rounded-pill w-100">
+
+Delete
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 {% endfor %}
 
+</div>
+
 {% else %}
-NO JOB FOUND
+
+<div class="card border-0 shadow rounded-4">
+
+<div class="card-body text-center py-5">
+
+<img src="{% static 'images/hero.png' %}"
+width="280"
+class="mb-4">
+
+<h3>No Jobs Posted Yet</h3>
+
+<p class="text-muted">
+Create your first job posting and start receiving applications.
+</p>
+
+<a href="{% url 'jobs:addjob' %}"
+class="btn btn-secondary rounded-pill px-5">
+
+Post a Job
+
+</a>
+
+</div>
+
+</div>
+
 {% endif %}
+
 </div>
 
 {% endblock %}

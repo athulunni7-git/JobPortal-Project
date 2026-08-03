@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate , login , logout
 from jobs.models import Job,Application
 from jobs.models import Category
 from django.db.models import  Count
+from django.contrib import messages
 
 # Create your views here.
 
@@ -83,6 +84,14 @@ class UserLogin(View):
                     
                     login(request,user)
                     return redirect('account:recruiter_dashboard')
+                
+            else:
+
+                messages.error(
+                    request,
+                    "Invalid username or password. Please enter the correct credentials.")
+                
+            return render(request, 'login.html',context={"form":form_instance})
             
 class UserLogout(View):
     

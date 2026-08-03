@@ -8,7 +8,13 @@ class UserRegisterForm(UserCreationForm):
     
     class Meta:
         model = CustomUser
-        fields = ('user_type','username','email','password1','password2','first_name','last_name')
+        fields = ('username','email','password1','password2','user_type','first_name','last_name')
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].help_text = None
         
         
 class UserLoginForm(forms.Form):

@@ -1,28 +1,143 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
 
-<h3>Recruiter Premium Membership</h3>
+<!-- Hero -->
+<div class="container-fluid page-header mb-5">
+    <div class="container">
 
-<h4>Amount : ₹{{ amount }}</h4>
+        <div class="py-5">
 
+            <h1 class="display-5 text-white fw-bold">
+                Premium Membership
+            </h1>
 
-<div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>PAYMENT</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Payment</li>
-                    </ul>
-                </div>
-            </div>
+            <p class="text-white-50 fs-5">
+                Upgrade your recruiter account and unlock premium hiring features.
+            </p>
+
         </div>
+
     </div>
+</div>
+
+<div class="container mb-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                <!-- Header -->
+
+                <div class="bg-secondary text-white text-center py-4">
+
+                    <i class="bi bi-patch-check-fill display-3 mb-3"></i>
+
+                    <h2 class="fw-bold text-white mb-0">
+                        Recruiter Premium
+                    </h2>
+
+                </div>
+
+                <!-- Body -->
+
+                <div class="card-body p-5">
+
+                    <div class="text-center mb-5">
+
+                        <p class="text-muted mb-2">
+                            Membership Fee
+                        </p>
+
+                        <h1 class="display-3 fw-bold text-dark">
+
+                            ₹{{ amount }}
+
+                        </h1>
+
+                    </div>
+
+                    <div class="row g-4 mb-5">
+
+                        <div class="col-md-6">
+
+                            <div class="feature-box">
+
+                                <i class="bi bi-stars text-secondary fs-3"></i>
+
+                                <h5 class="mt-3">
+                                    Premium Badge
+                                </h5>
+
+                                <p class="text-muted mb-0">
+                                    Stand out as a trusted recruiter.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="feature-box">
+
+                                <i class="bi bi-megaphone-fill text-secondary fs-3"></i>
+
+                                <h5 class="mt-3">
+                                    Featured Jobs
+                                </h5>
+
+                                <p class="text-muted mb-0">
+                                    Increase visibility of your job posts.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="feature-box">
+
+                                <i class="bi bi-people-fill text-secondary fs-3"></i>
+
+                                <h5 class="mt-3">
+                                    Priority Reach
+                                </h5>
+
+                                <p class="text-muted mb-0">
+                                    Connect with more qualified candidates.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="feature-box">
+
+                                <i class="bi bi-infinity text-secondary fs-3"></i>
+
+                                <h5 class="mt-3">
+                                    Unlimited Jobs
+                                </h5>
+
+                                <p class="text-muted mb-0">
+                                    Publish jobs without restrictions.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
 
-<div class="container w-50 border border-3 mt-3 mb-4 text-center">
+<div class="container w-50  mt-3 mb-4 text-center">
     {% if payment %}
 <form action="{% url 'payment:paymentsuccess' %}" method="POST">
     {% csrf_token %}
@@ -33,20 +148,135 @@
     data-currency="INR"
     data-order_id="{{razorpay_order.id}}"
     data-buttontext="Pay with Razorpay"
-    data-name="Razor Payment"
+    data-name="ThozhilConnect"
     data-description="Recruiter Premium Membership"
     data-image="https://example.com/your_logo.jpg"
     data-prefill.name="{{ user.username }}"
     data-prefill.email="{{ user.email }}"
-    data-theme.color="#F37254"
+    data-theme.color="#547cf3"
 ></script>
 <input type="hidden" custom="Hidden Element" name="hidden"/>
 </form>
     {% else %}
-    <h4>Your Order IS Placed</h4>
-    <a href="{% url 'home' %}" class="btn btn-secondary">Go to Home</a>
-    {% endif %}
+    <div class="alert alert-success rounded-4 text-center">
+
+                        <h4 class="fw-bold">
+
+                            Premium Activated Successfully 🎉
+
+                        </h4>
+
+                        <p class="mb-0">
+
+                            Thank you for upgrading your recruiter account.
+
+                        </p>
+
+                    </div>
+
+                    <div class="text-center mt-4">
+
+                        <a href="{% url 'account:recruiter_dashboard' %}"
+                           class="btn btn-primary rounded-pill px-5">
+
+                            Back to Dashboard
+
+                        </a>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
+</div>
+
+<style>
+
+.feature-box{
+
+    border:1px solid #e9ecef;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    text-align:center;
+
+    transition:.3s;
+
+    height:100%;
+
+    background:#fff;
+
+}
+
+.feature-box:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 1rem 2rem rgba(0,0,0,.08);
+
+}
+
+.card{
+
+    border-radius:20px;
+
+}
+
+.card.shadow-lg{
+
+    box-shadow:0 1rem 2rem rgba(0,0,0,.08)!important;
+
+}
+
+.razorpay-payment-button{
+
+    background:#0d6efd!important;
+
+    color:#fff!important;
+
+    border:none!important;
+
+    border-radius:50px!important;
+
+    padding:15px 40px!important;
+
+    font-size:18px!important;
+
+    font-weight:600!important;
+
+    transition:.3s!important;
+
+}
+
+.razorpay-payment-button:hover{
+
+    background:#0b5ed7!important;
+
+    transform:translateY(-2px);
+
+}
+
+@media(max-width:768px){
+
+    .card-body{
+
+        padding:2rem!important;
+
+    }
+
+}
+
+</style>
 
 {% endblock %}
+
+

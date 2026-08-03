@@ -16,13 +16,13 @@
             <!-- Left Side -->
             <div class="col-lg-6">
 
-                <span class="badge bg-primary px-3 py-2 mb-3">
+                <span class="badge bg-secondary px-3 py-2 mb-3">
                     #1 Job Portal
                 </span>
 
                 <h1 class="display-3 fw-bold mb-4">
                     Find Your
-                    <span class="text-primary">Dream Job</span>
+                    <span class="text-secondary">Dream Job</span>
                 </h1>
 
                 <p class="text-muted fs-5 mb-4">
@@ -35,15 +35,15 @@
                     {% if user.user_type == "candidate" %}
 
                     <a href="{% url 'jobs:joblist' %}"
-                       class="btn btn-primary btn-lg me-3 rounded-pill">
+                       class="btn btn-secondary btn-lg me-3 rounded-pill">
                         Browse Jobs
                     </a>
 
                     {% elif user.user_type == "recruiter" %}
 
-                    <a href="{% url 'jobs:viewapplications' %}"
-                       class="btn btn-dark btn-lg rounded-pill">
-                        View Applications
+                    <a href="{% url 'jobs:createjob' %}"
+                       class="btn btn-secondary btn-lg rounded-pill">
+                        Post A Job
                     </a>
 
                     {% endif %}
@@ -70,11 +70,11 @@
 
 
         <!-- Search Start -->
-        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
-            <form method = "GET">
+        <div class="container-fluid bg-secondary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+            <form method = "GET" action="{% url 'jobs:search' %}">
             <div class="container">
                 <div class="row g-2">
-                    <div class="col-md-10">
+                    <div class="col-md-12">
                         <div class="row g-2">
                             <div class="col-md-12">
                                 <input type="text" name='search' class="form-control border-0" placeholder="Search Jobs" />
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-dark border-0 w-100">Search</button>
+                        <button type='submit' class="btn btn-dark  border-0 w-100">Search</button>
                     </div>
                 </div>
             </div>
@@ -154,19 +154,19 @@
                                         {% endif %}
                                         <div class="text-start ps-4">
                                             <h5 class="mb-3">{{i.job_title}}</h5>
-                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{i.location}}</span>
-                                            <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{i.job_type}}</span>
-                                            <span class="text-truncate me-3"><i class="fa fa-briefcase text-primary me-2"></i>{{ i.experience }}</span>
+                                            <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-secondary me-2"></i>{{i.location}}</span>
+                                            <span class="text-truncate me-3"><i class="far fa-clock text-secondary me-2"></i>{{i.job_type}}</span>
+                                            <span class="text-truncate me-3"><i class="fa fa-briefcase text-secondary me-2"></i>{{ i.experience }}</span>
                             
-                                            <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{i.salary}}</span>
+                                            <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-secondary me-2"></i>{{i.salary}}</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
-                                            <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
-                                            <a class="btn btn-primary" href="{% url 'jobs:jobdetails' i.id %}">Apply Now</a>
+                                            <a class="btn me-3" href=""><i class="far fa-heart text-secondary"></i></a>
+                                            <a class="btn btn-secondary" href="{% url 'jobs:jobdetails' i.id %}">Apply Now</a>
                                         </div>
-                                        <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>{{ i.created_at|date:"d M Y" }}</small>
+                                        <small class="text-truncate"><i class="far fa-calendar-alt text-secondary me-2"></i>{{ i.created_at|date:"d M Y" }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@
             </div>
 
             <div class="text-center mt-4">
-            <a href="{% url 'jobs:joblist' %}" class="btn btn-primary">Browse Jobs</a>
+            <a href="{% url 'jobs:joblist' %}" class="btn btn-secondary">Browse Jobs</a>
             </div>
         
     
@@ -209,9 +209,9 @@
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                         <h1 class="mb-4">Connecting Talent with Opportunity</h1>
                         <p class="mb-4">We bridge the gap between skilled professionals and top employers. Whether you’re looking for your dream job or the right candidate, our platform makes it simple, fast, and effective.</p>
-                        <p><i class="fa fa-check text-primary me-3"></i>Discover the best career opportunities</p>
-                        <p><i class="fa fa-check text-primary me-3"></i>Find top talent across industries</p>
-                        <p><i class="fa fa-check text-primary me-3"></i>Empowering growth for job seekers and recruiters</p>
+                        <p><i class="fa fa-check text-secondary me-3"></i>Discover the best career opportunities</p>
+                        <p><i class="fa fa-check text-secondary me-3"></i>Find top talent across industries</p>
+                        <p><i class="fa fa-check text-secondary me-3"></i>Empowering growth for job seekers and recruiters</p>
                         
                     </div>
                 </div>
@@ -226,7 +226,7 @@
         <h1 class="text-center mb-5">What Our Clients Say</h1>
         <div class="owl-carousel testimonial-carousel">
             <div class="testimonial-item bg-light rounded p-4">
-                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                <i class="fa fa-quote-left fa-2x text-secondary mb-3"></i>
                 <p>"This platform helped me land my dream job within weeks. The process was smooth and the opportunities were top-notch."</p>
                 <div class="d-flex align-items-center">
                     <div class="ps-3">
@@ -237,7 +237,7 @@
             </div>
             
            <div class="testimonial-item bg-light rounded p-4">
-                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                <i class="fa fa-quote-left fa-2x text-secondary mb-3"></i>
                 <p>"As a recruiter, I found the best talent quickly. The portal made hiring efficient and stress-free. Highly recommended!"</p>
                 <div class="d-flex align-items-center">
                     <div class="ps-3">
@@ -247,8 +247,8 @@
                 </div>
             </div>
 
-            <div class="testimonial-item bg-light rounded p-4">
-                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+            <div class="testimonial-item bg-light  rounded p-4">
+                <i class="fa fa-quote-left fa-2x text-secondary mb-3"></i>
                 <p>"The job alerts kept me updated with the latest openings. I never missed an opportunity that matched my skills."</p>
                 <div class="d-flex align-items-center">
                     
@@ -259,7 +259,7 @@
                 </div>
             </div>
             <div class="testimonial-item bg-light rounded p-4">
-                <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                <i class="fa fa-quote-left fa-2x text-secondary mb-3"></i>
                 <p>"The platform is user-friendly and reliable. It connected me with candidates who were the perfect fit for our company."</p>
                 <div class="d-flex align-items-center">
                     

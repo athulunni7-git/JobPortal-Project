@@ -74,6 +74,7 @@ class PaymentSuccessView(View):
         razorpay_order_id = request.POST.get("razorpay_order_id")
         razorpay_payment_id = request.POST.get("razorpay_payment_id")
         razorpay_signature = request.POST.get("razorpay_signature")
+        print(request.POST.get)
         
             
         data = {
@@ -116,7 +117,7 @@ class PaymentSuccessView(View):
             messages.error(request, "Payment Verification Failed.")
             return redirect("payment:premium")
 
-            return redirect("payment:premium")
+        
 
         
         

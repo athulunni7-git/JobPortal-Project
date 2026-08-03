@@ -1,9 +1,9 @@
 /********** Template CSS **********/
 :root {
-    --primary: #00B074;
+    --primary: #2B9BFF;
     --secondary: #2B9BFF;
     --light: #EFFDF5;
-    --dark: #2B3940;
+    --dark: black;
 }
 
 .back-to-top {
@@ -12,6 +12,10 @@
     right: 45px;
     bottom: 45px;
     z-index: 99;
+}
+
+body{
+    background-color: white;
 }
 
 
@@ -232,13 +236,31 @@
     border-color: var(--primary);
 }
 
-.page-header {
-    background: linear-gradient(rgba(43, 57, 64, .5), rgba(43, 57, 64, .5)), url(../img/carousel-1.jpg) center center no-repeat;
-    background-size: cover;
+.page-header{
+    background:
+        linear-gradient(rgba(13,110,253,.75), rgba(13,110,253,.75)),
+        url("../img/hero.png");
+
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+
+    min-height:250px;
+
+    display:flex;
+    align-items:center;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
-    color: var(--light);
+.page-header h1{
+    font-weight:700;
+}
+
+.page-header .breadcrumb-item + .breadcrumb-item::before{
+    color:hsl(0, 0%, 100%);
+}
+
+.page-header .breadcrumb-item a{
+    text-decoration:none;
 }
 
 
@@ -299,6 +321,12 @@
     color: #FFFFFF !important;
 }
 
+
+
+.testimonial-carousel .testimonial-item.bg-light {
+    background-color: #edf6ff !important;
+}
+
 .testimonial-carousel .owl-dots {
     margin-top: 24px;
     display: flex;
@@ -312,7 +340,7 @@
     margin: 0 5px;
     width: 15px;
     height: 15px;
-    border: 5px solid var(--primary);
+    border: 5px solid #b6d4fe !important;
     border-radius: 2px;
     transition: .5s;
 }
@@ -390,4 +418,77 @@
     margin-right: 0;
     padding-right: 0;
     border-right: none;
+}
+
+
+/* Input focus */
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* File input focus */
+.form-control[type="file"]:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Remove green validation color */
+.was-validated .form-control:valid,
+.form-control.is-valid {
+    border-color: #0d6efd;
+    background-image: none;
+}
+
+.was-validated .form-control:valid:focus,
+.form-control.is-valid:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+
+.dashboard-card{
+
+    transition:.3s;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 35px rgba(13,110,253,.12);
+
+}
+
+.icon-box{
+
+    width:80px;
+
+    height:80px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+}
+
+.stat-card{
+
+    transition:.3s;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 15px 30px rgba(13,110,253,.12);
+
 }

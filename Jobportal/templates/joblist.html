@@ -1,50 +1,173 @@
 {% extends 'base.html' %}
-{% load static %}   
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 
-<div class="container mt-4">
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
+    <div class="container">
 
+        <div class="py-5">
 
-<form method="GET">
+            <h1 class="display-5 fw-bold text-white">
+                Browse Jobs
+            </h1>
 
-    <div class="input-group mb-2">
+            <p class="text-white-50 mb-3">
+                Find your next career opportunity with Thozhil Connect.
+            </p>
 
-        <input 
-        type="text"
-        name="search"
-        class="form-control"
-        placeholder="Search jobs...">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
 
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'home' %}" class="text-white-50 text-decoration-none">
+                            Home
+                        </a>
+                    </li>
 
-        <button class="btn btn-primary">
-            Search
-        </button>
+                    <li class="breadcrumb-item active text-white">
+                        Browse Jobs
+                    </li>
+
+                </ol>
+            </nav>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="container mb-5">
+
+    <!-- Search Box -->
+    <div class="card border-0 shadow rounded-4 mb-5">
+
+        <div class="card-body p-4">
+
+            <form method="GET" action="{% url 'jobs:search' %}">
+
+                <div class="input-group">
+
+                    <span class="input-group-text bg-white border-end-0">
+                        <i class="bi bi-search text-secondary"></i>
+                    </span>
+
+                    <input
+                        type="text"
+                        name="search"
+                        class="form-control border-start-0"
+                        placeholder="Search by job title, location or keyword">
+
+                    <button class="btn btn-secondary px-4">
+                        Search
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
 
+    {% if jobs %}
 
-</form>
+        {% for i in jobs %}
 
+        <div class="card job-card border-0 rounded-4 mb-4">
 
-</div>
+            <div class="card-body p-4">
 
-{% for i in jobs %}
-<div class="card p-4 mb-3">
-    <div class="card-body">
-        <h4>{{ i.job_title }}</h4>
+                <div class="row align-items-center">
 
-        <p><strong>Company:</strong> {{ i.recruiter.company_name }}</p>
+                    <div class="col-lg-8">
 
-        <p><strong>Location:</strong> {{ i.location }}</p>
+                        <div class="d-flex">
 
-        <p><strong>Salary:</strong> ₹{{ i.salary }}</p>
+                            <div class="job-icon me-4">
 
-        <p><strong>Job Type:</strong> {{ i.job_type }}</p>
+                                <i class="bi bi-briefcase-fill"></i>
 
-        <a href="{% url 'jobs:jobdetails' i.id %}" class="btn btn-primary">View Details</a>
+                            </div>
+
+                            <div>
+
+                                <h4 class="fw-bold text-secondary mb-2">
+                                    {{ i.job_title }}
+                                </h4>
+
+                                <p class="mb-2 text-secondary fw-semibold">
+                                    {{ i.recruiter.company_name }}
+                                </p>
+
+                                <div class="d-flex flex-wrap gap-3">
+
+                                    <span>
+                                        <i class="bi bi-geo-alt-fill text-secondary me-1"></i>
+                                        {{ i.location }}
+                                    </span>
+
+                                    <span>
+                                        <i class="bi bi-cash-stack text-success me-1"></i>
+                                        ₹{{ i.salary }}
+                                    </span>
+
+                                    <span>
+                                        <i class="bi bi-clock-fill text-warning me-1"></i>
+                                        {{ i.job_type }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+                        <a href="{% url 'jobs:jobdetails' i.id %}"
+                           class="btn btn-secondary rounded-pill px-4">
+                            View Details
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+    <div class="card border-0 shadow rounded-4">
+
+        <div class="card-body text-center py-5">
+
+            <img src="{% static 'img/hero.png' %}"
+                 class="img-fluid mb-4"
+                 style="max-width:220px;">
+
+            <h3 class="fw-bold">
+                No Jobs Found
+            </h3>
+
+            <p class="text-muted">
+                Try searching with another keyword.
+            </p>
+
+        </div>
+
     </div>
+
+    {% endif %}
+
 </div>
-{% endfor %}
+
 {% endblock %}

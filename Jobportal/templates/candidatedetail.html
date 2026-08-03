@@ -1,129 +1,301 @@
-
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
 
-<div class="container mt-5">
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
+    <div class="container">
 
-    <div class="card shadow-lg">
+        <div class="py-5 d-flex justify-content-between align-items-center flex-wrap">
 
-        <div class="card-header bg-primary text-white">
+            <div>
 
-            <h3 class="mb-0">
-                Candidate Profile
-            </h3>
+                <h1 class="display-5 fw-bold text-white">
+                    Candidate Profile
+                </h1>
 
-        </div>
-
-        <div class="card-body">
-
-            <div class="row">
-
-                <div class="col-md-8">
-
-                    <table class="table table-bordered">
-
-                        <tr>
-                            <th width="30%">Full Name</th>
-                            <td>{{ details.candidate.user.get_full_name|default:details.candidate.user.username }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Username</th>
-                            <td>{{ details.candidate.user.username }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Email</th>
-                            <td>{{ details.candidate.user.email }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Phone</th>
-                            <td>{{ details.candidate.phone }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Skills</th>
-                            <td>{{ details.candidate.skills }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Job Applied</th>
-                            <td>{{ details.job.job_title }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Company</th>
-                            <td>{{ details.job.recruiter.company_name }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Applied On</th>
-                            <td>{{ details.applied_at }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Status</th>
-
-                            <td>
-
-                                {% if details.status == 'pending' %}
-
-                                    <span class="badge bg-warning text-dark">
-                                        Pending
-                                    </span>
-
-                                {% elif details.status == 'accepted' %}
-
-                                    <span class="badge bg-success">
-                                        Accepted
-                                    </span>
-
-                                {% else %}
-
-                                    <span class="badge bg-danger">
-                                        Rejected
-                                    </span>
-
-                                {% endif %}
-
-                            </td>
-
-                        </tr>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-            <hr>
-
-            <div class="d-flex gap-3">
-
-                <a href="{% url "jobs:acceptapplicant" details.id %}"
-                   class="btn btn-success">
-                    Accept Candidate
-                </a>
-
-                <a href="{% url "jobs:rejectapplicant" details.id %}"
-                   class="btn btn-danger">
-                    Reject Candidate
-                </a>
-
-                <a href="{% url 'jobs:viewapplications' details.job.id %}"
-                   class="btn btn-secondary">
-                    Back
-                </a>
+                <p class="text-white-50">
+                    Review applicant details before making a hiring decision.
+                </p>
 
             </div>
 
         </div>
 
     </div>
+</div>
+
+<div class="container mb-5">
+
+<div class="card border-0 shadow-lg rounded-4">
+
+<div class="card-body p-5">
+
+<div class="row">
+
+<!-- Left Side -->
+
+<div class="col-lg-4 text-center border-end">
+
+<div class="avatar mx-auto mb-3">
+
+{{ details.candidate.user.username|first|upper }}
 
 </div>
+
+<h3 class="fw-bold">
+
+{{ details.candidate.user.get_full_name|default:details.candidate.user.username }}
+
+</h3>
+
+
+{% if details.status == 'pending' %}
+
+<span class="badge bg-warning text-dark px-4 py-2 rounded-pill">
+Pending
+</span>
+
+{% elif details.status == 'accepted' %}
+
+<span class="badge bg-success px-4 py-2 rounded-pill">
+Accepted
+</span>
+
+{% else %}
+
+<span class="badge bg-danger px-4 py-2 rounded-pill">
+Rejected
+</span>
+
+{% endif %}
+
+</div>
+
+<!-- Right Side -->
+
+<div class="col-lg-8">
+
+<div class="row g-4">
+
+<div class="col-md-6">
+<div class="info-box">
+<label>Email</label>
+<h6>{{ details.candidate.user.email }}</h6>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="info-box">
+<label>Phone</label>
+<h6>{{ details.candidate.phone }}</h6>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="info-box">
+<label>Skills</label>
+<h6>{{ details.candidate.skills }}</h6>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="info-box">
+<label>Applied On</label>
+<h6>{{ details.applied_at }}</h6>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="info-box">
+<label>Job Applied</label>
+<h6>{{ details.job.job_title }}</h6>
+</div>
+</div>
+
+<div class="col-md-6">
+    <div class="info-box">
+        <label>Resume</label>
+
+        {% if details.candidate.resume %}
+            <a href="{{ details.candidate.resume.url }}"
+               target="_blank"
+               class="btn btn-outline-primary rounded-pill btn-sm">
+                📄 View Resume
+            </a>
+        {% else %}
+            <span class="text-muted">Resume not uploaded</span>
+        {% endif %}
+    </div>
+</div>
+
+</div>
+
+<hr class="my-5">
+
+<div class="d-flex gap-3 flex-wrap">
+
+    {% if details.status == "pending" %}
+
+        <a href="{% url 'jobs:acceptapplicant' details.id %}"
+           class="btn btn-success rounded-pill px-4">
+            <i class="bi bi-check-circle me-2"></i>
+            Accept Candidate
+        </a>
+
+        <a href="{% url 'jobs:rejectapplicant' details.id %}"
+           class="btn btn-danger rounded-pill px-4">
+            <i class="bi bi-x-circle me-2"></i>
+            Reject Candidate
+        </a>
+
+    {% elif details.status == "accepted" %}
+
+        <button class="btn btn-success rounded-pill px-4" disabled>
+            <i class="bi bi-check-circle-fill me-2"></i>
+            Candidate Accepted
+        </button>
+
+    {% elif details.status == "rejected" %}
+
+        <button class="btn btn-danger rounded-pill px-4" disabled>
+            <i class="bi bi-x-circle-fill me-2"></i>
+            Candidate Rejected
+        </button>
+
+    {% endif %}
+
+    <a href="{% url 'jobs:viewapplications' details.job.id %}"
+       class="btn btn-outline-secondary rounded-pill px-4">
+        <i class="bi bi-arrow-left me-2"></i>
+        Back
+    </a>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+
+.avatar{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#0d6efd,#4e9eff);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:48px;
+    font-weight:700;
+    margin:auto;
+    box-shadow:0 10px 30px rgba(13,110,253,.25);
+}
+
+.info-box{
+    background:#f8f9fa;
+    border-radius:15px;
+    padding:20px;
+    height:100%;
+    transition:.3s ease;
+    border:1px solid #edf0f5;
+}
+
+.info-box:hover{
+    transform:translateY(-4px);
+    box-shadow:0 .75rem 1.5rem rgba(0,0,0,.08);
+    background:#fff;
+}
+
+.info-box label{
+    display:block;
+    color:#6c757d;
+    font-size:13px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin-bottom:8px;
+}
+
+.info-box h6{
+    margin:0;
+    color:#212529;
+    font-weight:600;
+    font-size:16px;
+    word-break:break-word;
+}
+
+.card.shadow-lg{
+    overflow:hidden;
+}
+
+.border-end{
+    border-color:#e9ecef !important;
+}
+
+.badge{
+    font-size:13px;
+    font-weight:600;
+}
+
+.btn{
+    transition:.3s ease;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-success{
+    box-shadow:0 .5rem 1rem rgba(25,135,84,.20);
+}
+
+.btn-danger{
+    box-shadow:0 .5rem 1rem rgba(220,53,69,.20);
+}
+
+.btn-outline-primary:hover{
+    color:#fff;
+}
+
+
+.card-body{
+    background:#fff;
+}
+
+hr{
+    opacity:.15;
+}
+
+/* Mobile */
+
+@media (max-width:991px){
+
+    .border-end{
+        border-right:none !important;
+        border-bottom:1px solid #e9ecef;
+        margin-bottom:30px;
+        padding-bottom:30px;
+    }
+
+    .d-flex.gap-3{
+        flex-direction:column;
+    }
+
+    .d-flex.gap-3 .btn{
+        width:100%;
+    }
+
+}
+</style>
 
 {% endblock %}

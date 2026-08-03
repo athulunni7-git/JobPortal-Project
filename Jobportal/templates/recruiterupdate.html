@@ -1,20 +1,174 @@
 {% extends 'base.html' %}
-{% load static %}   
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 
-<div class='text-center  w-80 p-5'>
-<h2>Recruiter Update</h2>
+<!-- Hero Section -->
+<div class="container-fluid page-header mb-5">
+    <div class="container">
 
-<form method=POST>
+        <div class="py-5">
 
-    {% csrf_token %}
+            <h1 class="display-5 fw-bold text-white">
+                Update Company Profile
+            </h1>
 
-    {{form|crispy}}
+            <p class="text-white-50 fs-5">
+                Keep your company information up to date to attract the best talent.
+            </p>
 
-    <button type='submit'>Login</button>
+        </div>
 
-</form>
+    </div>
 </div>
+
+<!-- Update Form -->
+<div class="container mb-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+                <div class="card-header bg-secondary text-white py-3 rounded-top-4">
+
+                    <h3 class="mb-0 text-white">
+
+                        <i class="bi bi-building me-2"></i>
+
+                        Recruiter Profile
+
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-5">
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        {{ form|crispy }}
+
+                        <hr class="my-4">
+
+                        <div class="d-flex justify-content-between flex-wrap gap-3">
+
+                            <a href="{% url 'jobs:companyprofile' %}"
+                               class="btn btn-outline-secondary rounded-pill px-4">
+
+                                <i class="bi bi-arrow-left me-2"></i>
+
+                                Cancel
+
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-secondary rounded-pill px-5">
+
+                                <i class="bi bi-check-circle me-2"></i>
+
+                                Update Profile
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+/* Recruiter Update */
+
+.card{
+    border-radius:20px;
+}
+
+.card-header{
+    border:none;
+}
+
+.card-header h3{
+    font-weight:600;
+}
+
+.form-control,
+.form-select{
+
+    border-radius:12px;
+    min-height:50px;
+    border:1px solid #dce3ea;
+    transition:.3s;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    border-color:#0d6efd;
+    box-shadow:0 0 0 .2rem rgba(13,110,253,.15);
+
+}
+
+textarea.form-control{
+
+    min-height:140px;
+
+}
+
+input[type="file"]{
+
+    border-radius:12px;
+    padding:10px;
+
+}
+
+.btn{
+
+    transition:.3s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.shadow-lg{
+
+    box-shadow:0 1rem 2rem rgba(0,0,0,.08)!important;
+
+}
+
+@media(max-width:768px){
+
+    .card-body{
+
+        padding:2rem!important;
+
+    }
+
+    .btn{
+
+        width:100%;
+
+    }
+
+}
+
+</style>
+
 {% endblock %}

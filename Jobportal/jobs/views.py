@@ -82,8 +82,7 @@ class JobUpdateView(View):
             j = Job.objects.get(id=i)
         except Job.DoesNotExist:
                 return HttpResponse('job not found')
-        else:
-            return redirect('jobs:myjobs')
+        
                 
         if j.recruiter == request.user.recruiterprofile:
             
@@ -448,31 +447,33 @@ class RejectApplicant(View):
     
     
 class SearchView(View):
-    
-    def get(self,request):
-        
+
+    def get(self, request):
+
         if not request.user.is_authenticated:
             return redirect('account:userlogin')
-        
+
         if request.user.user_type != 'candidate':
-            messages.warning(request, "Only candidates can apply for jobs.")
+            messages.warning(request, "Only candidates can search jobs.")
             return redirect('home')
-    
+
         jobs = Job.objects.filter(status='available')
-            
+
         search = request.GET.get('search')
+
+        if search:
+            jobs = jobs.filter(
+                Q(job_title__icontains=search) |
+                Q(description__icontains=search) |
+                Q(requirements__icontains=search) |
+                Q(location__icontains=search) |
+                Q(job_type__icontains=search)
+            )
+
+        context = {'jobs': jobs,'search':search}
             
-        if search :
-                jobs=jobs.filter(
-                                Q(job_title__icontains=search) |
-                                Q(description__icontains = search)|
-                                Q(requirements__icontains = search)|
-                                Q(location__icontains = search)|
-                                Q(job_type__icontains = search))
-                
-                
-                context = {'search':search}
-                return render(request,'joblist.html',context)
+
+        return render(request, 'search.html', context)
             
             
 from jobs.models import Category        

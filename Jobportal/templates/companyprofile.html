@@ -1,155 +1,250 @@
-```html
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
 
-<div class="container mt-5">
+<!-- Hero Section -->
+<div class="container-fluid page-header mb-5">
+    <div class="container">
 
-    <div class="card shadow p-4">
+        <div class="py-5">
 
-        <!-- Company Logo -->
+            <h1 class="display-5 text-white fw-bold">
+                Company Profile
+            </h1>
 
-        <div class="text-center">
-
-            {% if profile.company_logo %}
-
-                <img src="{{ profile.company_logo.url }}"
-                     class="rounded-circle mb-3"
-                     width="150"
-                     height="150">
-
-            {% else %}
-
-                <img src="{% static 'images/default-company.png' %}"
-                     class="rounded-circle mb-3"
-                     width="150"
-                     height="150">
-
-            {% endif %}
-
-
-            <h2>
-                {{ profile.company_name }}
-            </h2>
-
-
-            <p class="text-muted">
-                Recruiter Profile
+            <p class="text-white-50 fs-5">
+                Manage your company information and recruiter profile.
             </p>
 
         </div>
 
+    </div>
+</div>
 
-        <hr>
+<div class="container mb-5">
 
+    <div class="row justify-content-center">
 
-        <!-- Company Details -->
+        <div class="col-lg-9">
 
-        <table class="table table-bordered">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
+                <!-- Profile Header -->
 
-            <tr>
+                <div class="bg-secondary text-white text-center py-5">
 
-                <th width="30%">
-                    Company Name
-                </th>
+                    {% if profile.company_logo %}
 
-                <td>
-                    {{ profile.company_name }}
-                </td>
-
-            </tr>
-
-
-
-            <tr>
-
-                <th>
-                    Email
-                </th>
-
-                <td>
-                    {{ profile.user.email }}
-                </td>
-
-            </tr>
-
-
-
-            <tr>
-
-                <th>
-                    Username
-                </th>
-
-                <td>
-                    {{ profile.user.username }}
-                </td>
-
-            </tr>
-
-
-
-            <tr>
-
-                <th>
-                    Company Website
-                </th>
-
-                <td>
-
-                    {% if profile.company_website %}
-
-                        <a href="{{ profile.company_website }}"
-                           target="_blank">
-
-                            {{ profile.company_website }}
-
-                        </a>
+                        <img src="{{ profile.company_logo.url }}"
+                             class="rounded-circle shadow border border-4 border-white mb-3"
+                             width="150"
+                             height="150"
+                             style="object-fit:cover;">
 
                     {% else %}
 
-                        Not added
+                        <img src="{% static 'img/default-company.png' %}"
+                             class="rounded-circle shadow border border-4 border-white mb-3"
+                             width="150"
+                             height="150"
+                             style="object-fit:cover;">
 
                     {% endif %}
 
-                </td>
+                    <h2 class="fw-bold mb-2">
+                        {{ profile.company_name }}
+                    </h2>
 
-            </tr>
+                    <p class="mb-0 text-white-50">
+                        Recruiter Profile
+                    </p>
 
+                </div>
 
+                <!-- Details -->
 
-        </table>
+                <div class="card-body p-5">
 
+                    <div class="row g-4">
 
+                        <div class="col-md-6">
 
-        <div class="text-center mt-3">
+                            <div class="info-box">
 
+                                <small class="text-muted">
+                                    Company Name
+                                </small>
 
-            <a href="{% url 'jobs:recruiterupdate' %}"
-               class="btn btn-warning">
+                                <h5 class="mb-0">
+                                    {{ profile.company_name }}
+                                </h5>
 
-                Update Profile
+                            </div>
 
-            </a>
+                        </div>
 
+                        <div class="col-md-6">
 
-            <a href="{% url 'account:recruiter_dashboard' %}"
-               class="btn btn-secondary">
+                            <div class="info-box">
 
-                Back
+                                <small class="text-muted">
+                                    Username
+                                </small>
 
-            </a>
+                                <h5 class="mb-0">
+                                    {{ profile.user.username }}
+                                </h5>
 
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="info-box">
+
+                                <small class="text-muted">
+                                    Email Address
+                                </small>
+
+                                <h5 class="mb-0">
+                                    {{ profile.user.email }}
+                                </h5>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="info-box">
+
+                                <small class="text-muted">
+                                    Company Website
+                                </small>
+
+                                {% if profile.company_website %}
+
+                                    <h6 class="mb-0">
+
+                                        <a href="{{ profile.company_website }}"
+                                           target="_blank"
+                                           class="text-decoration-none">
+
+                                            Visit Website
+
+                                        </a>
+
+                                    </h6>
+
+                                {% else %}
+
+                                    <span class="text-muted">
+
+                                        Not Added
+
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <hr class="my-5">
+
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+
+                        <a href="{% url 'jobs:recruiterupdate' %}"
+                           class="btn btn-secondary rounded-pill px-4">
+
+                            <i class="bi bi-pencil-square me-2"></i>
+
+                            Update Profile
+
+                        </a>
+
+                        <a href="{% url 'account:recruiter_dashboard' %}"
+                           class="btn btn-outline-secondary rounded-pill px-4">
+
+                            <i class="bi bi-arrow-left me-2"></i>
+
+                            Back to Dashboard
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
-
 
     </div>
 
 </div>
 
+<style>
+
+   
+
+.info-box{
+    background:#f8f9fa;
+    border-radius:15px;
+    padding:20px;
+    border:1px solid #e9ecef;
+    transition:.3s;
+    height:100%;
+}
+
+.info-box:hover{
+    background:#fff;
+    transform:translateY(-3px);
+    box-shadow:0 .75rem 1.5rem rgba(0,0,0,.08);
+}
+
+.info-box small{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.5px;
+    margin-bottom:8px;
+    text-transform:uppercase;
+}
+
+.info-box h5,
+.info-box h6{
+    margin:0;
+    font-weight:600;
+}
+
+.card.shadow-lg{
+    box-shadow:0 1rem 2rem rgba(0,0,0,.08)!important;
+}
+
+.btn{
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+@media(max-width:768px){
+
+    .card-body{
+        padding:2rem !important;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+}
+</style>
 
 {% endblock %}
-```

@@ -1,28 +1,147 @@
 {% extends 'base.html' %}
-{% load static %}   
-{% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
+    <div class="container">
 
+        <div class="py-5">
 
-{% for i in applications %}
-<div class="card p-4 mb-3">
-    <div class="card-body">
-        <h4>{{ i.job.job_title }}</h4>
+            <h1 class="display-5 fw-bold text-white">
+                My Applications
+            </h1>
 
-        <p><strong>Company:</strong> {{ i.job.recruiter.company_name }}</p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
 
-        <p><strong>Location:</strong> {{ i.location }}</p>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'home' %}" class="text-white-50 text-decoration-none">
+                            Home
+                        </a>
+                    </li>
 
-        <p><strong>Status:</strong> {{ i.status }}</p>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'account:candidate_dashboard' %}" class="text-white-50 text-decoration-none">
+                            Dashboard
+                        </a>
+                    </li>
 
-        <p><strong>Applied At:</strong> {{ i.applied_at }}</p>
+                    <li class="breadcrumb-item active text-white">
+                        My Applications
+                    </li>
 
-        
+                </ol>
+            </nav>
+
+        </div>
+
     </div>
 </div>
-{% endfor %}
+
+<div class="container mb-5">
+
+    {% if applications %}
+
+        {% for i in applications %}
+
+        <div class="card border-0 shadow-sm rounded-4 mb-4 application-card">
+
+            <div class="card-body p-4">
+
+                <div class="row align-items-center">
+
+                    <div class="col-lg-8">
+
+                        <h4 class="fw-bold text-dark mb-3">
+                            {{ i.job.job_title }}
+                        </h4>
+
+                        <p class="mb-2">
+                            <i class="bi bi-building text-secondary me-2"></i>
+                            <strong>Company:</strong>
+                            {{ i.job.recruiter.company_name }}
+                        </p>
+
+                        <p class="mb-2">
+                            <i class="bi bi-geo-alt text-secondary me-2"></i>
+                            <strong>Location:</strong>
+                            {{ i.job.location }}
+                        </p>
+
+                        <p class="mb-0">
+                            <i class="bi bi-calendar-event text-secondary me-2"></i>
+                            <strong>Applied On:</strong>
+                            {{ i.applied_at|date:"d M Y, h:i A" }}
+                        </p>
+
+                    </div>
+
+                    <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+                        {% if i.status == "pending" %}
+
+                            <span class="badge bg-warning text-dark px-4 py-2 fs-6 rounded-pill">
+                                <i class="bi bi-hourglass-split me-1"></i>
+                                Pending
+                            </span>
+
+                        {% elif i.status == "accepted" %}
+
+                            <span class="badge bg-success px-4 py-2 fs-6 rounded-pill">
+                                <i class="bi bi-check-circle-fill me-1"></i>
+                                Accepted
+                            </span>
+
+                        {% elif i.status == "rejected" %}
+
+                            <span class="badge bg-danger px-4 py-2 fs-6 rounded-pill">
+                                <i class="bi bi-x-circle-fill me-1"></i>
+                                Rejected
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="card border-0 shadow rounded-4">
+
+            <div class="card-body text-center py-5">
+
+                <img src="{% static 'img/hero.png' %}"
+                     class="img-fluid mb-4"
+                     style="max-width:220px;">
+
+                <h3 class="fw-bold">
+                    No Applications Found
+                </h3>
+
+                <p class="text-muted">
+                    You haven't applied for any jobs yet.
+                </p>
+
+                <a href="{% url 'jobs:joblist' %}"
+                   class="btn btn-primary rounded-pill px-4">
+                    Browse Jobs
+                </a>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
 {% endblock %}
-
-

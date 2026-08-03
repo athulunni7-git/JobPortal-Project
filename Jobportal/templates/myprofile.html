@@ -1,148 +1,194 @@
-```html
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
 
-<div class="container mt-5">
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
+    <div class="container">
 
-    <div class="card shadow p-4">
+        <div class="py-5">
 
-        <div class="text-center">
+            <h1 class="display-5 fw-bold text-white">
+                My Profile
+            </h1>
 
-            {% if profile.profile_picture %}
-
-                <img src="{{ profile.profile_picture.url }}"
-                     class="rounded-circle mb-3"
-                     width="150"
-                     height="150">
-
-            {% else %}
-
-                <img src="{% static 'images/default-profile.png' %}"
-                     class="rounded-circle mb-3"
-                     width="150"
-                     height="150">
-
-            {% endif %}
-
-
-            <h2>
-                {{ profile.user.get_full_name|default:profile.user.username }}
-            </h2>
-
-            <p class="text-muted">
-                Candidate Profile
+            <p class="text-white-50 mb-3">
+                Manage your personal information and resume.
             </p>
 
-        </div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
 
-
-        <hr>
-
-
-        <table class="table table-bordered">
-
-
-            <tr>
-                <th width="30%">
-                    Username
-                </th>
-
-                <td>
-                    {{ profile.user.username }}
-                </td>
-            </tr>
-
-
-            <tr>
-                <th>
-                    Email
-                </th>
-
-                <td>
-                    {{ profile.user.email }}
-                </td>
-            </tr>
-
-
-            <tr>
-                <th>
-                    Phone
-                </th>
-
-                <td>
-                    {{ profile.phone|default:"Not added" }}
-                </td>
-            </tr>
-
-
-            <tr>
-                <th>
-                    Skills
-                </th>
-
-                <td>
-                    {{ profile.skills|default:"Not added" }}
-                </td>
-            </tr>
-
-
-            <tr>
-                <th>
-                    Resume
-                </th>
-
-                <td>
-
-                    {% if profile.resume %}
-
-                        <a href="{{ profile.resume.url }}"
-                           class="btn btn-primary btn-sm"
-                           target="_blank">
-                            View Resume
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'home' %}" class="text-white-50 text-decoration-none">
+                            Home
                         </a>
+                    </li>
 
-                    {% else %}
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'account:candidate_dashboard' %}" class="text-white-50 text-decoration-none">
+                            Dashboard
+                        </a>
+                    </li>
 
-                        <span class="text-danger">
-                            Resume not uploaded
-                        </span>
+                    <li class="breadcrumb-item active text-white">
+                        My Profile
+                    </li>
 
-                    {% endif %}
-
-                </td>
-
-            </tr>
-
-
-        </table>
-
-
-        <div class="text-center mt-3">
-
-            <a href="{% url 'jobs:candidate_profileupdate' %}"
-               class="btn btn-warning">
-
-                Update Profile
-
-            </a>
-
-
-            <a href="{% url 'account:candidate_dashboard' %}"
-               class="btn btn-secondary">
-
-                Back
-
-            </a>
+                </ol>
+            </nav>
 
         </div>
 
+    </div>
+</div>
+
+
+<div class="container mb-5">
+
+    <div class="card border-0 shadow-lg rounded-4">
+
+        <div class="card-body p-5">
+
+            <!-- Profile Header -->
+            <div class="text-center">
+
+                {% if profile.profile_picture %}
+
+                    <img src="{{ profile.profile_picture.url }}"
+                         class="rounded-circle shadow profile-img"
+                         alt="Profile">
+
+                {% else %}
+
+                    <img src="{% static 'images/default-profile.png' %}"
+                         class="rounded-circle shadow profile-img"
+                         alt="Profile">
+
+                {% endif %}
+
+                <h2 class="fw-bold text-dark mt-4 mb-1">
+                    {{ profile.user.get_full_name|default:profile.user.username }}
+                </h2>
+
+                <p class="text-muted">
+                    Candidate Profile
+                </p>
+
+            </div>
+
+            <hr class="my-5">
+
+            <!-- Profile Details -->
+
+            <div class="row gy-4">
+
+                <div class="col-md-6">
+
+                    <div class="profile-box">
+
+                        <label>Username</label>
+
+                        <h6>{{ profile.user.username }}</h6>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="profile-box">
+
+                        <label>Email Address</label>
+
+                        <h6>{{ profile.user.email }}</h6>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="profile-box">
+
+                        <label>Phone Number</label>
+
+                        <h6>{{ profile.phone|default:"Not Added" }}</h6>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="profile-box">
+
+                        <label>Skills</label>
+
+                        <h6>{{ profile.skills|default:"Not Added" }}</h6>
+
+                    </div>
+
+                </div>
+
+                <div class="col-12">
+
+                    <div class="profile-box">
+
+                        <label>Resume</label>
+
+                        {% if profile.resume %}
+
+                            <a href="{{ profile.resume.url }}"
+                               target="_blank"
+                               class="btn btn-outline-primary rounded-pill mt-2">
+
+                                <i class="bi bi-file-earmark-pdf me-2"></i>
+                                View Resume
+
+                            </a>
+
+                        {% else %}
+
+                            <p class="text-danger mt-2 mb-0">
+                                Resume Not Uploaded
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Buttons -->
+
+            <div class="text-center mt-5">
+
+                <a href="{% url 'jobs:candidate_profileupdate' %}"
+                   class="btn btn-secondary rounded-pill px-5 me-2">
+
+                    <i class="bi bi-pencil-square me-2"></i>
+                    Update Profile
+
+                </a>
+
+                <a href="{% url 'account:candidate_dashboard' %}"
+                   class="btn btn-outline-secondary rounded-pill px-5">
+
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Back
+
+                </a>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
 
-
 {% endblock %}
-```
