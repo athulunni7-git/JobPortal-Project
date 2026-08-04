@@ -122,7 +122,7 @@
             <div class="container">
                 <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Listing</h1>
                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
-                    <ul class="nav nav-pills d-inline-flex justify-content-center mb-5">
+                    <ul class="nav nav-pills d-inline-flex  mb-5">
                         <li class="nav-item">
                             <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
                                 <h6 class="mt-n1 mb-0">Featured Jobs</h6>
@@ -161,7 +161,7 @@
                                             <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-secondary me-2"></i>{{i.salary}}</span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end ">
                                         <div class="d-flex mb-3">
                                             <a class="btn me-3" href=""><i class="far fa-heart text-secondary"></i></a>
                                             <a class="btn btn-secondary" href="{% url 'jobs:jobdetails' i.id %}">Apply Now</a>
@@ -180,6 +180,9 @@
             <div class="text-center mt-4">
             <a href="{% url 'jobs:joblist' %}" class="btn btn-secondary">Browse Jobs</a>
             </div>
+        </div>
+    </div>
+</div>
         
     
 
@@ -206,14 +209,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                        <h1 class="mb-4">Connecting Talent with Opportunity</h1>
-                        <p class="mb-4">We bridge the gap between skilled professionals and top employers. Whether you’re looking for your dream job or the right candidate, our platform makes it simple, fast, and effective.</p>
-                        <p><i class="fa fa-check text-secondary me-3"></i>Discover the best career opportunities</p>
-                        <p><i class="fa fa-check text-secondary me-3"></i>Find top talent across industries</p>
-                        <p><i class="fa fa-check text-secondary me-3"></i>Empowering growth for job seekers and recruiters</p>
-                        
-                    </div>
+                    <div class="col-lg-6 wow fadeIn d-flex flex-column justify-content-center" data-wow-delay="0.5s">
+
+    <h1 class="mb-4 text-start">Connecting Talent with Opportunity</h1>
+
+    <p class="mb-4 text-start">
+        We bridge the gap between skilled professionals and top employers...
+    </p>
+
+    <p><i class="fa fa-check text-secondary me-3"></i>Discover the best career opportunities</p>
+    <p><i class="fa fa-check text-secondary me-3"></i>Find top talent across industries</p>
+    <p><i class="fa fa-check text-secondary me-3"></i>Empowering growth for job seekers and recruiters</p>
+
+</div>
                 </div>
             </div>
         </div>
