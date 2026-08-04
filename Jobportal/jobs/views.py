@@ -38,11 +38,23 @@ class CreateJobView(View):
         if request.user.user_type != 'recruiter':
             messages.warning(request, "Only recruiters can access this page.")
             return redirect('home')
+        
+        recruiter = request.user.recruiterprofile
+        
+        if not recruiter.is_premium:
+            
+             total_jobs = Job.objects.filter(recruiter=recruiter,status="available").count()
+             
+             if total_jobs >=3:
+                messages.warning( request,"You have reached the limit of 3 active job postings. Upgrade to Premium for unlimited job postings.")
+                return redirect('payment:premium')
+            
+        
         else:
             form_instance = JobForm(request.POST)
             if form_instance.is_valid():
                job =  form_instance.save(commit=False)
-               recruiter = request.user.recruiterprofile
+               
                job.recruiter = recruiter
                job.save()
                messages.success(request,"job Created Successfully")

@@ -358,7 +358,7 @@ body{
   
 }
 #footer a:hover {
-  color: #1e90ff;
+  color:  #2B9BFF;
 }
 
 
@@ -510,3 +510,15 @@ body{
     box-shadow:0 15px 30px rgba(13,110,253,.12);
 
 }
+
+
+#tc {
+   font-family: "Rye";
+  font-weight: 700;
+  font-style: normal;
+  font-size: 30px;
+}
+
+ 
+
+
