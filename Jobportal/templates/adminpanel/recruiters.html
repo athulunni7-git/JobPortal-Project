@@ -3,143 +3,236 @@
 
 {% block content %}
 
-<div class="container py-5">
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
+    <div class="container py-5">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-5 text-white fw-bold">
+            Manage Recruiters
+        </h1>
 
-        <h2>Manage Recruiters</h2>
+        <p class="text-white-50">
+            View, manage and monitor recruiter accounts registered on ThozhilConnect.
+        </p>
 
-        <a href="{% url 'adminpanel:admindashboard' %}"
-           class="btn btn-secondary">
+        <nav aria-label="breadcrumb">
 
-            Back
+            <ol class="breadcrumb mb-0">
 
-        </a>
+                <li class="breadcrumb-item">
+
+                    <a href="{% url 'adminpanel:admindashboard' %}"
+                       class="text-white-50">
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li class="breadcrumb-item active text-white">
+
+                    Manage Recruiters
+
+                </li>
+
+            </ol>
+
+        </nav>
 
     </div>
+</div>
 
-    <div class="card shadow">
+
+<div class="container mb-5">
+
+    <!-- Recruiter List -->
+
+    <div class="card border-0 shadow-lg rounded-4">
+
+        <div class="card-header bg-white border-0 py-4 px-4">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h4 class="fw-bold text-secondary mb-1">
+
+                        <i class="fa-solid fa-building me-2"></i>
+
+                        Recruiter List
+
+                    </h4>
+
+                    <p class="text-muted mb-0">
+
+                        Total Recruiters :
+                        <strong>{{ recruiters|length }}</strong>
+
+                    </p>
+
+                </div>
+
+                <a href="{% url 'adminpanel:admindashboard' %}"
+                   class="btn btn-secondary rounded-pill px-4">
+
+                    <i class="fa-solid fa-arrow-left me-2"></i>
+
+                    Dashboard
+
+                </a>
+
+            </div>
+
+        </div>
 
         <div class="card-body">
 
-            <table class="table table-hover align-middle">
+            <div class="table-responsive">
 
-                <thead class="table-dark">
+                <table class="table table-hover align-middle">
 
-                    <tr>
+                    <thead class="table-secondary p-3">
 
-                        <th>Logo</th>
+                        <tr>
 
-                        <th>Company</th>
+                            <th>Logo</th>
 
-                        <th>Recruiter</th>
+                            <th>Company</th>
 
-                        <th>Email</th>
+                            <th>Recruiter</th>
 
-                        <th>Premium</th>
+                            <th>Email</th>
 
-                        <th>Action</th>
+                            <th>Premium</th>
 
-                    </tr>
+                            <th class="text-center">
+                                Action
+                            </th>
 
-                </thead>
+                        </tr>
 
-                <tbody>
+                    </thead>
 
-                {% for recruiter in recruiters %}
+                    <tbody>
 
-                    <tr>
+                    {% for recruiter in recruiters %}
 
-                        <td>
+                        <tr>
 
-                            {% if recruiter.company_logo %}
+    <td>
 
-                                <img src="{{ recruiter.company_logo.url }}"
-                                     width="60"
-                                     height="60"
-                                     class="rounded-circle">
+        {% if recruiter.company_logo %}
 
-                            {% else %}
+            <img src="{{ recruiter.company_logo.url }}"
+                 width="60"
+                 height="60"
+                 class="rounded-circle border shadow-sm"
+                 style="object-fit:cover;">
 
-                                <img src="{% static 'images/default-company.png' %}"
-                                     width="60"
-                                     height="60"
-                                     class="rounded-circle">
+        {% else %}
 
-                            {% endif %}
+            <img src="{% static 'images/default-company.png' %}"
+                 width="60"
+                 height="60"
+                 class="rounded-circle border shadow-sm">
 
-                        </td>
+        {% endif %}
 
-                        <td>
+    </td>
 
-                            {{ recruiter.company_name }}
+    <td>
 
-                        </td>
+        <strong>
 
-                        <td>
+            {{ recruiter.company_name }}
 
-                            {{ recruiter.user.username }}
+        </strong>
 
-                        </td>
+    </td>
 
-                        <td>
+    <td>
 
-                            {{ recruiter.user.email }}
+        {{ recruiter.user.username }}
 
-                        </td>
+    </td>
 
-                        <td>
+    <td>
 
-                            {% if recruiter.is_premium %}
+        {{ recruiter.user.email }}
 
-                                <span class="badge bg-success">
+    </td>
 
-                                    Premium
+    <td>
 
-                                </span>
+        {% if recruiter.is_premium %}
 
-                            {% else %}
+            <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
 
-                                <span class="badge bg-secondary">
+                <i class="fa-solid fa-crown me-1"></i>
 
-                                    Free
+                Premium
 
-                                </span>
+            </span>
 
-                            {% endif %}
+        {% else %}
 
-                        </td>
+            <span class="badge bg-secondary rounded-pill px-3 py-2">
 
-                        <td>
+                Free
 
-                            <a href="{% url 'adminpanel:recruiterdetail' recruiter.id %}"
-                               class="btn btn-info btn-sm">
+            </span>
 
-                                View
+        {% endif %}
 
-                            </a>
+    </td>
 
-                        </td>
+    <td class="text-center">
 
-                    </tr>
+        <a href="{% url 'adminpanel:recruiterdetail' recruiter.id %}"
+           class="btn btn-secondary rounded-pill btn-sm px-3">
 
-                {% empty %}
+            <i class="fa-solid fa-eye me-1"></i>
 
-                    <tr>
+            View
 
-                        <td colspan="6" class="text-center">
+        </a>
 
-                            No Recruiters Found
+    </td>
 
-                        </td>
+</tr>
 
-                    </tr>
+{% empty %}
 
-                {% endfor %}
+<tr>
 
-                </tbody>
+    <td colspan="6" class="text-center py-5">
 
-            </table>
+        <i class="fa-solid fa-building fa-4x text-secondary mb-3"></i>
+
+        <h4 class="fw-bold">
+
+            No Recruiters Found
+
+        </h4>
+
+        <p class="text-muted mb-0">
+
+            There are no recruiter accounts available.
+
+        </p>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 

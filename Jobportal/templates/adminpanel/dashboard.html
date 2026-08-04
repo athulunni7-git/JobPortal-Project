@@ -3,163 +3,79 @@
 
 {% block content %}
 
-<div class="container py-5">
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
+    <div class="container py-5">
 
-    <div class="text-center mb-5">
-
-        <h2 class="fw-bold">
+        <h1 class="display-5 fw-bold text-white">
             Admin Dashboard
-        </h2>
+        </h1>
 
-        <p class="text-muted">
-            Welcome {{ request.user.username }}
+        <p class="text-white-50">
+            Welcome, {{ request.user.username }} 👋
+            Manage recruiters, candidates, jobs and premium members from one place.
         </p>
 
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'home' %}" class="text-white">
+                        Home
+                    </a>
+                </li>
+
+                <li class="breadcrumb-item active text-white">
+                    Admin Dashboard
+                </li>
+            </ol>
+        </nav>
+
     </div>
-
-    <div class="row g-4">
-
-        <div class="col-md-4">
-
-            <div class="card shadow border-0">
-
-                <div class="card-body text-center">
-
-                    <i class="fa-solid fa-building fa-3x text-primary mb-3"></i>
-
-                    <h1>{{ total_recruiters }}</h1>
-
-                    <h5>Total Recruiters</h5>
-
-                </div>
-
-            </div>
-
-        </div>
+</div>
 
 
-        <div class="col-md-4">
+<div class="container mb-5">
 
-            <div class="card shadow border-0">
+    <!-- Dashboard Title -->
 
-                <div class="card-body text-center">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-                    <i class="fa-solid fa-users fa-3x text-success mb-3"></i>
+        <div>
 
-                    <h1>{{ total_candidates }}</h1>
+            <h2 class="fw-bold mb-1">
+                Dashboard Overview
+            </h2>
 
-                    <h5>Total Candidates</h5>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="col-md-4">
-
-            <div class="card shadow border-0">
-
-                <div class="card-body text-center">
-
-                    <i class="fa-solid fa-briefcase fa-3x text-warning mb-3"></i>
-
-                    <h1>{{ total_jobs }}</h1>
-
-                    <h5>Total Jobs</h5>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="col-md-6">
-
-            <div class="card shadow border-0">
-
-                <div class="card-body text-center">
-
-                    <i class="fa-solid fa-file-lines fa-3x text-info mb-3"></i>
-
-                    <h1>{{ total_applications }}</h1>
-
-                    <h5>Total Applications</h5>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="col-md-6">
-
-            <div class="card shadow border-0">
-
-                <div class="card-body text-center">
-
-                    <i class="fa-solid fa-crown fa-3x text-warning mb-3"></i>
-
-                    <h1>{{ premium_recruiters }}</h1>
-
-                    <h5>Premium Recruiters</h5>
-
-                </div>
-
-            </div>
+            <p class="text-muted mb-0">
+                Monitor your Job Portal performance.
+            </p>
 
         </div>
 
     </div>
 
-    <hr class="my-5">
 
-    <h3 class="mb-4">
-        Management Panel
-    </h3>
+    <!-- Statistics -->
 
-    <div class="row g-4">
+    <div class="row g-4 mb-5">
 
-        <div class="col-md-4">
+        <div class="col-lg-3 col-md-6">
 
-            <div class="card shadow-sm">
+            <div class="card dashboard-card border-0 shadow-sm rounded-4">
 
-                <div class="card-body text-center">
+                <div class="card-body text-center p-4">
 
-                    <i class="fa-solid fa-building fa-2x text-primary mb-3"></i>
+                    <div class="icon-box bg-primary-subtle text-primary mx-auto mb-3">
+                        <i class="fa-solid fa-building fs-2"></i>
+                    </div>
 
-                    <h5>Recruiters</h5>
+                    <h2 class="fw-bold">
+                        {{ total_recruiters }}
+                    </h2>
 
-                    <p>Manage recruiter accounts.</p>
-
-                    <a href="{% url 'adminpanel:recruiters' %}" class="btn btn-primary">
-                        Manage
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="card shadow-sm">
-
-                <div class="card-body text-center">
-
-                    <i class="fa-solid fa-users fa-2x text-success mb-3"></i>
-
-                    <h5>Candidates</h5>
-
-                    <p>Manage candidate accounts.</p>
-
-                    <a href="{% url 'adminpanel:candidates' %}" class="btn btn-success">
-                        Manage
-                    </a>
+                    <h6 class="text-muted">
+                        Recruiters
+                    </h6>
 
                 </div>
 
@@ -167,43 +83,25 @@
 
         </div>
 
-        <div class="col-md-4">
 
-            <div class="card shadow-sm">
 
-                <div class="card-body text-center">
+        <div class="col-lg-3 col-md-6">
 
-                    <i class="fa-solid fa-briefcase fa-2x text-success mb-3"></i>
+            <div class="card dashboard-card border-0 shadow-sm rounded-4">
 
-                    <h5>Jobs</h5>
+                <div class="card-body text-center p-4">
 
-                    <p>Manage all jobs.</p>
+                    <div class="icon-box bg-success-subtle text-success mx-auto mb-3">
+                        <i class="fa-solid fa-users fs-2"></i>
+                    </div>
 
-                    <a href="{% url "adminpanel:jobs" %}" class="btn btn-success">
-                        Manage
-                    </a>
+                    <h2 class="fw-bold">
+                        {{ total_candidates }}
+                    </h2>
 
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="card shadow-sm">
-
-                <div class="card-body text-center">
-
-                    <i class="fa-solid fa-credit-card fa-2x text-primary mb-3"></i>
-
-                    <h5>Categories</h5>
-
-                    <p>Manage Categories.</p>
-
-                    <a href="{% url 'adminpanel:categories' %}" class="btn btn-primary">
-                        Manage
-                    </a>
+                    <h6 class="text-muted">
+                        Candidates
+                    </h6>
 
                 </div>
 
@@ -211,21 +109,25 @@
 
         </div>
 
-        <div class="col-md-4">
 
-            <div class="card shadow-sm">
 
-                <div class="card-body text-center">
+        <div class="col-lg-3 col-md-6">
 
-                    <i class="fa-solid fa-credit-card fa-2x text-danger mb-3"></i>
+            <div class="card dashboard-card border-0 shadow-sm rounded-4">
 
-                    <h5>Payments</h5>
+                <div class="card-body text-center p-4">
 
-                    <p>Manage Premium Payments.</p>
+                    <div class="icon-box bg-warning-subtle text-warning mx-auto mb-3">
+                        <i class="fa-solid fa-briefcase fs-2"></i>
+                    </div>
 
-                    <a href="{% url 'adminpanel:payments' %}" class="btn btn-danger">
-                        Manage
-                    </a>
+                    <h2 class="fw-bold">
+                        {{ total_jobs }}
+                    </h2>
+
+                    <h6 class="text-muted">
+                        Jobs
+                    </h6>
 
                 </div>
 
@@ -233,20 +135,236 @@
 
         </div>
 
-        <div class="col-md-4">
 
-            <div class="card shadow-sm">
 
-                <div class="card-body text-center">
+        <div class="col-lg-3 col-md-6">
 
-                    <i class="fa-solid fa-crown fa-2x text-warning mb-3"></i>
+            <div class="card dashboard-card border-0 shadow-sm rounded-4">
 
-                    <h5>Premium Recruiters</h5>
+                <div class="card-body text-center p-4">
 
-                    <p>View Premium Members.</p>
+                    <div class="icon-box bg-info-subtle text-info mx-auto mb-3">
+                        <i class="fa-solid fa-file-lines fs-2"></i>
+                    </div>
 
-                    <a href="#" class="btn btn-warning">
-                        View
+                    <h2 class="fw-bold">
+                        {{ total_applications }}
+                    </h2>
+
+                    <h6 class="text-muted">
+                        Applications
+                    </h6>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Second Row -->
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-lg-6">
+
+            <div class="card dashboard-card border-0 shadow rounded-4">
+
+                <div class="card-body d-flex align-items-center p-4">
+
+                    <div class="icon-box bg-warning-subtle text-warning me-4">
+                        <i class="fa-solid fa-crown fs-2"></i>
+                    </div>
+
+                    <div>
+
+                        <h3 class="fw-bold mb-1">
+                            {{ premium_recruiters }}
+                        </h3>
+
+                        <p class="text-muted mb-0">
+                            Premium Recruiters
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+ <div class="col-lg-6">
+
+    <div class="card dashboard-card border-0 shadow rounded-4">
+
+        <div class="card-body d-flex align-items-center p-4">
+
+            <div class="icon-box bg-info-subtle text-info me-4">
+                <i class="fa-solid fa-layer-group fs-2"></i>
+            </div>
+
+            <div>
+
+                <h3 class="fw-bold mb-1">
+                    {{ categories }}
+                </h3>
+
+                <p class="text-muted mb-0">
+                    Job Categories
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+    <!-- Management Panel -->
+
+    <div class="card border-0 shadow rounded-4">
+
+        <div class="card-body p-5">
+
+            <div class="mb-4">
+
+                <h3 class="fw-bold text-dark">
+
+                    <i class="fa-solid fa-sliders me-2"></i>
+
+                    Management Panel
+
+                </h3>
+
+                <p class="text-muted mb-0">
+                    Manage every module of ThozhilConnect from one place.
+                </p>
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-lg-4">
+
+                    <a href="{% url 'adminpanel:recruiters' %}" class="text-decoration-none">
+
+                        <div class="manage-card">
+
+                            <i class="fa-solid fa-building"></i>
+
+                            <h5>Recruiters</h5>
+
+                            <p>Manage recruiter accounts</p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+
+                <div class="col-lg-4">
+
+                    <a href="{% url 'adminpanel:candidates' %}" class="text-decoration-none">
+
+                        <div class="manage-card">
+
+                            <i class="fa-solid fa-users"></i>
+
+                            <h5>Candidates</h5>
+
+                            <p>Manage candidate accounts</p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+
+                <div class="col-lg-4">
+
+                    <a href="{% url 'adminpanel:jobs' %}" class="text-decoration-none">
+
+                        <div class="manage-card">
+
+                            <i class="fa-solid fa-briefcase"></i>
+
+                            <h5>Jobs</h5>
+
+                            <p>Manage job listings</p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+
+                <div class="col-lg-4">
+
+                    <a href="{% url 'adminpanel:categories' %}" class="text-decoration-none">
+
+                        <div class="manage-card">
+
+                            <i class="fa-solid fa-layer-group"></i>
+
+                            <h5>Categories</h5>
+
+                            <p>Manage job categories</p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+
+                <div class="col-lg-4">
+
+                    <a href="{% url 'adminpanel:payments' %}" class="text-decoration-none">
+
+                        <div class="manage-card">
+
+                            <i class="fa-solid fa-credit-card"></i>
+
+                            <h5>Payments</h5>
+
+                            <p>Premium payments</p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+
+                <div class="col-lg-4">
+
+                    <a href="{% url "adminpanel:premium_members" %}" class="text-decoration-none">
+
+                        <div class="manage-card">
+
+                            <i class="fa-solid fa-crown"></i>
+
+                            <h5>Premium Members</h5>
+
+                            <p>View premium recruiters</p>
+
+                        </div>
+
                     </a>
 
                 </div>
@@ -258,5 +376,157 @@
     </div>
 
 </div>
+
+
+<style>
+
+    /* ===========================
+   ADMIN DASHBOARD
+=========================== */
+
+.dashboard-card{
+    border-radius:20px;
+    transition:.35s ease;
+    overflow:hidden;
+    background:#fff;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 40px rgba(13,110,253,.18);
+}
+
+.dashboard-card h2,
+.dashboard-card h3{
+    font-weight:700;
+    color:#1d3557;
+}
+
+.dashboard-card h6,
+.dashboard-card p{
+    color:#6c757d;
+}
+
+/* Icon Circle */
+
+.icon-box{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* ===========================
+   MANAGEMENT PANEL
+=========================== */
+
+.manage-card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:35px 20px;
+    text-align:center;
+    border:1px solid #edf2f7;
+    transition:.35s ease;
+    height:100%;
+}
+
+.manage-card:hover{
+    background:#0d6efd;
+    transform:translateY(-8px);
+    box-shadow:0 18px 35px rgba(13,110,253,.25);
+}
+
+.manage-card i{
+    font-size:45px;
+    color:#0d6efd;
+    margin-bottom:18px;
+    transition:.35s;
+}
+
+.manage-card h5{
+    font-weight:700;
+    color:#1d3557;
+    margin-bottom:10px;
+    transition:.35s;
+}
+
+.manage-card p{
+    color:#6c757d;
+    margin-bottom:0;
+    transition:.35s;
+}
+
+.manage-card:hover i,
+.manage-card:hover h5,
+.manage-card:hover p{
+    color:#fff;
+}
+
+
+.page-header h1{
+    font-weight:700;
+}
+
+.breadcrumb-item a{
+    text-decoration:none;
+}
+
+.breadcrumb-item.active{
+    color:#fff;
+}
+
+/* ===========================
+   CARD BODY
+=========================== */
+
+.card{
+    border:none;
+}
+
+.card-body{
+    border-radius:20px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:991px){
+
+    .page-header{
+        text-align:center;
+        padding:60px 0;
+    }
+
+    .icon-box{
+        width:70px;
+        height:70px;
+    }
+
+    .manage-card{
+        padding:30px 15px;
+    }
+
+}
+
+@media(max-width:576px){
+
+    .page-header h1{
+        font-size:2rem;
+    }
+
+    .dashboard-card{
+        margin-bottom:15px;
+    }
+
+    .manage-card i{
+        font-size:35px;
+    }
+
+}
+
+</style>
 
 {% endblock %}

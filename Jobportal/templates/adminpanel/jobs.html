@@ -1,109 +1,225 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
-<div class="container py-5">
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
 
-    <div class="d-flex justify-content-between mb-4">
+    <div class="container py-5">
 
-        <h2>Manage Jobs</h2>
+        <h1 class="display-5 text-white fw-bold">
+            Manage Jobs
+        </h1>
 
-        <a href="{% url 'adminpanel:admindashboard' %}"
-           class="btn btn-secondary">
+        <p class="text-white-50">
+            View and manage all job postings on ThozhilConnect.
+        </p>
 
-            Back
+        <nav aria-label="breadcrumb">
 
-        </a>
+            <ol class="breadcrumb mb-0">
+
+                <li class="breadcrumb-item">
+
+                    <a href="{% url 'adminpanel:admindashboard' %}"
+                       class="text-white-50">
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li class="breadcrumb-item active text-white">
+
+                    Manage Jobs
+
+                </li>
+
+            </ol>
+
+        </nav>
 
     </div>
 
-    <div class="card shadow">
+</div>
+
+
+<div class="container mb-5">
+
+    <div class="card border-0 shadow-lg rounded-4">
+
+        <div class="card-header bg-white border-0 py-4 px-4">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h4 class="fw-bold text-secondary mb-1">
+
+                        <i class="fa-solid fa-briefcase me-2"></i>
+
+                        Job Listings
+
+                    </h4>
+
+                    <p class="text-muted mb-0">
+
+                        Total Jobs :
+                        <strong>{{ jobs|length }}</strong>
+
+                    </p>
+
+                </div>
+
+                <a href="{% url 'adminpanel:admindashboard' %}"
+                   class="btn btn-secondary rounded-pill px-4">
+
+                    <i class="fa-solid fa-arrow-left me-2"></i>
+
+                    Dashboard
+
+                </a>
+
+            </div>
+
+        </div>
 
         <div class="card-body">
 
-            <table class="table table-hover">
+            <div class="table-responsive">
 
-                <thead class="table-dark">
+                <table class="table table-hover align-middle">
 
-                    <tr>
+                    <thead class="table-primary">
 
-                        <th>Job Title</th>
-                        <th>Company</th>
-                        <th>Category</th>
-                        <th>Location</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <tr>
 
-                    </tr>
+                            <th>Job Title</th>
 
-                </thead>
+                            <th>Company</th>
 
-                <tbody>
+                            <th>Category</th>
 
-                {% for job in jobs %}
+                            <th>Location</th>
 
-                    <tr>
+                            <th>Status</th>
 
-                        <td>{{ job.job_title }}</td>
+                            <th class="text-center">
 
-                        <td>{{ job.recruiter.company_name }}</td>
+                                Action
 
-                        <td>{{ job.category.category_name }}</td>
+                            </th>
 
-                        <td>{{ job.location }}</td>
+                        </tr>
 
-                        <td>
+                    </thead>
 
-                            {% if job.status == "available" %}
+                    <tbody>
 
-                                <span class="badge bg-success">
+                    {% for job in jobs %}
 
-                                    Available
+                 <tr>
+                   
 
-                                </span>
 
-                            {% else %}
+    <td>
 
-                                <span class="badge bg-danger">
+        <strong>{{ job.job_title }}</strong>
 
-                                    Closed
+    </td>
 
-                                </span>
+    <td>
 
-                            {% endif %}
+        {{ job.recruiter.company_name }}
 
-                        </td>
+    </td>
 
-                        <td>
+    <td>
 
-                            <a href="{% url 'adminpanel:jobdetail' job.id %}"
-                               class="btn btn-info btn-sm">
+        <span class="badge bg-info text-dark rounded-pill px-3 py-2">
 
-                                View
+            {{ job.category.category_name }}
 
-                            </a>
+        </span>
 
-                        </td>
+    </td>
 
-                    </tr>
+    <td>
 
-                {% empty %}
+        {{ job.location }}
 
-                    <tr>
+    </td>
 
-                        <td colspan="6" class="text-center">
+    <td>
 
-                            No Jobs Found
+        {% if job.status == "available" %}
 
-                        </td>
+            <span class="badge bg-success rounded-pill px-3 py-2">
 
-                    </tr>
+                Available
 
-                {% endfor %}
+            </span>
 
-                </tbody>
+        {% else %}
 
-            </table>
+            <span class="badge bg-danger rounded-pill px-3 py-2">
+
+                Closed
+
+            </span>
+
+        {% endif %}
+
+    </td>
+
+    <td class="text-center">
+
+        <a href="{% url 'adminpanel:jobdetail' job.id %}"
+           class="btn btn-secondary rounded-pill btn-sm px-3">
+
+            <i class="fa-solid fa-eye me-1"></i>
+
+            View
+
+        </a>
+
+    </td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+    <td colspan="6" class="text-center py-5">
+
+        <i class="fa-solid fa-briefcase fa-4x text-secondary mb-3"></i>
+
+        <h4 class="fw-bold">
+
+            No Jobs Found
+
+        </h4>
+
+        <p class="text-muted mb-0">
+
+            There are currently no job postings available.
+
+        </p>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 

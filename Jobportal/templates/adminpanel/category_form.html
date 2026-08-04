@@ -2,101 +2,356 @@
 
 {% block content %}
 
-<div class="container py-5">
 
-    <div class="row justify-content-center">
+<!-- Hero Banner -->
 
-        <div class="col-md-6">
+<div class="container-fluid page-header mb-5">
 
-            <div class="card shadow">
+    <div class="container py-5">
 
-                <div class="card-header bg-primary text-white">
+
+        {% if form.instance.pk %}
+
+            <h1 class="display-5 text-white fw-bold">
+
+                Edit Category
+
+            </h1>
+
+
+            <p class="text-white-50">
+
+                Update category information for ThozhilConnect.
+
+            </p>
+
+
+        {% else %}
+
+
+            <h1 class="display-5 text-white fw-bold">
+
+                Add Category
+
+            </h1>
+
+
+            <p class="text-white-50">
+
+                Create a new category for job listings.
+
+            </p>
+
+
+        {% endif %}
+
+
+
+        <nav aria-label="breadcrumb">
+
+            <ol class="breadcrumb mb-0">
+
+
+                <li class="breadcrumb-item">
+
+                    <a href="{% url 'adminpanel:admindashboard' %}"
+                       class="text-white-50">
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+
+
+                <li class="breadcrumb-item">
+
+                    <a href="{% url 'adminpanel:categories' %}"
+                       class="text-white-50">
+
+                        Categories
+
+                    </a>
+
+                </li>
+
+
+
+                <li class="breadcrumb-item active text-white">
+
 
                     {% if form.instance.pk %}
 
-                        <h3 class="mb-0">
-                            Edit Category
-                        </h3>
+                        Edit
 
                     {% else %}
 
-                        <h3 class="mb-0">
-                            Add Category
-                        </h3>
+                        Add
 
                     {% endif %}
 
-                </div>
 
-                <div class="card-body">
+                </li>
 
-                    <form method="POST">
 
-                        {% csrf_token %}
+            </ol>
 
-                        <div class="mb-3">
+        </nav>
 
-                            <label class="form-label">
-
-                                Category Name
-
-                            </label>
-
-                            {{ form.category_name }}
-
-                            {% if form.category_name.errors %}
-
-                                <div class="text-danger mt-1">
-
-                                    {{ form.category_name.errors }}
-
-                                </div>
-
-                            {% endif %}
-
-                        </div>
-
-                        <div class="d-flex justify-content-between">
-
-                            <a href="{% url 'adminpanel:categories' %}"
-                               class="btn btn-secondary">
-
-                                Back
-
-                            </a>
-
-                            {% if form.instance.pk %}
-
-                                <button type="submit"
-                                        class="btn btn-warning">
-
-                                    Update Category
-
-                                </button>
-
-                            {% else %}
-
-                                <button type="submit"
-                                        class="btn btn-success">
-
-                                    Add Category
-
-                                </button>
-
-                            {% endif %}
-
-                        </div>
-
-                    </form>
-
-                </div>
-
-            </div>
-
-        </div>
 
     </div>
 
 </div>
+
+
+
+
+<div class="container mb-5">
+
+
+    <div class="row justify-content-center">
+
+
+        <div class="col-lg-6">
+
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+
+                <!-- Card Header -->
+
+                <div class="card-header bg-white border-0 px-4 pt-4">
+
+
+                    <h4 class="fw-bold text-dark">
+
+
+                        <i class="fa-solid fa-layer-group text-secondary me-2"></i>
+
+
+                        Category Details
+
+
+                    </h4>
+
+
+                    <p class="text-muted mb-0">
+
+
+                        Fill the details below to manage categories.
+
+
+                    </p>
+
+
+                </div>
+
+
+
+
+
+                <div class="card-body px-4 pb-4">
+
+
+                    <form method="POST">
+
+
+                        {% csrf_token %}
+
+
+
+
+                        <!-- Category Name -->
+
+
+                        <div class="mb-4">
+
+
+                            <label class="form-label fw-semibold">
+
+
+                                <i class="fa-solid fa-folder text-secondary me-2"></i>
+
+
+                                Category Name
+
+
+                            </label>
+
+
+
+                            {{ form.category_name }}
+
+
+
+                            {% if form.category_name.errors %}
+
+
+                                <div class="text-danger small mt-2">
+
+
+                                    {{ form.category_name.errors }}
+
+
+                                </div>
+
+
+                            {% endif %}
+
+
+
+                        </div>
+
+
+
+
+
+                        <!-- Category Icon -->
+
+
+                        <div class="mb-4">
+
+
+                            <label class="form-label fw-semibold">
+
+
+                                <i class="fa-solid fa-icons text-secondary me-2"></i>
+
+
+                                Category Icon
+
+
+                            </label>
+
+
+
+                            {{ form.icon }}
+
+
+
+                            {% if form.icon.errors %}
+
+
+                                <div class="text-danger small mt-2">
+
+
+                                    {{ form.icon.errors }}
+
+
+                                </div>
+
+
+                            {% endif %}
+
+
+
+                            <small class="text-muted">
+
+
+                                Example: fa-solid fa-code
+
+
+                            </small>
+
+
+
+                        </div>
+
+
+
+
+
+
+                        <!-- Buttons -->
+
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+
+                            <a href="{% url 'adminpanel:categories' %}"
+
+                               class="btn btn-secondary rounded-pill px-4">
+
+
+                                <i class="fa-solid fa-arrow-left me-2"></i>
+
+
+                                Back
+
+
+                            </a>
+
+
+
+
+
+                            {% if form.instance.pk %}
+
+
+
+                                <button type="submit"
+
+                                        class="btn btn-warning rounded-pill px-4">
+
+
+                                    <i class="fa-solid fa-pen-to-square me-2"></i>
+
+
+                                    Update Category
+
+
+                                </button>
+
+
+
+                            {% else %}
+
+
+
+                                <button type="submit"
+
+                                        class="btn btn-secondary rounded-pill px-4">
+
+
+                                    <i class="fa-solid fa-plus me-2"></i>
+
+
+                                    Add Category
+
+
+                                </button>
+
+
+
+                            {% endif %}
+
+
+
+                        </div>
+
+
+
+                    </form>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
 
 {% endblock %}

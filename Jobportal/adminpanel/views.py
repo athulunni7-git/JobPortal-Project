@@ -18,12 +18,14 @@ class AdminDashboardView(View):
         total_jobs = Job.objects.count()
         total_applications = Application.objects.count()
         premium_recruiters = RecruiterProfile.objects.filter(is_premium=True).count()
+        category = Category.objects.count()
         
         context = { "total_recruiters": total_recruiters,
                     "total_candidates": total_candidates,
                     "total_jobs": total_jobs,
                     "total_applications": total_applications,
-                    "premium_recruiters": premium_recruiters,}
+                    "premium_recruiters": premium_recruiters,
+                    "categories":category}
         
         return render(request,'adminpanel/dashboard.html',context)
     
@@ -251,3 +253,10 @@ class DeleteCandidateView(View):
         return redirect('adminpanel:candidates')
         
         
+class PremiumMembers(View):
+    
+    def get(self,request):
+        
+        premium = RecruiterProfile.objects.filter(is_premium=True)
+        context = {'premium':premium}
+        return render(request,'adminpanel/premium_members.html',context)

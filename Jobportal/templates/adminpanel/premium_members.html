@@ -12,14 +12,14 @@
 
         <h1 class="display-5 text-white fw-bold">
 
-            Manage Payments
+            Premium Members
 
         </h1>
 
 
         <p class="text-white-50">
 
-            Monitor recruiter subscriptions and payment transactions.
+            Manage recruiters who have active premium subscriptions on ThozhilConnect.
 
         </p>
 
@@ -42,10 +42,9 @@
                 </li>
 
 
-
                 <li class="breadcrumb-item active text-white">
 
-                    Payments
+                    Premium Members
 
                 </li>
 
@@ -67,10 +66,14 @@
 
 
 
-    <!-- Payment Card -->
+ 
+
+
+    <!-- Members Table -->
 
 
     <div class="card border-0 shadow-lg rounded-4">
+
 
 
         <div class="card-header bg-white border-0 py-4 px-4">
@@ -82,13 +85,13 @@
                 <div>
 
 
-                    <h4 class="fw-bold text-dark mb-1">
+                    <h4 class="fw-bold mb-1">
 
 
-                        <i class="fa-solid fa-credit-card text-secondary me-2"></i>
+                        <i class="fa-solid fa-users text-secondary me-2"></i>
 
 
-                        Payment History
+                        Premium Recruiters
 
 
                     </h4>
@@ -98,9 +101,7 @@
                     <p class="text-muted mb-0">
 
 
-                        Total Payments :
-
-                        <strong>{{ payments|length }}</strong>
+                        List of recruiters with premium access.
 
 
                     </p>
@@ -137,6 +138,7 @@
 
 
 
+
         <div class="card-body">
 
 
@@ -154,16 +156,10 @@
                         <tr>
 
 
-                            <th width="70">
-
-                                #
-
-                            </th>
+                            <th>#</th>
 
 
                             <th>
-
-                                <i class="fa-solid fa-user-tie me-2"></i>
 
                                 Recruiter
 
@@ -172,16 +168,21 @@
 
                             <th>
 
-                                <i class="fa-solid fa-crown me-2"></i>
-
-                                Plan
+                                Company
 
                             </th>
 
 
                             <th>
 
-                                Amount
+                                Email
+
+                            </th>
+
+
+                            <th>
+
+                                Plan
 
                             </th>
 
@@ -195,14 +196,7 @@
 
                             <th>
 
-                                Payment Date
-
-                            </th>
-
-
-                            <th class="text-center">
-
-                                Action
+                                Joined Date
 
                             </th>
 
@@ -215,23 +209,21 @@
 
 
 
-
                     <tbody>
 
 
 
-                    {% for payment in payments %}
+                    {% for member in premium %}
 
 
 
                     <tr>
 
 
-
                         <td>
 
 
-                            <span class="badge bg-secondary rounded-pill px-3 py-2">
+                            <span class="badge bg-secondary rounded-pill">
 
                                 {{ forloop.counter }}
 
@@ -249,9 +241,9 @@
 
                             <strong>
 
+                                <i class="fa-solid fa-user-tie text-secondary me-2"></i>
 
-                                {{ payment.user.username }}
-
+                                {{ member.user.username }}
 
                             </strong>
 
@@ -265,10 +257,56 @@
                         <td>
 
 
-                            <span class="badge text-dark">
+                            {{ member.company_name }}
 
 
-                                {{ payment.plan|title }}
+                        </td>
+
+
+
+
+
+                        <td>
+
+
+                            {{ member.user.email }}
+
+
+                        </td>
+
+
+
+
+
+                        <td>
+
+
+                            <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+
+
+                                <i class="fa-solid fa-crown me-1"></i>
+
+
+                                Premium
+
+
+                            </span>
+
+
+                        </td>
+
+
+
+
+
+
+                        <td>
+
+
+                            <span class="badge bg-success rounded-pill px-3 py-2">
+
+
+                                Active
 
 
                             </span>
@@ -283,113 +321,15 @@
                         <td>
 
 
-                            <strong>
-
-
-                                ₹ {{ payment.amount }}
-
-
-                            </strong>
+                            {{ member.user.date_joined|date:"d M Y" }}
 
 
                         </td>
-
-
-
-
-
-
-                        <td>
-
-
-                            {% if payment.status == "success" %}
-
-
-                                <span class="badge bg-success rounded-pill px-3 py-2">
-
-                                    <i class="fa-solid fa-circle-check me-1"></i>
-
-                                    Success
-
-                                </span>
-
-
-
-                            {% elif payment.status == "pending" %}
-
-
-
-                                <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
-
-                                    <i class="fa-solid fa-clock me-1"></i>
-
-                                    Pending
-
-                                </span>
-
-
-
-                            {% else %}
-
-
-
-                                <span class="badge bg-danger rounded-pill px-3 py-2">
-
-                                    <i class="fa-solid fa-circle-xmark me-1"></i>
-
-                                    Failed
-
-                                </span>
-
-
-
-                            {% endif %}
-
-
-                        </td>
-
-
-
-
-
-
-                        <td>
-
-
-                            {{ payment.created_at|date:"d M Y" }}
-
-
-                        </td>
-
-
-
-
-
-
-                        <td class="text-center">
-
-
-                            <a href="{% url 'adminpanel:payment_detail' payment.id %}"
-
-                               class="btn btn-info rounded-pill btn-sm px-3">
-
-
-                                <i class="fa-solid fa-eye me-1"></i>
-
-
-                                View
-
-
-                            </a>
-
-
-                        </td>
-
-
 
 
 
                     </tr>
+
 
 
 
@@ -405,20 +345,20 @@
                         <td colspan="7" class="text-center py-5">
 
 
-                            <i class="fa-solid fa-wallet fa-4x text-secondary mb-3"></i>
+                            <i class="fa-solid fa-crown fa-4x text-secondary mb-3"></i>
 
 
                             <h4 class="fw-bold">
 
-                                No Payments Found
+                                No Premium Members Found
 
                             </h4>
 
 
 
-                            <p class="text-muted mb-0">
+                            <p class="text-muted">
 
-                                No payment transactions are available.
+                                There are no active premium subscriptions.
 
                             </p>
 
@@ -442,7 +382,6 @@
 
 
 
-
                 </table>
 
 
@@ -451,7 +390,6 @@
 
 
         </div>
-
 
 
     </div>

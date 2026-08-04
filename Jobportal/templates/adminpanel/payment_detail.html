@@ -2,157 +2,491 @@
 
 {% block content %}
 
-<div class="container py-5">
 
-    <div class="card shadow">
+<!-- Hero Banner -->
 
-        <div class="card-header bg-primary text-white">
+<div class="container-fluid page-header mb-5">
 
-            <h3 class="mb-0">
+    <div class="container py-5">
 
-                Payment Details
 
-            </h3>
+        <h1 class="display-5 text-white fw-bold">
 
-        </div>
+            Payment Details
 
-        <div class="card-body">
+        </h1>
 
-            <table class="table table-bordered">
 
-                <tr>
+        <p class="text-white-50">
 
-                    <th width="35%">Recruiter</th>
+            View complete transaction details and payment information.
 
-                    <td>{{ payment.user.username }}</td>
+        </p>
 
-                </tr>
 
-                <tr>
 
-                    <th>Email</th>
+        <nav aria-label="breadcrumb">
 
-                    <td>{{ payment.user.email }}</td>
+            <ol class="breadcrumb mb-0">
 
-                </tr>
 
-                <tr>
+                <li class="breadcrumb-item">
 
-                    <th>Plan</th>
+                    <a href="{% url 'adminpanel:admindashboard' %}"
+                       class="text-white-50">
 
-                    <td>{{ payment.plan|title }}</td>
+                        Dashboard
 
-                </tr>
+                    </a>
 
-                <tr>
+                </li>
 
-                    <th>Amount</th>
 
-                    <td>₹ {{ payment.amount }}</td>
+                <li class="breadcrumb-item">
 
-                </tr>
+                    <a href="{% url 'adminpanel:payments' %}"
+                       class="text-white-50">
 
-                <tr>
+                        Payments
 
-                    <th>Order ID</th>
+                    </a>
 
-                    <td>{{ payment.razorpay_order_id }}</td>
+                </li>
 
-                </tr>
 
-                <tr>
+                <li class="breadcrumb-item active text-white">
 
-                    <th>Payment ID</th>
+                    Details
 
-                    <td>{{ payment.razorpay_payment_id }}</td>
+                </li>
 
-                </tr>
 
-                <tr>
+            </ol>
 
-                    <th>Signature</th>
+        </nav>
 
-                    <td>
-
-                        {% if payment.razorpay_signature %}
-
-                            {{ payment.razorpay_signature }}
-
-                        {% else %}
-
-                            Not Available
-
-                        {% endif %}
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>Status</th>
-
-                    <td>
-
-                        {% if payment.status == "success" %}
-
-                            <span class="badge bg-success">
-
-                                Success
-
-                            </span>
-
-                        {% elif payment.status == "pending" %}
-
-                            <span class="badge bg-warning text-dark">
-
-                                Pending
-
-                            </span>
-
-                        {% else %}
-
-                            <span class="badge bg-danger">
-
-                                Failed
-
-                            </span>
-
-                        {% endif %}
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>Payment Date</th>
-
-                    <td>
-
-                        {{ payment.created_at|date:"d M Y, h:i A" }}
-
-                    </td>
-
-                </tr>
-
-            </table>
-
-            <div class="text-center mt-4">
-
-                <a href="{% url 'adminpanel:payments' %}"
-                   class="btn btn-secondary">
-
-                    Back
-
-                </a>
-
-            </div>
-
-        </div>
 
     </div>
 
 </div>
+
+
+
+
+
+<div class="container mb-5">
+
+
+    <div class="row justify-content-center">
+
+
+        <div class="col-lg-8">
+
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+
+
+                <!-- Card Header -->
+
+
+                <div class="card-header bg-white border-0 py-4 px-4">
+
+
+                    <div class="d-flex align-items-center">
+
+
+                        <div class="bg-secondary bg-opacity-10 rounded-circle p-3 me-3">
+
+
+                            <i class="fa-solid fa-receipt text-white fa-2x"></i>
+
+
+                        </div>
+
+
+
+                        <div>
+
+
+                            <h4 class="fw-bold mb-1">
+
+                                Transaction Information
+
+                            </h4>
+
+
+                            <p class="text-muted mb-0">
+
+                                Complete payment record details
+
+                            </p>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+                <div class="card-body px-4 pb-4">
+
+
+
+                    <div class="table-responsive">
+
+
+                        <table class="table table-borderless align-middle">
+
+
+
+                            <tr class="border-bottom">
+
+
+                                <th width="35%">
+
+                                    <i class="fa-solid fa-user-tie text-secondary me-2"></i>
+
+                                    Recruiter
+
+                                </th>
+
+
+                                <td>
+
+                                    {{ payment.user.username }}
+
+                                </td>
+
+
+                            </tr>
+
+
+
+
+
+                            <tr class="border-bottom">
+
+
+                                <th>
+
+                                    <i class="fa-solid fa-envelope text-secondary me-2"></i>
+
+                                    Email
+
+                                </th>
+
+
+                                <td>
+
+                                    {{ payment.user.email }}
+
+                                </td>
+
+
+                            </tr>
+
+
+
+
+
+                            <tr class="border-bottom">
+
+
+                                <th>
+
+                                    <i class="fa-solid fa-crown text-secondary me-2"></i>
+
+                                    Plan
+
+                                </th>
+
+
+                                <td>
+
+
+                                    <span class="badge bg-info text-dark rounded-pill px-3 py-2">
+
+                                        {{ payment.plan|title }}
+
+                                    </span>
+
+
+                                </td>
+
+
+                            </tr>
+
+
+
+
+
+
+                            <tr class="border-bottom">
+
+
+                                <th>
+
+                                    <i class="fa-solid fa-indian-rupee-sign text-secondary me-2"></i>
+
+                                    Amount
+
+                                </th>
+
+
+                                <td class="fw-bold">
+
+                                    ₹ {{ payment.amount }}
+
+                                </td>
+
+
+                            </tr>
+
+
+
+
+
+                            <tr class="border-bottom">
+
+
+                                <th>
+
+                                    Razorpay Order ID
+
+                                </th>
+
+
+                                <td>
+
+                                    {{ payment.razorpay_order_id }}
+
+                                </td>
+
+
+                            </tr>
+
+
+
+
+
+
+                            <tr class="border-bottom">
+
+
+                                <th>
+
+                                    Razorpay Payment ID
+
+                                </th>
+
+
+                                <td>
+
+                                    {{ payment.razorpay_payment_id }}
+
+                                </td>
+
+
+                            </tr>
+
+
+
+
+
+
+                            <tr class="border-bottom">
+
+
+                                <th>
+
+                                    Signature
+
+                                </th>
+
+
+                                <td>
+
+
+                                    {% if payment.razorpay_signature %}
+
+
+                                        <small>
+
+                                            {{ payment.razorpay_signature }}
+
+                                        </small>
+
+
+                                    {% else %}
+
+
+                                        <span class="text-muted">
+
+                                            Not Available
+
+                                        </span>
+
+
+                                    {% endif %}
+
+
+                                </td>
+
+
+                            </tr>
+
+
+
+
+
+
+                            <tr class="border-bottom">
+
+
+                                <th>
+
+                                    Status
+
+                                </th>
+
+
+                                <td>
+
+
+                                    {% if payment.status == "success" %}
+
+
+                                        <span class="badge bg-success rounded-pill px-3 py-2">
+
+                                            <i class="fa-solid fa-circle-check me-1"></i>
+
+                                            Success
+
+                                        </span>
+
+
+
+                                    {% elif payment.status == "pending" %}
+
+
+
+                                        <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+
+                                            <i class="fa-solid fa-clock me-1"></i>
+
+                                            Pending
+
+                                        </span>
+
+
+
+                                    {% else %}
+
+
+
+                                        <span class="badge bg-danger rounded-pill px-3 py-2">
+
+                                            <i class="fa-solid fa-circle-xmark me-1"></i>
+
+                                            Failed
+
+                                        </span>
+
+
+
+                                    {% endif %}
+
+
+                                </td>
+
+
+                            </tr>
+
+
+
+
+
+
+                            <tr>
+
+
+                                <th>
+
+                                    <i class="fa-solid fa-calendar text-secondary me-2"></i>
+
+                                    Payment Date
+
+                                </th>
+
+
+                                <td>
+
+                                    {{ payment.created_at|date:"d M Y, h:i A" }}
+
+                                </td>
+
+
+                            </tr>
+
+
+
+
+                        </table>
+
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="text-center mt-4">
+
+
+                        <a href="{% url 'adminpanel:payments' %}"
+
+                           class="btn btn-secondary rounded-pill px-4">
+
+
+                            <i class="fa-solid fa-arrow-left me-2"></i>
+
+
+                            Back to Payments
+
+
+                        </a>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
 
 {% endblock %}

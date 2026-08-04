@@ -36,7 +36,8 @@ urlpatterns = [
     path('payment',views.ManagePaymentView.as_view(),name="payments"),
     path('paymentdetail/<int:i>',views.PaymentDetailView.as_view(),name="payment_detail"),
     path('recruiterdelete/<int:i>',views.DeleteRecruiterView.as_view(),name="delete_recruiter"),
-    path('candidatedelete/<int:i>',views.DeleteCandidateView.as_view(),name="delete_candidate")
+    path('candidatedelete/<int:i>',views.DeleteCandidateView.as_view(),name="delete_candidate"),
+    path('premium',views.PremiumMembers.as_view(),name="premium_members")
       
     
    

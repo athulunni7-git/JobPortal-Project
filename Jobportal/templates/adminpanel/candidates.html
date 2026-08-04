@@ -3,122 +3,248 @@
 
 {% block content %}
 
-<div class="container py-5">
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="container py-5">
 
-        <h2>Manage Candidates</h2>
+        <h1 class="display-5 text-white fw-bold">
+            Manage Candidates
+        </h1>
 
-        <a href="{% url 'adminpanel:admindashboard' %}"
-           class="btn btn-secondary">
+        <p class="text-white-50">
+            View and manage all candidate accounts registered on ThozhilConnect.
+        </p>
 
-            Back
+        <nav aria-label="breadcrumb">
 
-        </a>
+            <ol class="breadcrumb mb-0">
+
+                <li class="breadcrumb-item">
+
+                    <a href="{% url 'adminpanel:admindashboard' %}"
+                       class="text-white-50">
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li class="breadcrumb-item active text-white">
+
+                    Manage Candidates
+
+                </li>
+
+            </ol>
+
+        </nav>
 
     </div>
 
-    <div class="card shadow">
+</div>
+
+
+<div class="container mb-5">
+
+    <div class="card border-0 shadow-lg rounded-4">
+
+        <div class="card-header bg-white border-0 py-4 px-4">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h4 class="fw-bold text-dark mb-1">
+
+                        <i class="fa-solid fa-users me-2"></i>
+
+                        Candidate List
+
+                    </h4>
+
+                    <p class="text-muted mb-0">
+
+                        Total Candidates :
+                        <strong>{{ candidates|length }}</strong>
+
+                    </p>
+
+                </div>
+
+                <a href="{% url 'adminpanel:admindashboard' %}"
+                   class="btn btn-secondary rounded-pill px-4">
+
+                    <i class="fa-solid fa-arrow-left me-2"></i>
+
+                    Dashboard
+
+                </a>
+
+            </div>
+
+        </div>
 
         <div class="card-body">
 
-            <table class="table table-hover align-middle">
+            <div class="table-responsive">
 
-                <thead class="table-dark">
+                <table class="table table-hover align-middle">
 
-                    <tr>
+                    <thead class="table-primary">
 
-                        <th>Profile</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Skills</th>
-                        <th>Action</th>
+                        <tr>
 
-                    </tr>
+                            <th>Profile</th>
 
-                </thead>
+                            <th>Name</th>
 
-                <tbody>
+                            <th>Email</th>
 
-                {% for candidate in candidates %}
+                            <th>Phone</th>
 
-                    <tr>
+                            <th>Skills</th>
 
-                        <td>
+                            <th class="text-center">
 
-                            {% if candidate.profile_picture %}
+                                Action
 
-                                <img src="{{ candidate.profile_picture.url }}"
-                                     class="rounded-circle"
-                                     width="60"
-                                     height="60">
+                            </th>
 
-                            {% else %}
+                        </tr>
 
-                                <img src="{% static 'images/default-user.png' %}"
-                                     class="rounded-circle"
-                                     width="60"
-                                     height="60">
+                    </thead>
 
-                            {% endif %}
+                    <tbody>
 
-                        </td>
-
-                        <td>
-
-                            {{ candidate.user.username }}
-
-                        </td>
-
-                        <td>
-
-                            {{ candidate.user.email }}
-
-                        </td>
-
-                        <td>
-
-                            {{ candidate.phone }}
-
-                        </td>
-
-                        <td>
-
-                            {{ candidate.skills }}
-
-                        </td>
-
-                        <td>
-
-                            <a href="{% url 'adminpanel:candidate_detail' candidate.id %}"
-                               class="btn btn-info btn-sm">
-
-                                View
-
-                            </a>
-
-                        </td>
-
-                    </tr>
-
-                {% empty %}
+                    {% for candidate in candidates %}
 
                     <tr>
 
-                        <td colspan="6" class="text-center">
+    <td>
 
-                            No Candidates Found
+        {% if candidate.profile_picture %}
 
-                        </td>
+            <img src="{{ candidate.profile_picture.url }}"
+                 width="60"
+                 height="60"
+                 class="rounded-circle border shadow-sm"
+                 style="object-fit:cover;">
 
-                    </tr>
+        {% else %}
 
-                {% endfor %}
+            <img src="{% static 'images/default-user.png' %}"
+                 width="60"
+                 height="60"
+                 class="rounded-circle border shadow-sm">
 
-                </tbody>
+        {% endif %}
 
-            </table>
+    </td>
+
+    <td>
+
+        <strong>
+
+            {{ candidate.user.username }}
+
+        </strong>
+
+    </td>
+
+    <td>
+
+        {{ candidate.user.email }}
+
+    </td>
+
+    <td>
+
+        {% if candidate.phone %}
+
+            {{ candidate.phone }}
+
+        {% else %}
+
+            <span class="text-muted">
+
+                Not Added
+
+            </span>
+
+        {% endif %}
+
+    </td>
+
+    <td>
+
+        {% if candidate.skills %}
+
+            <span class="badge bg-info text-dark rounded-pill px-3 py-2">
+
+                {{ candidate.skills }}
+
+            </span>
+
+        {% else %}
+
+            <span class="badge bg-light text-dark border rounded-pill px-3 py-2">
+
+                No Skills
+
+            </span>
+
+        {% endif %}
+
+    </td>
+
+    <td class="text-center">
+
+        <a href="{% url 'adminpanel:candidate_detail' candidate.id %}"
+           class="btn btn-secondary rounded-pill btn-sm px-3">
+
+            <i class="fa-solid fa-eye me-1"></i>
+
+            View
+
+        </a>
+
+    </td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+    <td colspan="6" class="text-center py-5">
+
+        <i class="fa-solid fa-user-group fa-4x text-secondary mb-3"></i>
+
+        <h4 class="fw-bold">
+
+            No Candidates Found
+
+        </h4>
+
+        <p class="text-muted mb-0">
+
+            There are no candidate accounts available.
+
+        </p>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 

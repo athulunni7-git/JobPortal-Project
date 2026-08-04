@@ -1,62 +1,85 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
-<div class="container py-5">
+
+
+
+<div class="container mt-5 mb-5">
 
     <div class="row justify-content-center">
 
-        <div class="col-md-6">
+        <div class="col-lg-6">
 
-            <div class="card shadow">
+            <div class="card border-0 shadow-lg rounded-4">
 
-                <div class="card-header bg-danger text-white">
+                <div class="card-body p-5 text-center">
 
-                    <h3 class="mb-0">
+                    <div class="mb-4">
 
-                        Delete Candidate
+                        <div class="bg-danger bg-opacity-10 rounded-circle d-inline-flex justify-content-center align-items-center"
+                             style="width:110px; height:110px;">
 
-                    </h3>
+                            <i class="fa-solid fa-trash text-white fa-3x"></i>
 
-                </div>
+                        </div>
 
-                <div class="card-body text-center">
+                    </div>
 
-                    <h5>
+                    <h2 class="fw-bold text-danger mb-3">
 
-                        Are you sure you want to delete
+                        Delete Candidate?
+
+                    </h2>
+
+                    <p class="text-muted fs-5">
+
+                        You are about to permanently delete
 
                         <strong>
 
-                            {{ candidate.username }}
+                            {{ recruiter.company_name }}
 
-                        </strong>?
+                        </strong>
 
-                    </h5>
-
-                    <p class="text-muted">
-
-                        This action will permanently delete the candidate account.
+                        from ThozhilConnect.
 
                     </p>
 
-                    <form method="POST">
+                    <div class="alert alert-warning rounded-3 mt-4">
+
+                        <i class="fa-solid fa-triangle-exclamation me-2"></i>
+
+                        This action cannot be undone.
+
+                    </div>
+
+                    <form method="POST" class="mt-4">
 
                         {% csrf_token %}
 
-                        <a href="{% url 'adminpanel:candidates' %}"
-                           class="btn btn-secondary">
+                        <div class="d-flex justify-content-center gap-3">
 
-                            Cancel
+                            <a href="{% url 'adminpanel:recruiters' %}"
+                               class="btn btn-secondary rounded-pill px-5">
 
-                        </a>
+                                <i class="fa-solid fa-arrow-left me-2"></i>
 
-                        <button type="submit"
-                                class="btn btn-danger">
+                                Cancel
 
-                            Delete
+                            </a>
 
-                        </button>
+                            <button type="submit"
+                                    class="btn btn-danger rounded-pill px-5">
+
+                                <i class="fa-solid fa-trash me-2"></i>
+
+                                Delete
+
+                            </button>
+
+                        </div>
 
                     </form>
 

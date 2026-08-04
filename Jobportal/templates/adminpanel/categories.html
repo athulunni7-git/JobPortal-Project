@@ -1,114 +1,344 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
-<div class="container py-5">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
 
-        <h2>Manage Categories</h2>
+    <div class="container py-5">
 
-        <a href="{% url 'adminpanel:add_category' %}"
-           class="btn btn-success">
+        <h1 class="display-5 text-white fw-bold">
 
-            Add Category
+            Manage Categories
 
-        </a>
+        </h1>
 
-    </div>
 
-    <div class="card shadow">
+        <p class="text-white-50">
 
-        <div class="card-body">
+            Create, update and manage job categories for ThozhilConnect.
 
-            <table class="table table-hover">
+        </p>
 
-                <thead class="table-dark">
 
-                    <tr>
+        <nav aria-label="breadcrumb">
 
-                        <th>#</th>
+            <ol class="breadcrumb mb-0">
 
-                        <th>Category Name</th>
 
-                        <th>Action</th>
+                <li class="breadcrumb-item">
 
-                    </tr>
+                    <a href="{% url 'adminpanel:admindashboard' %}"
+                       class="text-white-50">
 
-                </thead>
+                        Dashboard
 
-                <tbody>
+                    </a>
 
-                {% for category in categories %}
+                </li>
 
-                    <tr>
 
-                        <td>
+                <li class="breadcrumb-item active text-white">
 
-                            {{ forloop.counter }}
+                    Manage Categories
 
-                        </td>
+                </li>
 
-                        <td>
 
-                            {{ category.category_name }}
+            </ol>
 
-                        </td>
+        </nav>
 
-                        <td>
-
-                            <a href="{% url 'adminpanel:edit_category' category.id %}"
-                               class="btn btn-warning btn-sm">
-
-                                Edit
-
-                            </a>
-
-                            <a href="{% url 'adminpanel:delete_category' category.id %}"
-                               class="btn btn-danger btn-sm">
-
-                                Delete
-
-                            </a>
-
-                        </td>
-
-                    </tr>
-
-                {% empty %}
-
-                    <tr>
-
-                        <td colspan="3"
-                            class="text-center">
-
-                            No Categories Found
-
-                        </td>
-
-                    </tr>
-
-                {% endfor %}
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-    <div class="mt-3">
-
-        <a href="{% url 'adminpanel:admindashboard' %}"
-           class="btn btn-secondary">
-
-            Back
-
-        </a>
 
     </div>
 
 </div>
+
+
+
+<div class="container mb-5">
+
+
+    <div class="card border-0 shadow-lg rounded-4">
+
+
+        <!-- Card Header -->
+
+        <div class="card-header bg-white border-0 py-4 px-4">
+
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+
+                <div>
+
+
+                    <h4 class="fw-bold text-dark mb-1">
+
+
+                        <i class="fa-solid fa-layer-group me-2"></i>
+
+
+                        Category List
+
+
+                    </h4>
+
+
+
+                    <p class="text-muted mb-0">
+
+
+                        Total Categories :
+                        <strong>{{ categories|length }}</strong>
+
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="mt-3 mt-md-0">
+
+
+                    <a href="{% url 'adminpanel:add_category' %}"
+                       class="btn btn-primary rounded-pill px-4 me-2">
+
+
+                        <i class="fa-solid fa-plus me-2"></i>
+
+
+                        Add Category
+
+
+                    </a>
+
+
+
+                    <a href="{% url 'adminpanel:admindashboard' %}"
+                       class="btn btn-secondary rounded-pill px-4">
+
+
+                        <i class="fa-solid fa-arrow-left me-2"></i>
+
+
+                        Dashboard
+
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <!-- Table -->
+
+
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+
+
+                <table class="table table-hover align-middle">
+
+
+                    <thead class="table-secondary">
+
+
+                        <tr>
+
+
+                            <th width="100">
+
+                                #
+
+                            </th>
+
+
+                            <th>
+
+                                <i class="fa-solid fa-folder me-2"></i>
+
+                                Category Name
+
+                            </th>
+
+
+                            <th class="text-center">
+
+                                Action
+
+                            </th>
+
+
+                        </tr>
+
+
+                    </thead>
+
+
+
+                    <tbody>
+
+
+
+                    {% for category in categories %}
+
+
+
+                    <tr>
+
+
+
+                        <td>
+
+
+                            <span class="badge bg-secondary rounded-pill px-3 py-2">
+
+                                {{ forloop.counter }}
+
+                            </span>
+
+
+                        </td>
+
+
+
+                        <td>
+
+
+                            <strong>
+
+
+                                <i class="fa-solid fa-folder-open text-secondary me-2"></i>
+
+
+                                {{ category.category_name }}
+
+
+                            </strong>
+
+
+                        </td>
+
+
+
+
+                        <td class="text-center">
+
+
+                            <a href="{% url 'adminpanel:edit_category' category.id %}"
+                               class="btn btn-warning rounded-pill btn-sm px-3 me-2">
+
+
+                                <i class="fa-solid fa-pen me-1"></i>
+
+
+                                Edit
+
+
+                            </a>
+
+
+
+
+                            <a href="{% url 'adminpanel:delete_category' category.id %}"
+                               class="btn btn-danger rounded-pill btn-sm px-3">
+
+
+                                <i class="fa-solid fa-trash me-1"></i>
+
+
+                                Delete
+
+
+                            </a>
+
+
+                        </td>
+
+
+
+                    </tr>
+
+
+
+
+                    {% empty %}
+
+
+
+                    <tr>
+
+
+                        <td colspan="3" class="text-center py-5">
+
+
+                            <i class="fa-solid fa-folder-open fa-4x text-secondary mb-3"></i>
+
+
+
+                            <h4 class="fw-bold">
+
+                                No Categories Found
+
+                            </h4>
+
+
+
+                            <p class="text-muted mb-0">
+
+
+                                Start adding categories for job listings.
+
+
+                            </p>
+
+
+                        </td>
+
+
+                    </tr>
+
+
+
+                    {% endfor %}
+
+
+
+
+                    </tbody>
+
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+
 
 {% endblock %}

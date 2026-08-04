@@ -1,143 +1,311 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
-<div class="container py-5">
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
 
-    <div class="card shadow">
+    <div class="container py-5">
 
-        <div class="card-header bg-primary text-white">
+        <h1 class="display-5 text-white fw-bold">
+            Job Details
+        </h1>
 
-            <h3 class="mb-0">
-                Job Details
-            </h3>
+        <p class="text-white-50">
+            View complete information about this job posting.
+        </p>
 
-        </div>
+        <nav aria-label="breadcrumb">
 
-        <div class="card-body">
+            <ol class="breadcrumb mb-0">
 
-            <table class="table table-bordered">
+                <li class="breadcrumb-item">
 
-                <tr>
+                    <a href="{% url 'adminpanel:admindashboard' %}" class="text-white-50">
 
-                    <th width="30%">Job Title</th>
+                        Dashboard
 
-                    <td>{{ job.job_title }}</td>
+                    </a>
 
-                </tr>
+                </li>
 
-                <tr>
+                <li class="breadcrumb-item">
 
-                    <th>Company</th>
+                    <a href="{% url 'adminpanel:jobs' %}" class="text-white-50">
 
-                    <td>{{ job.recruiter.company_name }}</td>
+                        Manage Jobs
 
-                </tr>
+                    </a>
 
-                <tr>
+                </li>
 
-                    <th>Category</th>
+                <li class="breadcrumb-item active text-white">
 
-                    <td>{{ job.category.category_name }}</td>
+                    Details
 
-                </tr>
+                </li>
 
-                <tr>
+            </ol>
 
-                    <th>Location</th>
+        </nav>
 
-                    <td>{{ job.location }}</td>
+    </div>
 
-                </tr>
+</div>
 
-                <tr>
 
-                    <th>Salary</th>
+<div class="container mb-5">
 
-                    <td>₹ {{ job.salary }}</td>
+    <div class="card border-0 shadow-lg rounded-4">
 
-                </tr>
+        <div class="card-body p-5">
 
-                <tr>
+            <!-- Header -->
 
-                    <th>Experience</th>
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
 
-                    <td>{{ job.experience }}</td>
+                <div>
 
-                </tr>
+                    <h2 class="fw-bold mb-2">
 
-                <tr>
+                        {{ job.job_title }}
 
-                    <th>Job Type</th>
+                    </h2>
 
-                    <td>{{ job.job_type }}</td>
+                    <p class="text-muted mb-0">
 
-                </tr>
+                        <i class="fa-solid fa-building  text-secondary"></i>
 
-                <tr>
+                        {{ job.recruiter.company_name }}
 
-                    <th>Status</th>
+                    </p>
 
-                    <td>
+                </div>
 
-                        {% if job.status == "available" %}
+                <div>
 
-                            <span class="badge bg-success">
-                                Available
-                            </span>
+                    {% if job.status == "available" %}
 
-                        {% else %}
+                        <span class="badge bg-success px-4 py-2">
 
-                            <span class="badge bg-danger">
-                                Closed
-                            </span>
+                            Available
 
-                        {% endif %}
+                        </span>
 
-                    </td>
+                    {% else %}
 
-                </tr>
+                        <span class="badge bg-danger px-4 py-2">
 
-                <tr>
+                            Closed
 
-                    <th>Description</th>
+                        </span>
 
-                    <td>{{ job.description }}</td>
+                    {% endif %}
 
-                </tr>
+                </div>
 
-                <tr>
+            </div>
 
-                    <th>Requirements</th>
+            <hr class="my-5">
 
-                    <td>{{ job.requirements }}</td>
+            <div class="row g-4">
 
-                </tr>
+                <!-- Left -->
 
-                <tr>
+                <div class="col-lg-6">
 
-                    <th>Total Applicants</th>
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
 
-                    <td>{{ applicants }}</td>
+                        <div class="card-body p-4">
 
-                </tr>
+                            <h4 class="fw-bold text-secondary mb-4">
 
-                <tr>
+                                <i class="bi bi-info-circle-fill me-2"></i>
 
-                    <th>Posted On</th>
+                                Job Information
 
-                    <td>{{ job.created_at }}</td>
+                            </h4>
 
-                </tr>
+                            <p>
 
-            </table>
+                                <strong>Category :</strong>
 
-            <div class="text-center mt-4">
+                                {{ job.category.category_name }}
+
+                            </p>
+
+                            <p>
+
+                                <strong>Location :</strong>
+
+                                {{ job.location }}
+
+                            </p>
+
+                            <p>
+
+                                <strong>Salary :</strong>
+
+                                ₹ {{ job.salary }}
+
+                            </p>
+
+                            <p>
+
+                                <strong>Experience :</strong>
+
+                                {{ job.experience }}
+
+                            </p>
+
+                            <p class="mb-0">
+
+                                <strong>Job Type :</strong>
+
+                                {{ job.job_type }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Right -->
+
+                <div class="col-lg-6">
+
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                        <div class="card-body p-4">
+
+                            <h4 class="fw-bold text-secondary mb-4">
+
+                                <i class="bi bi-bar-chart-fill me-2"></i>
+
+                                Job Statistics
+
+                            </h4>
+
+                            <p>
+
+                                <strong>Total Applicants :</strong>
+
+                                {{ applicants }}
+
+                            </p>
+
+                            <p>
+
+                                <strong>Posted On :</strong>
+
+                                {{ job.created_at }}
+
+                            </p>
+
+                            <p>
+
+                                <strong>Company :</strong>
+
+                                {{ job.recruiter.company_name }}
+
+                            </p>
+
+                            <p class="mb-0">
+
+                                <strong>Status :</strong>
+
+                                {% if job.status == "available" %}
+
+                                    <span class="badge bg-success">
+
+                                        Available
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-danger">
+
+                                        Closed
+
+                                    </span>
+
+                                {% endif %}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <hr class="my-5">
+
+            <!-- Description -->
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                <div class="card-body p-4">
+
+                    <h4 class="fw-bold text-secondary mb-3">
+
+                        <i class="bi bi-file-text-fill me-2"></i>
+
+                        Job Description
+
+                    </h4>
+
+                    <p class="mb-0">
+
+                        {{ job.description }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Requirements -->
+
+            <div class="card border-0 shadow-sm rounded-4">
+
+                <div class="card-body p-4">
+
+                    <h4 class="fw-bold text-secondary mb-3">
+
+                        <i class="bi bi-list-check me-2"></i>
+
+                        Requirements
+
+                    </h4>
+
+                    <p class="mb-0">
+
+                        {{ job.requirements }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Buttons -->
+
+            <div class="text-center mt-5">
 
                 <a href="{% url 'adminpanel:jobs' %}"
-                   class="btn btn-secondary">
+                   class="btn btn-secondary rounded-pill px-5">
 
-                    Back
+                    <i class="fa-solid fa-arrow-left me-2"></i>
+
+                    Back to Jobs
 
                 </a>
 

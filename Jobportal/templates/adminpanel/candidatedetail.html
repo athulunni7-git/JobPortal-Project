@@ -3,174 +3,290 @@
 
 {% block content %}
 
-<div class="container py-5">
+<!-- Hero Banner -->
+<div class="container-fluid page-header mb-5">
+    <div class="container py-5">
 
-    <div class="card shadow">
+        <h1 class="display-5 text-white fw-bold">
+            Candidate Details
+        </h1>
 
-        <div class="card-header bg-success text-white">
+        <p class="text-white-50">
+            View detailed information about the candidate profile.
+        </p>
 
-            <h3 class="mb-0">
-                Candidate Details
-            </h3>
+        <nav aria-label="breadcrumb">
 
-        </div>
+            <ol class="breadcrumb mb-0">
 
-        <div class="card-body">
+                <li class="breadcrumb-item">
 
-            <div class="row">
+                    <a href="{% url 'adminpanel:admindashboard' %}"
+                       class="text-white-50">
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li class="breadcrumb-item">
+
+                    <a href="{% url 'adminpanel:candidates' %}"
+                       class="text-white-50">
+
+                        Candidates
+
+                    </a>
+
+                </li>
+
+                <li class="breadcrumb-item active text-white">
+
+                    Details
+
+                </li>
+
+            </ol>
+
+        </nav>
+
+    </div>
+</div>
+
+
+
+<div class="container mb-5">
+
+    <div class="card border-0 shadow-lg rounded-4">
+
+        <div class="card-body p-5">
+
+            <div class="row align-items-center">
 
                 <!-- Profile Picture -->
 
-                <div class="col-md-4 text-center">
+                <div class="col-lg-3 text-center">
 
                     {% if candidate.profile_picture %}
 
                         <img src="{{ candidate.profile_picture.url }}"
-                             class="img-fluid border mt-2 mb-1"
-                             width="100%"
-                             height="100%">
+                             class="rounded-circle border border-4 border-white shadow"
+                             width="170"
+                             height="170"
+                             style="object-fit:cover;">
 
                     {% else %}
 
                         <img src="{% static 'images/default-user.png' %}"
-                             class="img-fluid rounded-circle border"
-                             width="180"
-                             height="180">
+                             class="rounded-circle border border-4 border-white shadow"
+                             width="170"
+                             height="170">
 
                     {% endif %}
 
                 </div>
 
-                <!-- Candidate Details -->
+                <!-- Candidate Profile -->
 
-                <div class="col-md-8">
+                <div class="col-lg-9">
 
-                    <table class="table table-bordered">
+                    <h2 class="fw-bold">
 
-                        <tr>
+                        {{ candidate.user.username }}
 
-                            <th width="35%">
-                                Name
-                            </th>
+                    </h2>
 
-                            <td>
+                    <p class="text-muted mb-3">
 
-                                {{ candidate.user.username }}
+                        {{ candidate.user.email }}
 
-                            </td>
+                    </p>
 
-                        </tr>
+                    <span class="badge bg-secondary px-4 py-2">
 
-                        <tr>
+                        Candidate
 
-                            <th>
-                                Email
-                            </th>
-
-                            <td>
-
-                                {{ candidate.user.email }}
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <th>
-                                Phone
-                            </th>
-
-                            <td>
-
-                                {{ candidate.phone }}
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <th>
-                                Skills
-                            </th>
-
-                            <td>
-
-                                {{ candidate.skills }}
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <th>
-                                Resume
-                            </th>
-
-                            <td>
-
-                                {% if candidate.resume %}
-
-                                    <a href="{{ candidate.resume.url }}"
-                                       target="_blank"
-                                       class="btn btn-primary btn-sm">
-
-                                        View Resume
-
-                                    </a>
-
-                                {% else %}
-
-                                    Resume Not Uploaded
-
-                                {% endif %}
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <th>
-                                Applied Jobs
-                            </th>
-
-                            <td>
-
-                                {{ applied_jobs }}
-
-                            </td>
-
-                        </tr>
-
-                    </table>
+                    </span>
 
                 </div>
 
             </div>
 
-            <hr>
+            <hr class="my-5">
 
-            <div class="text-center">
+           <!-- Candidate Information -->
 
+<div class="row g-4">
 
-                <a href="{% url 'adminpanel:delete_candidate'  candidate.id %}"
-                   class="btn btn-danger">
+    <!-- Left Card -->
 
-                    Delete
+    <div class="col-lg-6">
 
-                </a>
+        <div class="card border-0 shadow-sm rounded-4 h-100">
 
-                <a href="{% url 'adminpanel:candidates' %}"
-                   class="btn btn-secondary">
+            <div class="card-body p-4">
 
-                    Back
+                <h4 class="fw-bold text-dark mb-4">
 
-                </a>
+                    <i class="bi bi-person-fill text-secondary me-2"></i>
+
+                    Candidate Information
+
+                </h4>
+
+                <p>
+
+                    <i class="bi bi-person-circle text-secondary me-2"></i>
+
+                    <strong>Name :</strong>
+
+                    {{ candidate.user.username }}
+
+                </p>
+
+                <p>
+
+                    <i class="bi bi-envelope-fill text-secondary me-2"></i>
+
+                    <strong>Email :</strong>
+
+                    {{ candidate.user.email }}
+
+                </p>
+
+                <p>
+
+                    <i class="bi bi-telephone-fill text-secondary me-2"></i>
+
+                    <strong>Phone :</strong>
+
+                    {% if candidate.phone %}
+
+                        {{ candidate.phone }}
+
+                    {% else %}
+
+                        Not Added
+
+                    {% endif %}
+
+                </p>
+
+                <p class="mb-0">
+
+                    <i class="bi bi-stars text-secondary me-2"></i>
+
+                    <strong>Skills :</strong>
+
+                    {% if candidate.skills %}
+
+                        {{ candidate.skills }}
+
+                    {% else %}
+
+                        Not Added
+
+                    {% endif %}
+
+                </p>
 
             </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Right Card -->
+
+    <div class="col-lg-6">
+
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+
+            <div class="card-body p-4">
+
+                <h4 class="fw-bold text-dark mb-4">
+
+                    <i class="bi bi-bar-chart-fill text-secondary me-2"></i>
+
+                    Candidate Statistics
+
+                </h4>
+
+                <p>
+
+                    <i class="bi bi-briefcase-fill text-secondary me-2"></i>
+
+                    <strong>Applied Jobs :</strong>
+
+                    {{ applied_jobs }}
+
+                </p>
+
+                <p>
+
+                    <i class="bi bi-file-earmark-pdf-fill text-secondary me-2"></i>
+
+                    <strong>Resume :</strong>
+
+                </p>
+
+                {% if candidate.resume %}
+
+                    <a href="{{ candidate.resume.url }}"
+                       target="_blank"
+                       class="btn btn-secondary rounded-pill">
+
+                        <i class="fa-solid fa-file-pdf me-2"></i>
+
+                        View Resume
+
+                    </a>
+
+                {% else %}
+
+                    <span class="badge bg-secondary">
+
+                        Resume Not Uploaded
+
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Action Buttons -->
+
+<div class="text-center mt-5">
+
+    <a href="{% url 'adminpanel:delete_candidate' candidate.id %}"
+       class="btn btn-danger rounded-pill px-5 me-3">
+
+        <i class="fa-solid fa-trash me-2"></i>
+
+        Delete Candidate
+
+    </a>
+
+    <a href="{% url 'adminpanel:candidates' %}"
+       class="btn btn-secondary rounded-pill px-5">
+
+        <i class="fa-solid fa-arrow-left me-2"></i>
+
+        Back
+
+    </a>
+
+</div>
 
         </div>
 
