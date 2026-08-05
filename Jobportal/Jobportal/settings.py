@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'payment',
     'adminpanel',
     'crispy_forms',
-    'crispy_bootstrap5'
+    'crispy_bootstrap5',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
@@ -144,3 +146,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 RAZORPAY_KEY_ID = "rzp_test_T2BQkVrNZ3Q6G7"
 RAZORPAY_KEY_SECRET = "aqwuEYGs6NSPzKrxE27p3j3p"
+
+
+import os
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
+}
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
