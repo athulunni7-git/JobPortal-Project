@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h5dhxdyl)h#y4g%(!z3qw=i4j@^#8f2fi6w=@wnh1mxe=fel5t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -146,14 +149,8 @@ STATICFILES_DIRS = [
 RAZORPAY_KEY_ID = "rzp_test_T2BQkVrNZ3Q6G7"
 RAZORPAY_KEY_SECRET = "aqwuEYGs6NSPzKrxE27p3j3p"
 
-
-import os
-
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.environ.get("CLOUDINARY_CLOUD_NAME"),
-    "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
-    "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
-}
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 STORAGES = {
     "default": {
