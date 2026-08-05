@@ -56,13 +56,12 @@
 
                 {% if profile.profile_picture %}
 
-                    <img src="{{ profile.profile_picture.url }}"
-                         class="rounded-circle shadow profile-img"
-                         alt="Profile">
+                    <img src="{{ request.user.candidateprofile.profile_picture.url }}"
+                    style="width:100px; height:100px; border-radius:50%; object-fit:cover; display:block; margin:auto;">
 
                 {% else %}
 
-                    <img src="{% static 'images/default-profile.png' %}"
+                    <img src="{% static 'img/default-profile.png' %}"
                          class="rounded-circle shadow profile-img"
                          alt="Profile">
 
