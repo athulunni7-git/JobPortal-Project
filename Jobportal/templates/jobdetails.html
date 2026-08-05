@@ -195,6 +195,17 @@
             </div>
 
             <!-- Buttons -->
+ {% if already_applied %}
+
+        <button class="btn btn-secondary rounded-pill w-100" disabled>
+            <i class="bi bi-check-circle-fill me-2"></i>
+            Applied
+        </button>
+
+    {% else %}
+
+
+            
 
             <div class="text-center mt-5">
 
@@ -217,7 +228,7 @@
                     </a>
 
                 </form>
-
+{% endif %}
             </div>
 
         </div>

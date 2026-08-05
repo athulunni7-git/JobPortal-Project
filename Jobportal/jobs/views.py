@@ -224,41 +224,50 @@ class JobDetailsView(View):
             job = Job.objects.get(id=i)
         except Job.DoesNotExist:
             return HttpResponse("Job not found")
-        context = {'job':job}
+        
+        already_applied = Application.objects.filter(candidate=request.user.candidateprofile,job=job).exists()
+        
+        context = {'job':job,"already_applied":already_applied}
         return render(request,'jobdetails.html',context)
         
    
 from .models import Application
             
+from django.contrib import messages
+
 class ApplyJobView(View):
-    
-    def post(self,request,i):
-        
+
+    def post(self, request, i):
+
         if not request.user.is_authenticated:
             return redirect('account:userlogin')
-        
+
         if request.user.user_type != 'candidate':
             messages.warning(request, "Only candidates can apply for jobs.")
             return redirect('home')
-        
+
         try:
             job = Job.objects.get(id=i)
         except Job.DoesNotExist:
             return HttpResponse("Job not found")
-        
-        already_applied =  Application.objects.filter(candidate=request.user.candidateprofile,job=job).exists()
-        
+
+        already_applied = Application.objects.filter(
+            candidate=request.user.candidateprofile,
+            job=job
+        ).exists()
+
         if already_applied:
-            messages.warning(request,"You have already applied for this job.")
-            return redirect('jobs:joblist')
-           
-            
-        else:
-            
-            Application.objects.create(candidate = request.user.candidateprofile,job=job)
-            
-            return redirect('jobs:applysuccess')
-        
+            messages.warning(request, "You have already applied for this job.")
+            return redirect('jobs:jobdetail', i=job.id)
+
+        Application.objects.create(
+            candidate=request.user.candidateprofile,
+            job=job
+        )
+
+        messages.success(request, "Your application has been submitted successfully.")
+
+        return redirect('jobs:applysuccess')
 class ApplySuccessView(View):
     
     def get(self,request):
