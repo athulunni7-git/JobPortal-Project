@@ -199,12 +199,12 @@ class RecruiterUpdateView(View):
         
         profile = request.user.recruiterprofile
         
-        form_instance = RecruiterProfileForm(request.POST,instance = profile)
+        form_instance = RecruiterProfileForm(request.POST,request.FILES,instance = profile)
         if form_instance.is_valid():
             form_instance.save()
             messages.success(request,"Profile Updated Successfully")
             
-            return redirect('jobs:myjobs')
+            return redirect('account:recruiter_dashboard')
         
         
             
