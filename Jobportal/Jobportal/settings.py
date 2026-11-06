@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'adminpanel',
     'crispy_forms',
     'crispy_bootstrap5',
+    'ai_assistant'
     
 ]
 

@@ -26,6 +26,7 @@ urlpatterns = [
     path('jobs/',include('jobs.urls')),
     path('payment/',include('payment.urls')),
     path("adminpanel/", include("adminpanel.urls")),
+    path('ai_assistant/',include("ai_assistant.urls"))
 
 ]
 
