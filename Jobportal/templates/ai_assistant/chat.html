@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,261 +7,1089 @@
 
     <title>AI Career Assistant | ThozhilConnect</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            background: #f1f5f9;
-            font-family: Arial, sans-serif;
+
+        :root {
+            --primary: #2B9BFF;
+            --primary-dark: #1684e8;
+            --navy: #0F172A;
+            --background: #F5F9FF;
+            --border: #E5EDF6;
+            --text: #334155;
+            --muted: #94A3B8;
         }
 
-        .chat-container {
-            max-width: 800px;
-            margin: 40px auto;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--navy);
             overflow: hidden;
         }
 
-        .chat-header {
-            background: #0f172a;
-            color: white;
-            padding: 22px;
+        /* Main Layout */
+
+        .app-container {
+            display: flex;
+            height: 100vh;
         }
 
-        .chat-header h2 {
-            font-size: 23px;
+        /* Sidebar */
+
+        .sidebar {
+            width: 265px;
+            min-width: 265px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 25px 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 0 8px;
+            margin-bottom: 42px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .brand-name {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -0.7px;
+        }
+
+        .brand-name span {
+            color: var(--primary);
+        }
+
+        .new-chat-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 13px;
+            border-radius: 11px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.2s;
+            margin-bottom: 32px;
+        }
+
+        .new-chat-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .sidebar-label {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 10px;
+            margin-bottom: 14px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 7px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #64748B;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: #EFF7FF;
+            color: var(--primary);
+        }
+
+        .sidebar-link i {
+            width: 18px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .sidebar-info {
+            background: #F0F7FF;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 18px;
+        }
+
+        .sidebar-info h6 {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .sidebar-info p {
+            font-size: 11px;
+            color: #64748B;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Main Chat Area */
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            height: 100vh;
+        }
+
+        /* Top Header */
+
+        .top-header {
+            height: 75px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+        }
+
+        .header-title h5 {
+            font-size: 15px;
+            font-weight: 700;
             margin: 0;
         }
 
-        .chat-header p {
-            margin: 6px 0 0;
-            color: #cbd5e1;
+        .header-title p {
+            font-size: 11px;
+            color: var(--muted);
+            margin: 4px 0 0;
         }
 
-        .chat-messages {
-            height: 420px;
+        .online-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #64748B;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background: #22C55E;
+            border-radius: 50%;
+        }
+
+        /* Chat Body */
+
+        .chat-area {
+            flex: 1;
             overflow-y: auto;
-            padding: 24px;
+            padding: 35px 20px;
+            scroll-behavior: smooth;
+        }
+
+        .chat-content {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        /* Welcome Section */
+
+        .welcome-section {
+            text-align: center;
+            margin: 45px auto 35px;
+        }
+
+        .welcome-icon {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #2B9BFF, #67B8FF);
+            color: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+            margin: 0 auto 22px;
+            box-shadow: 0 8px 20px rgba(43, 155, 255, 0.2);
+        }
+
+        .welcome-section h2 {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .welcome-section h2 span {
+            color: var(--primary);
+        }
+
+        .welcome-section p {
+            font-size: 13px;
+            color: #64748B;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        /* Suggestion Cards */
+
+        .suggestion-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+            max-width: 650px;
+            margin: 30px auto;
+        }
+
+        .suggestion-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 17px;
+            cursor: pointer;
+            transition: 0.25s;
+            text-align: left;
+        }
+
+        .suggestion-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 18px rgba(43, 155, 255, 0.08);
+        }
+
+        .suggestion-card i {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .suggestion-card h6 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .suggestion-card p {
+            font-size: 11px;
+            color: #94A3B8;
+            margin: 0;
+        }
+
+        /* Messages */
+
+        .message-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .message-row.user-row {
+            justify-content: flex-end;
+        }
+
+        .message-avatar {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            background: #E4F2FF;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 11px;
+            font-size: 14px;
+        }
+
+        .user-row .message-avatar {
+            display: none;
         }
 
         .message {
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-            max-width: 85%;
+            max-width: 78%;
+            padding: 14px 17px;
+            border-radius: 13px;
+            font-size: 13px;
+            line-height: 1.8;
             white-space: pre-wrap;
             overflow-wrap: anywhere;
         }
 
         .bot-message {
-            background: #e2e8f0;
-            color: #0f172a;
-            margin-right: auto;
+            background: white;
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-top-left-radius: 3px;
         }
 
         .user-message {
-            background: #2b9bff;
+            background: var(--primary);
             color: white;
-            margin-left: auto;
+            border-top-right-radius: 3px;
         }
 
-        .chat-input {
-            padding: 18px;
-            border-top: 1px solid #e2e8f0;
+        /* Typing Indicator */
+
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        .typing-indicator span {
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: typing 1s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Input Area */
+
+        .input-section {
+            background: var(--background);
+            padding: 15px 25px 22px;
+        }
+
+        .input-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .input-box {
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 1px solid #DCE7F2;
+            border-radius: 15px;
+            padding: 8px 10px 8px 18px;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+            transition: 0.2s;
+        }
+
+        .input-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(43, 155, 255, 0.1);
         }
 
         #message-input {
-            border-radius: 10px;
-            padding: 12px;
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 11px 5px;
+            font-family: inherit;
+            font-size: 13px;
+            color: var(--navy);
+            background: transparent;
+            min-width: 0;
+        }
+
+        #message-input::placeholder {
+            color: #A0AEC0;
         }
 
         #send-button {
-            background: #2b9bff;
-            border: none;
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
             color: white;
-            border-radius: 10px;
-            padding: 0 24px;
+            border: none;
+            border-radius: 11px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #send-button:hover {
+            background: var(--primary-dark);
         }
 
         #send-button:disabled {
-            opacity: 0.6;
+            opacity: 0.5;
             cursor: not-allowed;
         }
+
+        .input-footer {
+            text-align: center;
+            font-size: 10px;
+            color: #94A3B8;
+            margin-top: 12px;
+        }
+
+        /* Animations */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+
+            30% {
+                transform: translateY(-5px);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+
+        @media(max-width: 768px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .top-header {
+                padding: 0 18px;
+                height: 65px;
+            }
+
+            .chat-area {
+                padding: 20px 14px;
+            }
+
+            .welcome-section {
+                margin-top: 30px;
+            }
+
+            .welcome-section h2 {
+                font-size: 22px;
+            }
+
+            .suggestion-grid {
+                gap: 9px;
+            }
+
+            .suggestion-card {
+                padding: 13px;
+            }
+
+            .message {
+                max-width: 88%;
+            }
+
+            .input-section {
+                padding: 10px 12px 15px;
+            }
+
+        }
+
+        @media(max-width: 400px) {
+
+            .suggestion-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
     </style>
+
 </head>
 
 <body>
 
-    <div class="chat-container">
+<div class="app-container">
 
-        <div class="chat-header">
-            <h2>🤖 ThozhilConnect AI Assistant</h2>
-            <p>Your career and job-search companion</p>
-        </div>
+    <!-- Sidebar -->
 
-        <div class="chat-messages" id="chat-messages">
+    <aside class="sidebar">
 
-            <div class="message bot-message">
-                Hi! 👋 Welcome to ThozhilConnect.
+        <div class="brand">
 
-                I can help you explore career options, prepare for interviews, and find jobs.
+            <div class="brand-icon">
+                <i class="fa-solid fa-briefcase"></i>
+            </div>
 
-                What would you like help with?
+            <div class="brand-name">
+                Thozhil<span>Connect</span>
             </div>
 
         </div>
 
-        <form class="chat-input" id="chat-form">
 
-            {% csrf_token %}
+        <button class="new-chat-btn" id="new-chat-btn">
 
-            <div class="d-flex gap-2">
+            <i class="fa-solid fa-plus me-2"></i>
+            New Conversation
 
-                <input
-                    type="text"
-                    id="message-input"
-                    class="form-control"
-                    placeholder="Ask me about jobs or careers..."
-                    required
-                >
+        </button>
 
-                <button type="submit" id="send-button">
-                    Send
-                </button>
+
+        <div class="sidebar-label">
+            Workspace
+        </div>
+
+
+        <a href="/ai_assistant/" class="sidebar-link active">
+
+            <i class="fa-solid fa-robot"></i>
+            AI Career Assistant
+
+        </a>
+
+
+        <a href="/" class="sidebar-link">
+
+            <i class="fa-solid fa-house"></i>
+            Back to Job Portal
+
+        </a>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-info">
+
+                <h6>
+                    <i class="fa-solid fa-lightbulb me-1" style="color:#2B9BFF"></i>
+                    Career Assistant
+                </h6>
+
+                <p>
+                    Discover job opportunities and get career guidance with AI-powered assistance.
+                </p>
 
             </div>
 
-        </form>
+            <a href="/" class="sidebar-link">
 
-    </div>
+                <i class="fa-solid fa-arrow-left"></i>
+                Return to ThozhilConnect
 
-    <script>
+            </a>
 
-        // Select the HTML elements
+        </div>
 
-        const form = document.getElementById("chat-form");
-        const input = document.getElementById("message-input");
-        const chatBox = document.getElementById("chat-messages");
-        const sendButton = document.getElementById("send-button");
+    </aside>
 
 
-        // Run this code when the user sends a message
+    <!-- Main Content -->
 
-        form.addEventListener("submit", async function(event) {
+    <main class="main-content">
 
-            event.preventDefault();
 
-            // Get the user's message
+        <!-- Header -->
 
-            const message = input.value.trim();
+        <header class="top-header">
 
-            if (message === "") {
-                return;
+            <div class="header-title">
+
+                <h5>AI Career Assistant</h5>
+
+                <p>Your intelligent job search companion</p>
+
+            </div>
+
+
+            <div class="online-status">
+
+                <span class="online-dot"></span>
+
+                AI Assistant
+
+            </div>
+
+        </header>
+
+
+
+        <!-- Chat Area -->
+
+        <section class="chat-area" id="chat-area">
+
+            <div class="chat-content">
+
+
+                <!-- Welcome Screen -->
+
+                <div class="welcome-section" id="welcome-section">
+
+                    <div class="welcome-icon">
+
+                        <i class="fa-solid fa-robot"></i>
+
+                    </div>
+
+
+                    <h2>
+                        Hello! How can I <span>help you?</span>
+                    </h2>
+
+
+                    <p>
+                        Welcome to ThozhilConnect AI Career Assistant.
+                        Explore job opportunities, discover career paths
+                        and get answers to your job-related questions.
+                    </p>
+
+                </div>
+
+
+
+                <!-- Suggestion Cards -->
+
+                <div class="suggestion-grid" id="suggestion-grid">
+
+
+                    <div class="suggestion-card" data-message="Show me available Python developer jobs">
+
+                        <i class="fa-brands fa-python"></i>
+
+                        <h6>Find Python Jobs</h6>
+
+                        <p>Explore Python developer opportunities.</p>
+
+                    </div>
+
+
+                    <div class="suggestion-card" data-message="Show me jobs available in Kochi">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <h6>Jobs by Location</h6>
+
+                        <p>Find opportunities in your preferred city.</p>
+
+                    </div>
+
+
+                    <div class="suggestion-card" data-message="Show me the latest available jobs">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                        <h6>Latest Jobs</h6>
+
+                        <p>Discover recently posted vacancies.</p>
+
+                    </div>
+
+
+                    <div class="suggestion-card" data-message="Show me full-time jobs for freshers">
+
+                        <i class="fa-solid fa-briefcase"></i>
+
+                        <h6>Fresher Opportunities</h6>
+
+                        <p>Explore jobs suitable for freshers.</p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Messages -->
+
+                <div class="chat-messages" id="chat-messages">
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Input Section -->
+
+        <section class="input-section">
+
+            <div class="input-container">
+
+                <form id="chat-form">
+
+                    {% csrf_token %}
+
+                    <div class="input-box">
+
+                        <input
+                            type="text"
+                            id="message-input"
+                            placeholder="Ask anything about jobs and careers..."
+                            autocomplete="off"
+                            required
+                        >
+
+                        <button type="submit" id="send-button">
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <div class="input-footer">
+
+                    <i class="fa-solid fa-shield-halved me-1"></i>
+
+                    Powered by Google Gemini AI | ThozhilConnect
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- JavaScript -->
+
+<script>
+
+    const form = document.getElementById("chat-form");
+
+    const input = document.getElementById("message-input");
+
+    const chatBox = document.getElementById("chat-messages");
+
+    const sendButton = document.getElementById("send-button");
+
+    const welcomeSection = document.getElementById("welcome-section");
+
+    const suggestionGrid = document.getElementById("suggestion-grid");
+
+    const chatArea = document.getElementById("chat-area");
+
+
+    // Scroll to latest message
+
+    function scrollToBottom() {
+
+        chatArea.scrollTop = chatArea.scrollHeight;
+
+    }
+
+
+    // Create message
+
+    function addMessage(message, type) {
+
+        const row = document.createElement("div");
+
+        row.className = "message-row";
+
+        if (type === "user") {
+
+            row.classList.add("user-row");
+
+        }
+
+
+        const avatar = document.createElement("div");
+
+        avatar.className = "message-avatar";
+
+        avatar.innerHTML = '<i class="fa-solid fa-robot"></i>';
+
+
+        const messageDiv = document.createElement("div");
+
+        messageDiv.className = "message";
+
+        messageDiv.classList.add(
+            type === "user" ? "user-message" : "bot-message"
+        );
+
+        // textContent prevents HTML injection
+
+        messageDiv.textContent = message;
+
+
+        if (type === "bot") {
+
+            row.appendChild(avatar);
+
+        }
+
+        row.appendChild(messageDiv);
+
+        chatBox.appendChild(row);
+
+        scrollToBottom();
+
+        return row;
+
+    }
+
+
+    // Typing animation
+
+    function showTyping() {
+
+        const row = document.createElement("div");
+
+        row.className = "message-row";
+
+        row.id = "typing-message";
+
+
+        const avatar = document.createElement("div");
+
+        avatar.className = "message-avatar";
+
+        avatar.innerHTML = '<i class="fa-solid fa-robot"></i>';
+
+
+        const typing = document.createElement("div");
+
+        typing.className = "message bot-message";
+
+        typing.innerHTML = `
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        `;
+
+
+        row.appendChild(avatar);
+
+        row.appendChild(typing);
+
+        chatBox.appendChild(row);
+
+        scrollToBottom();
+
+        return row;
+
+    }
+
+
+
+    // Send message to Django
+
+    async function sendMessage(message) {
+
+        if (!message || sendButton.disabled) {
+
+            return;
+
+        }
+
+
+        welcomeSection.style.display = "none";
+
+        suggestionGrid.style.display = "none";
+
+
+        // Display user message
+
+        addMessage(message, "user");
+
+
+        input.value = "";
+
+        sendButton.disabled = true;
+
+
+        // Show typing animation
+
+        const typingMessage = showTyping();
+
+
+        try {
+
+            const formData = new FormData();
+
+            formData.append("message", message);
+
+
+            const csrfToken = document.querySelector(
+                "[name=csrfmiddlewaretoken]"
+            ).value;
+
+
+            const response = await fetch("/ai_assistant/chat/", {
+
+                method: "POST",
+
+                headers: {
+
+                    "X-CSRFToken": csrfToken
+
+                },
+
+                body: formData
+
+            });
+
+
+            if (!response.ok) {
+
+                throw new Error("Server error: " + response.status);
+
             }
 
-            // Show the user's message
 
-            const userMessage = document.createElement("div");
-
-            userMessage.className = "message user-message";
-            userMessage.textContent = message;
-
-            chatBox.appendChild(userMessage);
-
-            // Clear the input box
-
-            input.value = "";
-
-            // Disable the button while waiting for a reply
-
-            sendButton.disabled = true;
-            const thinkingMessage = document.createElement("div");
-
-            thinkingMessage.className = "message bot-message";
-            thinkingMessage.textContent = "🤖 AI is thinking...";
-
-            chatBox.appendChild(thinkingMessage);
-
-            chatBox.scrollTop = chatBox.scrollHeight;
+            const data = await response.json();
 
 
-            try {
+            // Remove typing animation
 
-                // Prepare the message to send to Django
+            typingMessage.remove();
 
-                const formData = new FormData();
 
-                formData.append("message", message);
+            // Display AI response
 
-                // Send the message to Django
+            addMessage(
+                data.reply || "Sorry, I couldn't generate a response.",
+                "bot"
+            );
 
-                const response = await fetch("/ai_assistant/chat/", {
 
-                    method: "POST",
+        }
 
-                    headers: {
-                        "X-CSRFToken": document.querySelector(
-                            "[name=csrfmiddlewaretoken]"
-                        ).value
-                    },
+        catch (error) {
 
-                    body: formData
+            console.error("Chat error:", error);
 
-                });
+            typingMessage.remove();
 
-                // Check whether the request was successful
 
-                if (!response.ok) {
-                    throw new Error("Server error: " + response.status);
-                }
+            addMessage(
+                "Sorry, something went wrong. Please try again.",
+                "bot"
+            );
 
-                // Get the response from Django
+        }
 
-                const data = await response.json();
 
-                // Display the chatbot's reply
-
-                const botMessage = document.createElement("div");
-
-                botMessage.className = "message bot-message";
-                botMessage.textContent = data.reply;
-
-                chatBox.appendChild(botMessage);
-
-            } catch (error) {
-
-                // Display an error message
-
-                const errorMessage = document.createElement("div");
-
-                errorMessage.className = "message bot-message";
-
-                errorMessage.textContent =
-                    "Sorry, something went wrong. Please try again.";
-
-                chatBox.appendChild(errorMessage);
-
-                console.log(error);
-
-            }
-
-            // Scroll to the latest message
-
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            // Enable the button again
+        finally {
 
             sendButton.disabled = false;
 
             input.focus();
 
+            scrollToBottom();
+
+        }
+
+    }
+
+
+
+    // Submit form
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const message = input.value.trim();
+
+        sendMessage(message);
+
+    });
+
+
+
+    // Suggestion card click
+
+    document.querySelectorAll(".suggestion-card").forEach(card => {
+
+        card.addEventListener("click", function() {
+
+            const message = this.dataset.message;
+
+            sendMessage(message);
+
         });
 
-    </script>
+    });
+
+
+
+    // New conversation
+
+    document.getElementById("new-chat-btn").addEventListener("click", function() {
+
+        chatBox.innerHTML = "";
+
+        welcomeSection.style.display = "block";
+
+        suggestionGrid.style.display = "grid";
+
+        input.value = "";
+
+        input.focus();
+
+    });
+
+
+</script>
 
 </body>
-</html>
 
+</html>
