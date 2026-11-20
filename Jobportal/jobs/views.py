@@ -50,16 +50,16 @@ class CreateJobView(View):
                 return redirect('payment:premium')
             
         
-        else:
-            form_instance = JobForm(request.POST)
-            if form_instance.is_valid():
-               job =  form_instance.save(commit=False)
+        
+        form_instance = JobForm(request.POST)
+        if form_instance.is_valid():
+            job =  form_instance.save(commit=False)
                
-               job.recruiter = recruiter
-               job.save()
-               messages.success(request,"job Created Successfully")
+            job.recruiter = recruiter
+            job.save()
+            messages.success(request,"job Created Successfully")
                
-               return redirect('jobs:myjobs')
+            return redirect('jobs:myjobs')
                 
         
 from .models import Job            
